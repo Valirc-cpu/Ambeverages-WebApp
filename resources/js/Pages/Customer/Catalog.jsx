@@ -3,7 +3,7 @@ import { Head, useForm, usePage, Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from '../../Components/Navbar';
 import HeroSection from '../../Components/Catalog/HeroSection';
-import DrinkCard from '../../Components/Catalog/DrinkCard';
+import DrinkShowcase from '../../Components/Catalog/DrinkShowcase';
 import CartModal from '../../Components/Catalog/CartModal';
 import OrderSuccessModal from '../../Components/Catalog/OrderSuccessModal';
 import ParallaxVectors from '../../Components/ParallaxVectors';
@@ -203,17 +203,10 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                         )}
                     </motion.div>
                 ) : (
-                    <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        <AnimatePresence>
-                            {filteredDrinks.map((drink) => (
-                                <DrinkCard
-                                    key={drink.id}
-                                    drink={drink}
-                                    onAddToCart={handleAddToCart}
-                                />
-                            ))}
-                        </AnimatePresence>
-                    </motion.div>
+                    <DrinkShowcase
+                        drinks={filteredDrinks}
+                        onAddToCart={handleAddToCart}
+                    />
                 )}
             </main>
 
