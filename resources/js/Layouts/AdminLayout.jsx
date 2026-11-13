@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 import MetaMaskLogo from '../Components/MetaMaskLogo';
 import Button from '../Components/Button';
 import ThemeToggle from '../Components/ThemeToggle';
-import { Coffee, ShoppingCart, LogOut, ExternalLink, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Coffee, ShoppingCart, LogOut, ExternalLink, CheckCircle2, AlertCircle, Menu, X, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AdminLayout({ children, title = 'Admin Panel' }) {
     const { auth, flash } = usePage().props;
     const user = auth?.user;
     const currentPath = window.location.pathname;
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Auto-close on page transition or Escape key
+    useEffect(() => {
+        const removeListener = router.on('navigate', () => setIsMobileMenuOpen(false));
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') setIsMobileMenuOpen(false);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            removeListener();
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     const handleLogout = (e) => {
         e.preventDefault();
+        setIsMobileMenuOpen(false);
         router.post('/logout');
     };
 
@@ -20,22 +36,22 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
             {/* Topbar */}
             <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#121417]/95 backdrop-blur-md border-b border-[#E5E8EC] dark:border-[#262A32]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-6">
-                        <Link href="/admin/orders">
+                    <div className="flex items-center gap-4 sm:gap-6">
+                        <Link href="/admin/orders" className="shrink-0">
                             <MetaMaskLogo />
                         </Link>
-                        <span className="hidden md:inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-[#121417] dark:bg-[#1E222A] text-white border border-transparent dark:border-[#353B47]">
+                        <span className="hidden lg:inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full bg-[#121417] dark:bg-[#1E222A] text-white border border-transparent dark:border-[#353B47]">
                             Admin Workspace
                         </span>
                     </div>
 
-                    {/* Nav tabs */}
-                    <nav className="flex items-center gap-1.5 bg-[#ECEFF2] dark:bg-[#191C22] p-1.5 rounded-full border border-[#DCE0E5] dark:border-[#2C313B]">
+                    {/* Desktop Nav tabs */}
+                    <nav className="hidden md:flex items-center gap-1.5 bg-[#ECEFF2] dark:bg-[#191C22] p-1.5 rounded-full border border-[#DCE0E5] dark:border-[#2C313B]">
                         <Link
                             href="/admin/orders"
                             className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                                 currentPath.includes('/admin/orders')
-                                    ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-md'
+                                    ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-xs'
                                     : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
                             }`}
                         >
@@ -47,7 +63,7 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                             href="/admin/drinks"
                             className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold transition-all ${
                                 currentPath.includes('/admin/drinks')
-                                    ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-md'
+                                    ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-xs'
                                     : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
                             }`}
                         >
@@ -57,22 +73,23 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                     </nav>
 
                     {/* Right utilities */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                         <ThemeToggle />
 
                         <Link
                             href="/"
                             target="_blank"
-                            className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#FA4B00] transition-colors"
+                            className="hidden md:flex items-center gap-1.5 text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#FA4B00] transition-colors"
                         >
                             <span>Lihat Katalog</span>
                             <ExternalLink className="w-3.5 h-3.5" />
                         </Link>
 
-                        <div className="h-6 w-px bg-[#E5E8EC] dark:bg-[#282C34] hidden sm:block" />
+                        <div className="h-6 w-px bg-[#E5E8EC] dark:bg-[#282C34] hidden md:block" />
 
-                        <div className="flex items-center gap-3">
-                            <div className="hidden sm:flex flex-col text-right">
+                        {/* Desktop User Info & Logout */}
+                        <div className="hidden md:flex items-center gap-3">
+                            <div className="flex flex-col text-right">
                                 <span className="text-xs font-bold text-[#121417] dark:text-white">{user?.name || 'Administrator'}</span>
                                 <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF]">{user?.email || 'admin@example.com'}</span>
                             </div>
@@ -84,11 +101,133 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                                 className="text-xs text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#D73A49] dark:bg-[#191C22] dark:border-[#2C313B]"
                             >
                                 <LogOut className="w-3.5 h-3.5" />
-                                <span className="hidden sm:inline">Keluar</span>
+                                <span>Keluar</span>
                             </Button>
                         </div>
+
+                        {/* Mobile Hamburger Button */}
+                        <button
+                            type="button"
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="md:hidden h-10 w-10 rounded-full flex items-center justify-center bg-[#F2F4F7] dark:bg-[#1A1D24] text-[#121417] dark:text-white border border-[#DCE0E5] dark:border-[#2A2E36] active:scale-95 transition-all cursor-pointer"
+                            aria-label={isMobileMenuOpen ? 'Tutup Menu' : 'Buka Menu'}
+                            aria-expanded={isMobileMenuOpen}
+                        >
+                            {isMobileMenuOpen ? (
+                                <X className="w-5 h-5 text-[#FA4B00]" />
+                            ) : (
+                                <Menu className="w-5 h-5" />
+                            )}
+                        </button>
                     </div>
                 </div>
+
+                {/* Mobile Dropdown Drawer Menu */}
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <>
+                            {/* Overlay backdrop */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="fixed inset-0 top-20 bg-black/40 backdrop-blur-xs z-40 md:hidden"
+                            />
+
+                            {/* Menu Panel */}
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2, ease: 'easeOut' }}
+                                className="relative z-50 md:hidden border-b border-[#E5E8EC] dark:border-[#262A32] bg-white dark:bg-[#15171C] px-5 py-6 shadow-xl space-y-4"
+                            >
+                                {/* Admin Navigation Links */}
+                                <div className="space-y-1.5">
+                                    <Link
+                                        href="/admin/orders"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className={`flex items-center justify-between p-3 rounded-2xl font-bold text-sm transition-colors ${
+                                            currentPath.includes('/admin/orders')
+                                                ? 'bg-[#121417] dark:bg-[#FA4B00] text-white'
+                                                : 'hover:bg-[#F2F4F7] dark:hover:bg-[#1E222A] text-[#121417] dark:text-white'
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
+                                                <ShoppingCart className="w-4 h-4" />
+                                            </div>
+                                            <span>Pesanan Masuk</span>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 opacity-70" />
+                                    </Link>
+
+                                    <Link
+                                        href="/admin/drinks"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className={`flex items-center justify-between p-3 rounded-2xl font-bold text-sm transition-colors ${
+                                            currentPath.includes('/admin/drinks')
+                                                ? 'bg-[#121417] dark:bg-[#FA4B00] text-white'
+                                                : 'hover:bg-[#F2F4F7] dark:hover:bg-[#1E222A] text-[#121417] dark:text-white'
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
+                                                <Coffee className="w-4 h-4" />
+                                            </div>
+                                            <span>Kelola Minuman</span>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 opacity-70" />
+                                    </Link>
+
+                                    <Link
+                                        href="/"
+                                        target="_blank"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="flex items-center justify-between p-3 rounded-2xl hover:bg-[#F2F4F7] dark:hover:bg-[#1E222A] text-[#121417] dark:text-white font-bold text-sm transition-colors"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00] flex items-center justify-center">
+                                                <ExternalLink className="w-4 h-4" />
+                                            </div>
+                                            <span>Buka Katalog Publik</span>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
+                                    </Link>
+                                </div>
+
+                                {/* Divider & User Section */}
+                                <div className="border-t border-[#F0F2F5] dark:border-[#262A32] pt-4 space-y-3">
+                                    <div className="px-3 py-2.5 rounded-xl bg-[#F7F8FA] dark:bg-[#1A1D24] text-xs">
+                                        <span className="text-[#6B7280] dark:text-[#9CA3AF] block text-[10px] uppercase font-bold tracking-wider">
+                                            Akun Administrator
+                                        </span>
+                                        <span className="font-bold text-[#121417] dark:text-white block mt-0.5 truncate">
+                                            {user?.name || 'Administrator'}
+                                        </span>
+                                        <span className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF] block truncate">
+                                            {user?.email || 'admin@example.com'}
+                                        </span>
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleLogout}
+                                        className="w-full flex items-center justify-between p-3 rounded-2xl text-[#D73A49] hover:bg-[#FEE2E2]/60 dark:hover:bg-[#2A1517] font-bold text-sm transition-colors"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-xl bg-[#FEE2E2] dark:bg-[#2A1517] text-[#D73A49] flex items-center justify-center">
+                                                <LogOut className="w-4 h-4" />
+                                            </div>
+                                            <span>Keluar dari Akun</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
             </header>
 
             {/* Flash Alerts */}

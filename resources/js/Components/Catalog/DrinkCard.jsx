@@ -48,14 +48,14 @@ export default function DrinkCard({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={isHighlighted ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : {}}
-            className={`w-full bg-white dark:bg-[#15171C] rounded-[32px] p-6 sm:p-8 lg:p-9 transition-colors duration-200 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 lg:gap-10 will-change-transform ${
+            className={`w-full bg-white dark:bg-[#15171C] rounded-[28px] sm:rounded-[32px] p-5 sm:p-8 lg:p-9 transition-colors duration-200 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 lg:gap-10 will-change-transform ${
                 isHighlighted
                     ? 'border-2 border-[#121417] dark:border-white shadow-[0_20px_50px_-12px_rgba(18,20,23,0.12)] dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.6)]'
                     : 'border border-[#DCE0E5] dark:border-[#282C34] shadow-xs hover:border-[#CBD2D9] dark:hover:border-[#383E4A]'
             } ${className}`}
         >
             {/* Left Image Section with Internal Parallax Shift */}
-            <div className="w-full md:w-88 lg:w-[420px] h-60 sm:h-72 md:h-80 rounded-[24px] overflow-hidden relative shrink-0 bg-[#F4F5F7] dark:bg-[#1D2026] border border-[#E5E8EC] dark:border-[#2B303A]">
+            <div className="w-full md:w-88 lg:w-[420px] h-52 sm:h-72 md:h-80 rounded-[20px] sm:rounded-[24px] overflow-hidden relative shrink-0 bg-[#F4F5F7] dark:bg-[#1D2026] border border-[#E5E8EC] dark:border-[#2B303A]">
                 {drink.image_url ? (
                     <motion.img
                         style={isHighlighted ? { x: imgX, y: imgY, scale: 1.05 } : {}}
@@ -117,8 +117,8 @@ export default function DrinkCard({
                 </div>
 
                 {/* Price and Order Button */}
-                <div className="pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-[#F0F2F5] dark:border-[#24272D] flex flex-wrap items-center justify-between gap-4">
-                    <div>
+                <div className="pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-[#F0F2F5] dark:border-[#24272D] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-baseline sm:flex-col justify-between sm:justify-start">
                         <span className="text-[10px] sm:text-xs uppercase font-bold tracking-wider text-[#9CA3AF] block mb-0.5">
                             Harga Satuan
                         </span>
@@ -127,7 +127,7 @@ export default function DrinkCard({
                         </div>
                     </div>
 
-                    <motion.div whileTap={{ scale: 0.95 }}>
+                    <motion.div whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                         <Button
                             variant={isOutOfStock ? 'secondary' : 'orange'}
                             size="lg"
@@ -136,7 +136,7 @@ export default function DrinkCard({
                                 e.stopPropagation();
                                 onAddToCart(drink);
                             }}
-                            className="px-7 sm:px-9 py-4 font-bold flex items-center gap-2 text-sm sm:text-base"
+                            className="w-full sm:w-auto px-7 sm:px-9 py-3.5 sm:py-4 font-bold flex items-center justify-center gap-2 text-sm sm:text-base"
                         >
                             <Plus className="w-5 h-5" />
                             <span>{isOutOfStock ? 'Stok Habis' : 'Pesan Sekarang'}</span>

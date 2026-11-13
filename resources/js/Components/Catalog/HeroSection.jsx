@@ -23,7 +23,7 @@ export default function HeroSection({
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4 }}
-                            className="text-4xl sm:text-6xl font-extrabold text-[#121417] dark:text-white tracking-tight leading-none"
+                            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#121417] dark:text-white tracking-tight leading-none"
                         >
                             Ambeverages.
                             <span className="block text-base sm:text-lg font-bold text-[#FA4B00] tracking-wider mt-2.5">
@@ -84,7 +84,7 @@ export default function HeroSection({
                     </div>
 
                     {/* Search Field */}
-                    <div className="relative min-w-[280px] sm:w-80">
+                    <div className="relative w-full sm:w-80">
                         <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
                         <input
                             ref={searchInputRef}
