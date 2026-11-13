@@ -8,54 +8,54 @@ export default function ParallaxVectors() {
     const springConfig = { damping: 26, stiffness: 85, mass: 0.9 };
 
     // --- Parallax Scroll Transforms ---
-    // 1. Giant Center-Top Sunburst
-    const y1 = useSpring(useTransform(scrollY, [0, 2000], [0, 480]), springConfig);
-    const r1 = useSpring(useTransform(scrollY, [0, 2000], [0, 120]), springConfig);
+    // 1. Giant Top-Right Sunburst Gear
+    const y1 = useSpring(useTransform(scrollY, [0, 2000], [0, 420]), springConfig);
+    const r1 = useSpring(useTransform(scrollY, [0, 2000], [0, 140]), springConfig);
 
-    // 2. Wavy Liquid Squiggle Ribbon (Drifts across center)
-    const y2 = useSpring(useTransform(scrollY, [0, 2000], [0, -380]), springConfig);
-    const x2 = useSpring(useTransform(scrollY, [0, 2000], [0, 160]), springConfig);
-    const r2 = useSpring(useTransform(scrollY, [0, 2000], [-10, 35]), springConfig);
+    // 2. Wavy Liquid Squiggle Ribbon (Left Edge)
+    const y2 = useSpring(useTransform(scrollY, [0, 2000], [0, -360]), springConfig);
+    const x2 = useSpring(useTransform(scrollY, [0, 2000], [0, 60]), springConfig);
+    const r2 = useSpring(useTransform(scrollY, [0, 2000], [-10, 25]), springConfig);
 
-    // 3. Giant Dual Torus Portal (Center-Right)
-    const y3 = useSpring(useTransform(scrollY, [0, 2000], [0, 520]), springConfig);
-    const s3 = useSpring(useTransform(scrollY, [0, 1500], [0.95, 1.18]), springConfig);
+    // 3. Giant Dual Torus Portal (Right Edge)
+    const y3 = useSpring(useTransform(scrollY, [0, 2000], [0, 480]), springConfig);
+    const s3 = useSpring(useTransform(scrollY, [0, 1500], [0.95, 1.15]), springConfig);
 
-    // 4. Geometric Archway with Staring Eye (Left-Center)
+    // 4. Geometric Archway with Staring Eye (Far-Left Edge)
     const y4 = useSpring(useTransform(scrollY, [0, 2500], [0, -420]), springConfig);
-    const r4 = useSpring(useTransform(scrollY, [0, 2500], [0, -75]), springConfig);
+    const r4 = useSpring(useTransform(scrollY, [0, 2500], [0, -60]), springConfig);
 
-    // 5. Giant 8-Petal Rosette Daisy (Center-Bottom)
-    const y5 = useSpring(useTransform(scrollY, [0, 2500], [0, -500]), springConfig);
+    // 5. Giant 8-Petal Rosette Daisy (Bottom-Right Corner)
+    const y5 = useSpring(useTransform(scrollY, [0, 2500], [0, -460]), springConfig);
     const r5 = useSpring(useTransform(scrollY, [0, 2500], [0, 180]), springConfig);
 
-    // 6. Scalloped Sunny Wave Tunnel (Bottom-Left)
-    const y6 = useSpring(useTransform(scrollY, [0, 2500], [0, 360]), springConfig);
-    const r6 = useSpring(useTransform(scrollY, [0, 2500], [20, -60]), springConfig);
+    // 6. Scalloped Sunny Wave Tunnel (Bottom-Left Corner)
+    const y6 = useSpring(useTransform(scrollY, [0, 2500], [0, 340]), springConfig);
+    const r6 = useSpring(useTransform(scrollY, [0, 2500], [15, -45]), springConfig);
 
-    // 7. Modern Floating Capsule (Foreground Layer - Right)
-    const y7 = useSpring(useTransform(scrollY, [0, 2000], [0, -320]), springConfig);
-    const r7 = useSpring(useTransform(scrollY, [0, 2000], [-20, 60]), springConfig);
+    // 7. Modern Floating Capsule (Right Edge Mid-Bottom)
+    const y7 = useSpring(useTransform(scrollY, [0, 2000], [0, -300]), springConfig);
+    const r7 = useSpring(useTransform(scrollY, [0, 2000], [-20, 50]), springConfig);
 
-    // 8. Geometric Starburst Sparkle (Upper-Left)
-    const y8 = useSpring(useTransform(scrollY, [0, 1800], [0, 280]), springConfig);
-    const r8 = useSpring(useTransform(scrollY, [0, 1800], [0, 140]), springConfig);
+    // 8. Geometric Starburst Sparkle (Top-Left Corner)
+    const y8 = useSpring(useTransform(scrollY, [0, 1800], [0, 260]), springConfig);
+    const r8 = useSpring(useTransform(scrollY, [0, 1800], [0, 120]), springConfig);
 
     return (
         <div className="fixed inset-0 pointer-events-none overflow-hidden select-none z-0">
             {/* ============================================================== */}
-            {/* 1. Giant Center-Top Sunburst Gear (Electric Orange & Volt Lime) */}
-            {/* Positioned behind Hero title and Fox in background (z-0)       */}
+            {/* 1. Giant Top-Right Sunburst Gear (Electric Orange & Volt Lime)  */}
+            {/* Pushed to the far top-right edge, bleeding off-screen          */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y1, rotate: r1 }}
-                className="absolute -top-20 left-[24%] sm:left-[35%] w-80 h-80 sm:w-[500px] sm:h-[500px] pointer-events-auto cursor-pointer z-0 opacity-70 dark:opacity-55"
-                title="Interactive Mega Sunburst: Hover & Scroll"
+                className="absolute -top-32 -right-28 sm:-right-40 w-96 h-96 sm:w-[560px] sm:h-[560px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
+                title="Top-Right Sunburst: Hover & Scroll"
             >
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 55, ease: 'linear' }}
-                    whileHover={{ scale: 1.15, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.12, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
@@ -83,12 +83,12 @@ export default function ParallaxVectors() {
 
             {/* ============================================================== */}
             {/* 2. Massive Wavy Liquid Squiggle Ribbon (Lavender Purple)       */}
-            {/* Positioned drifting across the center canvas                   */}
+            {/* Pushed to the far-left edge, half-cropped                      */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y2, x: x2, rotate: r2 }}
-                className="absolute top-[42%] left-[16%] sm:left-[24%] w-[380px] sm:w-[620px] h-48 sm:h-64 pointer-events-auto cursor-pointer z-0 opacity-80 dark:opacity-65"
-                title="Interactive Wave Squiggle"
+                className="absolute top-[36%] -left-36 sm:-left-48 w-[420px] sm:w-[620px] h-48 sm:h-64 pointer-events-auto cursor-pointer z-0 opacity-80 dark:opacity-65"
+                title="Left Edge Wave Squiggle"
             >
                 <motion.div
                     animate={{
@@ -96,7 +96,7 @@ export default function ParallaxVectors() {
                         rotate: [-3, 4, -3],
                     }}
                     transition={{ repeat: Infinity, duration: 9, ease: 'easeInOut' }}
-                    whileHover={{ scale: 1.12, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
@@ -119,17 +119,17 @@ export default function ParallaxVectors() {
 
             {/* ============================================================== */}
             {/* 3. Giant Dual Torus Portal (Electric Cyan & Orange)            */}
-            {/* Positioned at center-right canvas (z-10)                       */}
+            {/* Pushed to the far-right edge, half-cropped (z-10)              */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y3, scale: s3 }}
-                className="absolute top-[28%] right-[8%] sm:right-[15%] w-72 h-72 sm:w-[440px] sm:h-[440px] pointer-events-auto cursor-pointer z-10 opacity-75 dark:opacity-65"
-                title="Interactive Cyan Portal: Slow Continuous Spin"
+                className="absolute top-[26%] -right-32 sm:-right-44 w-80 h-80 sm:w-[480px] sm:h-[480px] pointer-events-auto cursor-pointer z-10 opacity-75 dark:opacity-65"
+                title="Right Edge Cyan Portal: Slow Spin"
             >
                 <motion.div
                     animate={{ rotate: -360 }}
                     transition={{ repeat: Infinity, duration: 42, ease: 'linear' }}
-                    whileHover={{ scale: 1.15, rotate: -45, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.12, rotate: -45, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
@@ -143,17 +143,17 @@ export default function ParallaxVectors() {
 
             {/* ============================================================== */}
             {/* 4. Geometric Archway with Staring Eye (Volt Lime & Carbon)     */}
-            {/* Positioned at left-center canvas                               */}
+            {/* Pushed to the far-left edge, half-cropped (z-10)               */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y4, rotate: r4 }}
-                className="absolute top-[52%] -left-12 sm:left-[3%] w-72 h-72 sm:w-[420px] sm:h-[420px] pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-70"
-                title="Interactive Archway: Pendulum Sway"
+                className="absolute top-[58%] -left-28 sm:-left-36 w-80 h-80 sm:w-[460px] sm:h-[460px] pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-70"
+                title="Left Edge Archway: Pendulum Sway"
             >
                 <motion.div
                     animate={{ rotate: [-8, 12, -8] }}
                     transition={{ repeat: Infinity, duration: 11, ease: 'easeInOut' }}
-                    whileHover={{ scale: 1.15, rotate: 30, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.12, rotate: 25, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
@@ -171,17 +171,17 @@ export default function ParallaxVectors() {
 
             {/* ============================================================== */}
             {/* 5. Giant 8-Petal Rosette Daisy (Volt Lime & Amber Golden)      */}
-            {/* Positioned at center-bottom canvas (z-0)                       */}
+            {/* Pushed to the bottom-right corner, bleeding off-screen (z-0)   */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y5, rotate: r5 }}
-                className="absolute bottom-10 left-[38%] sm:left-[45%] w-80 h-80 sm:w-[480px] sm:h-[480px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
-                title="Interactive Rosette Daisy: Clockwise Spin"
+                className="absolute -bottom-24 -right-28 sm:-right-40 w-96 h-96 sm:w-[540px] sm:h-[540px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
+                title="Bottom-Right Rosette: Clockwise Spin"
             >
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 48, ease: 'linear' }}
-                    whileHover={{ scale: 1.18, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.15, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
@@ -206,17 +206,17 @@ export default function ParallaxVectors() {
 
             {/* ============================================================== */}
             {/* 6. Scalloped Sunny Wave Tunnel (Golden Amber & Orange)         */}
-            {/* Positioned at bottom-left canvas                               */}
+            {/* Pushed to the bottom-left corner, bleeding off-screen (z-0)    */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y6, rotate: r6 }}
-                className="absolute -bottom-16 -left-10 sm:left-[8%] w-72 h-72 sm:w-[450px] sm:h-[450px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
-                title="Interactive Scallop Wave"
+                className="absolute -bottom-20 -left-28 sm:-left-40 w-80 h-80 sm:w-[500px] sm:h-[500px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
+                title="Bottom-Left Scallop Wave"
             >
                 <motion.div
                     animate={{ scale: [1, 1.05, 1], rotate: [-4, 6, -4] }}
                     transition={{ repeat: Infinity, duration: 8, ease: 'easeInOut' }}
-                    whileHover={{ scale: 1.16, rotate: -45, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.15, rotate: -40, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
@@ -239,17 +239,17 @@ export default function ParallaxVectors() {
 
             {/* ============================================================== */}
             {/* 7. Modern Floating Pill Capsule with Orbit (Cobalt & Lime)     */}
-            {/* Positioned foreground layer (z-20) overlapping right margin   */}
+            {/* Pushed to the far-right edge lower mid-section (z-20)          */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y7, rotate: r7 }}
-                className="absolute top-[60%] -right-10 sm:right-[3%] w-60 h-60 sm:w-80 sm:h-80 pointer-events-auto cursor-pointer z-20 opacity-85 dark:opacity-75"
-                title="Interactive Orbit Capsule: Foreground Float"
+                className="absolute top-[72%] -right-16 sm:-right-24 w-60 h-60 sm:w-80 sm:h-80 pointer-events-auto cursor-pointer z-20 opacity-85 dark:opacity-75"
+                title="Right Edge Orbit Capsule"
             >
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 32, ease: 'linear' }}
-                    whileHover={{ scale: 1.2, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.18, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
@@ -262,18 +262,18 @@ export default function ParallaxVectors() {
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 8. 8-Point Playful Geometric Starburst (Upper-Left Diagonal)   */}
-            {/* Positioned at upper center-left canvas (z-10)                  */}
+            {/* 8. 8-Point Playful Geometric Starburst (Top-Left Corner)       */}
+            {/* Pushed to the far top-left edge, half-cropped (z-10)           */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y8, rotate: r8 }}
-                className="absolute top-[12%] left-[4%] sm:left-[10%] w-64 h-64 sm:w-80 sm:h-80 pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-70"
-                title="Interactive Starburst: Slow Continuous Spin"
+                className="absolute -top-16 -left-20 sm:-left-32 w-72 h-72 sm:w-[440px] sm:h-[440px] pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-70"
+                title="Top-Left Starburst: Slow Spin"
             >
                 <motion.div
                     animate={{ rotate: -360 }}
                     transition={{ repeat: Infinity, duration: 36, ease: 'linear' }}
-                    whileHover={{ scale: 1.22, rotate: 180, transition: { duration: 0.3 } }}
+                    whileHover={{ scale: 1.18, rotate: 180, transition: { duration: 0.3 } }}
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
