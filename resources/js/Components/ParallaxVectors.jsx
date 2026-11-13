@@ -4,152 +4,288 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 export default function ParallaxVectors() {
     const { scrollY } = useScroll();
 
-    // Smooth spring physics for scroll movement
-    const springConfig = { damping: 25, stiffness: 90, mass: 0.8 };
+    // Smooth spring physics for natural, buttery scroll inertia
+    const springConfig = { damping: 26, stiffness: 85, mass: 0.9 };
 
-    // Vector 1 (Top Left): Curved Big Ribbon / Arch
-    const y1 = useSpring(useTransform(scrollY, [0, 1500], [0, 320]), springConfig);
-    const r1 = useSpring(useTransform(scrollY, [0, 1500], [0, 45]), springConfig);
+    // --- Parallax Scroll Transforms ---
+    // 1. Giant Center-Top Sunburst
+    const y1 = useSpring(useTransform(scrollY, [0, 2000], [0, 480]), springConfig);
+    const r1 = useSpring(useTransform(scrollY, [0, 2000], [0, 120]), springConfig);
 
-    // Vector 2 (Top Right): 8-Point Playful Geometric Starburst
-    const y2 = useSpring(useTransform(scrollY, [0, 1500], [0, -280]), springConfig);
-    const r2 = useSpring(useTransform(scrollY, [0, 1500], [0, 180]), springConfig);
+    // 2. Wavy Liquid Squiggle Ribbon (Drifts across center)
+    const y2 = useSpring(useTransform(scrollY, [0, 2000], [0, -380]), springConfig);
+    const x2 = useSpring(useTransform(scrollY, [0, 2000], [0, 160]), springConfig);
+    const r2 = useSpring(useTransform(scrollY, [0, 2000], [-10, 35]), springConfig);
 
-    // Vector 3 (Middle Left): Bold Organic Squiggle / Steam Wave
-    const y3 = useSpring(useTransform(scrollY, [0, 2000], [0, -350]), springConfig);
-    const r3 = useSpring(useTransform(scrollY, [0, 2000], [-15, 30]), springConfig);
+    // 3. Giant Dual Torus Portal (Center-Right)
+    const y3 = useSpring(useTransform(scrollY, [0, 2000], [0, 520]), springConfig);
+    const s3 = useSpring(useTransform(scrollY, [0, 1500], [0.95, 1.18]), springConfig);
 
-    // Vector 4 (Middle Right): Concentric Donut / Torus Ring
-    const y4 = useSpring(useTransform(scrollY, [0, 2000], [0, 420]), springConfig);
-    const s4 = useSpring(useTransform(scrollY, [0, 1000], [1, 1.25]), springConfig);
+    // 4. Geometric Archway with Staring Eye (Left-Center)
+    const y4 = useSpring(useTransform(scrollY, [0, 2500], [0, -420]), springConfig);
+    const r4 = useSpring(useTransform(scrollY, [0, 2500], [0, -75]), springConfig);
 
-    // Vector 5 (Bottom Left): Scalloped Wave Arc
-    const y5 = useSpring(useTransform(scrollY, [0, 2500], [0, -400]), springConfig);
-    const r5 = useSpring(useTransform(scrollY, [0, 2500], [0, -60]), springConfig);
+    // 5. Giant 8-Petal Rosette Daisy (Center-Bottom)
+    const y5 = useSpring(useTransform(scrollY, [0, 2500], [0, -500]), springConfig);
+    const r5 = useSpring(useTransform(scrollY, [0, 2500], [0, 180]), springConfig);
 
-    // Vector 6 (Bottom Right): Fun Half-Moon Smiley Geometry
-    const y6 = useSpring(useTransform(scrollY, [0, 2500], [0, 250]), springConfig);
-    const r6 = useSpring(useTransform(scrollY, [0, 2500], [20, 140]), springConfig);
+    // 6. Scalloped Sunny Wave Tunnel (Bottom-Left)
+    const y6 = useSpring(useTransform(scrollY, [0, 2500], [0, 360]), springConfig);
+    const r6 = useSpring(useTransform(scrollY, [0, 2500], [20, -60]), springConfig);
+
+    // 7. Modern Floating Capsule (Foreground Layer - Right)
+    const y7 = useSpring(useTransform(scrollY, [0, 2000], [0, -320]), springConfig);
+    const r7 = useSpring(useTransform(scrollY, [0, 2000], [-20, 60]), springConfig);
+
+    // 8. Geometric Starburst Sparkle (Upper-Left)
+    const y8 = useSpring(useTransform(scrollY, [0, 1800], [0, 280]), springConfig);
+    const r8 = useSpring(useTransform(scrollY, [0, 1800], [0, 140]), springConfig);
 
     return (
-        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
-            {/* 1. Top-Left: Bold Wavy Arch (Electric Orange) */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden select-none z-0">
+            {/* ============================================================== */}
+            {/* 1. Giant Center-Top Sunburst Gear (Electric Orange & Volt Lime) */}
+            {/* Positioned behind Hero title and Fox in background (z-0)       */}
+            {/* ============================================================== */}
             <motion.div
                 style={{ y: y1, rotate: r1 }}
-                whileHover={{ scale: 1.15, rotate: 60 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="absolute -top-10 -left-12 sm:left-4 w-44 h-44 sm:w-56 sm:h-56 pointer-events-auto cursor-pointer opacity-85 dark:opacity-75"
-                title="Fun Vector: Wavy Arch"
+                className="absolute -top-20 left-[24%] sm:left-[35%] w-80 h-80 sm:w-[500px] sm:h-[500px] pointer-events-auto cursor-pointer z-0 opacity-70 dark:opacity-55"
+                title="Interactive Mega Sunburst: Hover & Scroll"
             >
-                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
-                    <path
-                        d="M20 120 C 40 40, 140 40, 160 120 C 180 170, 90 190, 40 150 Z"
-                        fill="currentColor"
-                        className="text-[#FA4B00] dark:text-[#FF661F]"
-                    />
-                    <circle cx="90" cy="95" r="24" fill="currentColor" className="text-white dark:text-[#090A0D]" />
-                    <circle cx="90" cy="95" r="10" fill="currentColor" className="text-[#121417] dark:text-[#B9F24B]" />
-                </svg>
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 55, ease: 'linear' }}
+                    whileHover={{ scale: 1.15, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
+                        {/* 12 Sunburst Rays */}
+                        <g fill="currentColor" className="text-[#FA4B00] dark:text-[#FF661F]">
+                            {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
+                                <rect
+                                    key={deg}
+                                    x="138"
+                                    y="15"
+                                    width="24"
+                                    height="85"
+                                    rx="12"
+                                    transform={`rotate(${deg} 150 150)`}
+                                />
+                            ))}
+                        </g>
+                        {/* Inner Concentric Disc */}
+                        <circle cx="150" cy="150" r="70" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
+                        <circle cx="150" cy="150" r="38" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
+                        <circle cx="150" cy="150" r="14" fill="currentColor" className="text-white dark:text-[#FA4B00]" />
+                    </svg>
+                </motion.div>
             </motion.div>
 
-            {/* 2. Top-Right: 8-Point Playful Starburst (Neon Lime Volt) */}
+            {/* ============================================================== */}
+            {/* 2. Massive Wavy Liquid Squiggle Ribbon (Lavender Purple)       */}
+            {/* Positioned drifting across the center canvas                   */}
+            {/* ============================================================== */}
             <motion.div
-                style={{ y: y2, rotate: r2 }}
-                whileHover={{ scale: 1.2, rotate: 220 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="absolute top-28 -right-12 sm:right-6 w-36 h-36 sm:w-48 sm:h-48 pointer-events-auto cursor-pointer opacity-90 dark:opacity-80"
-                title="Fun Vector: Neon Starburst"
+                style={{ y: y2, x: x2, rotate: r2 }}
+                className="absolute top-[42%] left-[16%] sm:left-[24%] w-[380px] sm:w-[620px] h-48 sm:h-64 pointer-events-auto cursor-pointer z-0 opacity-80 dark:opacity-65"
+                title="Interactive Wave Squiggle"
             >
-                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
-                    <path
-                        d="M100 0 L125 75 L200 100 L125 125 L100 200 L75 125 L0 100 L75 75 Z"
-                        fill="currentColor"
-                        className="text-[#B9F24B] dark:text-[#C5FF3B]"
-                    />
-                    <circle cx="100" cy="100" r="18" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                </svg>
+                <motion.div
+                    animate={{
+                        y: [0, -18, 0],
+                        rotate: [-3, 4, -3],
+                    }}
+                    transition={{ repeat: Infinity, duration: 9, ease: 'easeInOut' }}
+                    whileHover={{ scale: 1.12, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
+                        <path
+                            d="M20 100 C 100 20, 180 180, 260 100 C 340 20, 420 180, 500 100 C 540 60, 580 80, 580 100 C 580 140, 500 180, 440 140 C 360 80, 280 180, 200 120 C 140 80, 60 160, 20 100 Z"
+                            fill="currentColor"
+                            className="text-[#C66EF5] dark:text-[#D489FF]"
+                        />
+                        <path
+                            d="M80 100 Q 180 40, 260 100 T 440 100"
+                            stroke="currentColor"
+                            strokeWidth="14"
+                            strokeLinecap="round"
+                            className="text-white dark:text-[#090A0D]"
+                        />
+                        <circle cx="260" cy="100" r="16" fill="currentColor" className="text-[#FA4B00] dark:text-[#FF661F]" />
+                    </svg>
+                </motion.div>
             </motion.div>
 
-            {/* 3. Middle-Left: Organic Squiggle Wave (Vibrant Lavender Purple) */}
+            {/* ============================================================== */}
+            {/* 3. Giant Dual Torus Portal (Electric Cyan & Orange)            */}
+            {/* Positioned at center-right canvas (z-10)                       */}
+            {/* ============================================================== */}
             <motion.div
-                style={{ y: y3, rotate: r3 }}
-                whileHover={{ scale: 1.15, rotate: 45 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="absolute top-[45%] -left-10 sm:left-6 w-40 h-40 sm:w-52 sm:h-52 pointer-events-auto cursor-pointer opacity-85 dark:opacity-75"
-                title="Fun Vector: Lavender Squiggle"
+                style={{ y: y3, scale: s3 }}
+                className="absolute top-[28%] right-[8%] sm:right-[15%] w-72 h-72 sm:w-[440px] sm:h-[440px] pointer-events-auto cursor-pointer z-10 opacity-75 dark:opacity-65"
+                title="Interactive Cyan Portal: Slow Continuous Spin"
             >
-                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
-                    <path
-                        d="M30 60 Q 70 10, 110 60 T 170 70 Q 180 140, 130 150 T 40 120 Z"
-                        fill="currentColor"
-                        className="text-[#C66EF5] dark:text-[#D489FF]"
-                    />
-                    <path
-                        d="M60 80 Q 90 40, 120 80 T 150 90"
-                        stroke="currentColor"
-                        strokeWidth="10"
-                        strokeLinecap="round"
-                        className="text-white dark:text-[#090A0D]"
-                    />
-                </svg>
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ repeat: Infinity, duration: 42, ease: 'linear' }}
+                    whileHover={{ scale: 1.15, rotate: -45, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
+                        <circle cx="150" cy="150" r="120" stroke="currentColor" strokeWidth="26" strokeDasharray="30 15" className="text-[#38BDF8] dark:text-[#42C8FF]" />
+                        <circle cx="150" cy="150" r="75" stroke="currentColor" strokeWidth="18" className="text-[#FA4B00] dark:text-[#FF661F]" />
+                        <circle cx="150" cy="150" r="32" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
+                        <circle cx="150" cy="150" r="12" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
+                    </svg>
+                </motion.div>
             </motion.div>
 
-            {/* 4. Middle-Right: Concentric Donut / Torus Ring (Electric Cyan) */}
+            {/* ============================================================== */}
+            {/* 4. Geometric Archway with Staring Eye (Volt Lime & Carbon)     */}
+            {/* Positioned at left-center canvas                               */}
+            {/* ============================================================== */}
             <motion.div
-                style={{ y: y4, scale: s4 }}
-                whileHover={{ scale: 1.25, rotate: -45 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="absolute top-[58%] -right-14 sm:right-8 w-44 h-44 sm:w-56 sm:h-56 pointer-events-auto cursor-pointer opacity-85 dark:opacity-75"
-                title="Fun Vector: Electric Torus"
+                style={{ y: y4, rotate: r4 }}
+                className="absolute top-[52%] -left-12 sm:left-[3%] w-72 h-72 sm:w-[420px] sm:h-[420px] pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-70"
+                title="Interactive Archway: Pendulum Sway"
             >
-                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
-                    <circle cx="100" cy="100" r="80" stroke="currentColor" strokeWidth="24" className="text-[#38BDF8] dark:text-[#42C8FF]" />
-                    <circle cx="100" cy="100" r="38" fill="currentColor" className="text-[#FA4B00] dark:text-[#FF661F]" />
-                    <circle cx="100" cy="100" r="14" fill="currentColor" className="text-white dark:text-[#090A0D]" />
-                </svg>
+                <motion.div
+                    animate={{ rotate: [-8, 12, -8] }}
+                    transition={{ repeat: Infinity, duration: 11, ease: 'easeInOut' }}
+                    whileHover={{ scale: 1.15, rotate: 30, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
+                        <path
+                            d="M40 260 C 40 120, 100 40, 200 40 C 270 40, 280 120, 280 200 C 280 270, 200 280, 150 240 C 100 200, 40 280, 40 260 Z"
+                            fill="currentColor"
+                            className="text-[#B9F24B] dark:text-[#C5FF3B]"
+                        />
+                        <circle cx="170" cy="140" r="42" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
+                        <circle cx="170" cy="140" r="20" fill="currentColor" className="text-[#FA4B00] dark:text-[#FF661F]" />
+                        <circle cx="170" cy="140" r="7" fill="currentColor" className="text-white" />
+                    </svg>
+                </motion.div>
             </motion.div>
 
-            {/* 5. Bottom-Left: Scalloped Sunny Wave (Warm Golden Amber) */}
+            {/* ============================================================== */}
+            {/* 5. Giant 8-Petal Rosette Daisy (Volt Lime & Amber Golden)      */}
+            {/* Positioned at center-bottom canvas (z-0)                       */}
+            {/* ============================================================== */}
             <motion.div
                 style={{ y: y5, rotate: r5 }}
-                whileHover={{ scale: 1.18, rotate: -90 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="absolute bottom-32 -left-12 sm:left-4 w-44 h-44 sm:w-56 sm:h-56 pointer-events-auto cursor-pointer opacity-90 dark:opacity-75"
-                title="Fun Vector: Golden Scallop"
+                className="absolute bottom-10 left-[38%] sm:left-[45%] w-80 h-80 sm:w-[480px] sm:h-[480px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
+                title="Interactive Rosette Daisy: Clockwise Spin"
             >
-                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
-                    <path
-                        d="M20 100 A 80 80 0 0 1 180 100 L 170 140 Q 100 180, 30 140 Z"
-                        fill="currentColor"
-                        className="text-[#F59E0B] dark:text-[#FBBF24]"
-                    />
-                    <path
-                        d="M50 100 A 50 50 0 0 1 150 100"
-                        stroke="currentColor"
-                        strokeWidth="12"
-                        strokeLinecap="round"
-                        className="text-white dark:text-[#090A0D]"
-                    />
-                </svg>
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 48, ease: 'linear' }}
+                    whileHover={{ scale: 1.18, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
+                        {/* 8 Elliptical Petals */}
+                        <g fill="currentColor" className="text-[#F59E0B] dark:text-[#FBBF24]">
+                            {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+                                <ellipse
+                                    key={deg}
+                                    cx="150"
+                                    cy="65"
+                                    rx="28"
+                                    ry="50"
+                                    transform={`rotate(${deg} 150 150)`}
+                                />
+                            ))}
+                        </g>
+                        <circle cx="150" cy="150" r="54" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
+                        <circle cx="150" cy="150" r="22" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
+                    </svg>
+                </motion.div>
             </motion.div>
 
-            {/* 6. Bottom-Right: Chunky Half-Moon Capsule Geometry (Fresh Neon Lime / Orange Combo) */}
+            {/* ============================================================== */}
+            {/* 6. Scalloped Sunny Wave Tunnel (Golden Amber & Orange)         */}
+            {/* Positioned at bottom-left canvas                               */}
+            {/* ============================================================== */}
             <motion.div
                 style={{ y: y6, rotate: r6 }}
-                whileHover={{ scale: 1.2, rotate: 180 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                className="absolute -bottom-10 -right-10 sm:right-6 w-40 h-40 sm:w-52 sm:h-52 pointer-events-auto cursor-pointer opacity-90 dark:opacity-80"
-                title="Fun Vector: Half-Moon Geo"
+                className="absolute -bottom-16 -left-10 sm:left-[8%] w-72 h-72 sm:w-[450px] sm:h-[450px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
+                title="Interactive Scallop Wave"
             >
-                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
-                    <path
-                        d="M100 20 C 144 20, 180 56, 180 100 C 180 144, 144 180, 100 180 Z"
-                        fill="currentColor"
-                        className="text-[#B9F24B] dark:text-[#C5FF3B]"
-                    />
-                    <circle cx="100" cy="100" r="35" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                    <circle cx="100" cy="100" r="16" fill="currentColor" className="text-[#FA4B00] dark:text-[#FF661F]" />
-                </svg>
+                <motion.div
+                    animate={{ scale: [1, 1.05, 1], rotate: [-4, 6, -4] }}
+                    transition={{ repeat: Infinity, duration: 8, ease: 'easeInOut' }}
+                    whileHover={{ scale: 1.16, rotate: -45, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
+                        <path
+                            d="M30 150 A 120 120 0 0 1 270 150 L 255 210 Q 150 270, 45 210 Z"
+                            fill="currentColor"
+                            className="text-[#FA4B00] dark:text-[#FF661F]"
+                        />
+                        <path
+                            d="M75 150 A 75 75 0 0 1 225 150"
+                            stroke="currentColor"
+                            strokeWidth="18"
+                            strokeLinecap="round"
+                            className="text-white dark:text-[#090A0D]"
+                        />
+                        <circle cx="150" cy="110" r="16" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
+                    </svg>
+                </motion.div>
+            </motion.div>
+
+            {/* ============================================================== */}
+            {/* 7. Modern Floating Pill Capsule with Orbit (Cobalt & Lime)     */}
+            {/* Positioned foreground layer (z-20) overlapping right margin   */}
+            {/* ============================================================== */}
+            <motion.div
+                style={{ y: y7, rotate: r7 }}
+                className="absolute top-[60%] -right-10 sm:right-[3%] w-60 h-60 sm:w-80 sm:h-80 pointer-events-auto cursor-pointer z-20 opacity-85 dark:opacity-75"
+                title="Interactive Orbit Capsule: Foreground Float"
+            >
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 32, ease: 'linear' }}
+                    whileHover={{ scale: 1.2, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
+                        <rect x="75" y="30" width="100" height="190" rx="50" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
+                        <circle cx="125" cy="80" r="32" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
+                        <circle cx="125" cy="80" r="14" fill="currentColor" className="text-[#FA4B00] dark:text-[#FF661F]" />
+                        <circle cx="125" cy="165" r="22" stroke="currentColor" strokeWidth="8" className="text-[#121417] dark:text-[#090A0D]" />
+                    </svg>
+                </motion.div>
+            </motion.div>
+
+            {/* ============================================================== */}
+            {/* 8. 8-Point Playful Geometric Starburst (Upper-Left Diagonal)   */}
+            {/* Positioned at upper center-left canvas (z-10)                  */}
+            {/* ============================================================== */}
+            <motion.div
+                style={{ y: y8, rotate: r8 }}
+                className="absolute top-[12%] left-[4%] sm:left-[10%] w-64 h-64 sm:w-80 sm:h-80 pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-70"
+                title="Interactive Starburst: Slow Continuous Spin"
+            >
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ repeat: Infinity, duration: 36, ease: 'linear' }}
+                    whileHover={{ scale: 1.22, rotate: 180, transition: { duration: 0.3 } }}
+                    className="w-full h-full"
+                >
+                    <svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
+                        <path
+                            d="M125 0 L155 95 L250 125 L155 155 L125 250 L95 155 L0 125 L95 95 Z"
+                            fill="currentColor"
+                            className="text-[#FA4B00] dark:text-[#FF661F]"
+                        />
+                        <circle cx="125" cy="125" r="36" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
+                        <circle cx="125" cy="125" r="15" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
+                    </svg>
+                </motion.div>
             </motion.div>
         </div>
     );

@@ -229,7 +229,7 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             />
 
             {/* Footer */}
-            <footer className="border-t border-[#E5E8EC] dark:border-[#24272D] py-10 bg-white dark:bg-[#121417] mt-auto transition-colors relative z-10">
+            <footer className="border-t border-[#E5E8EC] dark:border-[#24272D] py-10 bg-white/80 dark:bg-[#121417]/80 backdrop-blur-md mt-auto transition-colors relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-[#6B7280] dark:text-[#9CA3AF] space-y-2">
                     <p className="font-semibold text-[#121417] dark:text-white">MetaMask Brew © {new Date().getFullYear()} — Handcrafted Beverages</p>
                     <p>Designed with MetaMask Design System tokens, Laravel 13, React, and Tailwind CSS.</p>

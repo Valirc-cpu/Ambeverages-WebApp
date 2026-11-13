@@ -14,7 +14,7 @@ export default function HeroSection({
     const allCategories = ['Semua', ...categories];
 
     return (
-        <section className="relative pt-12 pb-16 bg-white dark:bg-[#121417] border-b border-[#E5E8EC] dark:border-[#24272D] transition-colors">
+        <section className="relative pt-12 pb-16 bg-white/80 dark:bg-[#121417]/80 backdrop-blur-md border-b border-[#E5E8EC] dark:border-[#24272D] transition-colors z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Hero Header with Interactive Fox */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10">
