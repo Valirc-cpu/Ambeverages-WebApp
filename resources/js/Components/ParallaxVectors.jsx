@@ -8,12 +8,11 @@ export default function ParallaxVectors() {
     const springConfig = { damping: 25, stiffness: 85, mass: 0.85 };
 
     // --- Parallax Scroll Transforms ---
-    // Top Zone (Loved by user)
-    // 1. Top-Far-Left Starburst
+    // 1. Top-Left Starburst (Shifted slightly to the right)
     const y1 = useSpring(useTransform(scrollY, [0, 1500], [0, 160]), springConfig);
     const r1 = useSpring(useTransform(scrollY, [0, 1500], [0, 90]), springConfig);
 
-    // 2. Top-Center GIANT Sunburst Gear (Much bigger statement piece)
+    // 2. Top-Center GIGANTIC Sunburst Gear (520px)
     const y3 = useSpring(useTransform(scrollY, [0, 1500], [0, 180]), springConfig);
     const r3 = useSpring(useTransform(scrollY, [0, 1500], [0, -80]), springConfig);
 
@@ -21,33 +20,26 @@ export default function ParallaxVectors() {
     const y4 = useSpring(useTransform(scrollY, [0, 1500], [0, 200]), springConfig);
     const s4 = useSpring(useTransform(scrollY, [0, 1000], [0.95, 1.12]), springConfig);
 
-    // 4. Top-Far-Right Half-Moon Geo
-    const y5 = useSpring(useTransform(scrollY, [0, 1500], [0, 180]), springConfig);
-    const r5 = useSpring(useTransform(scrollY, [0, 1500], [10, -60]), springConfig);
-
-    // Left, Right & Bottom Balanced Additions
-    const y6 = useSpring(useTransform(scrollY, [0, 2000], [0, -280]), springConfig);
-    const r6 = useSpring(useTransform(scrollY, [0, 2000], [-15, 35]), springConfig);
-
+    // 4. Right-Mid Edge Modern Orbiting Capsule
     const y7 = useSpring(useTransform(scrollY, [0, 2000], [0, 320]), springConfig);
     const r7 = useSpring(useTransform(scrollY, [0, 2000], [0, -120]), springConfig);
 
+    // 5. Bottom-Left Scalloped Sunny Wave (Shifted slightly to the right)
     const y8 = useSpring(useTransform(scrollY, [0, 2500], [0, 260]), springConfig);
     const r8 = useSpring(useTransform(scrollY, [0, 2500], [15, -45]), springConfig);
 
+    // 6. Bottom-Right 8-Petal Rosette Daisy
     const y9 = useSpring(useTransform(scrollY, [0, 2500], [0, -320]), springConfig);
     const r9 = useSpring(useTransform(scrollY, [0, 2500], [0, 160]), springConfig);
 
     return (
         <div className="fixed inset-0 pointer-events-none overflow-hidden select-none z-0">
             {/* ============================================================== */}
-            {/* --- TOP CANOPY ZONE ---                                       */}
+            {/* 1. TOP-LEFT: 8-Point Geometric Starburst (Shifted right a bit) */}
             {/* ============================================================== */}
-
-            {/* 1. Top-Far-Left: 8-Point Geometric Starburst (Orange & Lime) */}
             <motion.div
                 style={{ y: y1, rotate: r1 }}
-                className="absolute -top-10 -left-8 sm:left-[2%] w-44 h-44 sm:w-56 sm:h-56 pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-65"
+                className="absolute -top-10 left-[2%] sm:left-[6%] w-44 h-44 sm:w-56 sm:h-56 pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-65"
                 title="Top-Left Starburst"
             >
                 <motion.div
@@ -68,8 +60,9 @@ export default function ParallaxVectors() {
                 </motion.div>
             </motion.div>
 
-            {/* 2. Top-Center: GIGANTIC 12-Ray Sunburst Gear (Golden Amber & Orange) */}
-            {/* Made much bigger: 520px diameter statement piece                 */}
+            {/* ============================================================== */}
+            {/* 2. TOP-CENTER: GIGANTIC 12-Ray Sunburst Gear (520px Statement) */}
+            {/* ============================================================== */}
             <motion.div
                 style={{ y: y3, rotate: r3 }}
                 className="absolute -top-28 left-[34%] sm:left-[38%] w-80 h-80 sm:w-[520px] sm:h-[520px] pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
@@ -103,7 +96,9 @@ export default function ParallaxVectors() {
                 </motion.div>
             </motion.div>
 
-            {/* 3. Top-Mid-Right: Dual Torus Portal (Electric Cyan & Lime) */}
+            {/* ============================================================== */}
+            {/* 3. TOP-MID-RIGHT: Dual Torus Portal (Electric Cyan & Lime)     */}
+            {/* ============================================================== */}
             <motion.div
                 style={{ y: y4, scale: s4 }}
                 className="absolute top-4 left-[68%] sm:left-[72%] w-36 h-36 sm:w-48 sm:h-48 pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-65"
@@ -127,60 +122,9 @@ export default function ParallaxVectors() {
                 </motion.div>
             </motion.div>
 
-            {/* 4. Top-Far-Right: Half-Moon Geo & Eye (Lime & Orange) */}
-            <motion.div
-                style={{ y: y5, rotate: r5 }}
-                className="absolute -top-8 -right-6 sm:right-[3%] w-52 h-52 sm:w-64 sm:h-64 pointer-events-auto cursor-pointer z-20 opacity-85 dark:opacity-75"
-                title="Top-Right Half-Moon"
-            >
-                <motion.div
-                    animate={{ rotate: [-6, 10, -6] }}
-                    transition={{ repeat: Infinity, duration: 9, ease: 'easeInOut' }}
-                    whileHover={{ scale: 1.14, rotate: 25, transition: { duration: 0.25 } }}
-                    className="w-full h-full"
-                >
-                    <svg viewBox="0 0 260 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-md">
-                        <path
-                            d="M30 130 C 30 60, 90 20, 160 20 C 220 20, 240 80, 240 140 C 240 200, 180 230, 120 230 C 50 230, 30 190, 30 130 Z"
-                            fill="currentColor"
-                            className="text-[#B9F24B] dark:text-[#C5FF3B]"
-                        />
-                        <circle cx="145" cy="120" r="40" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                        <circle cx="145" cy="120" r="18" fill="currentColor" className="text-[#FA4B00] dark:text-[#FF661F]" />
-                        <circle cx="145" cy="120" r="6" fill="currentColor" className="text-white" />
-                    </svg>
-                </motion.div>
-            </motion.div>
-
             {/* ============================================================== */}
-            {/* --- BALANCED PERIPHERY ADDITIONS (Left, Right & Bottom) ---    */}
+            {/* 4. RIGHT-MID EDGE: Modern Orbiting Capsule (Cyan & Volt Lime)  */}
             {/* ============================================================== */}
-
-            {/* 5. LEFT-MID EDGE: Organic Steam Arch (Electric Orange & Lime) */}
-            <motion.div
-                style={{ y: y6, rotate: r6 }}
-                className="absolute top-[44%] -left-10 sm:-left-14 w-36 h-36 sm:w-48 sm:h-48 pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
-                title="Left Mid-Edge Arch"
-            >
-                <motion.div
-                    animate={{ rotate: [-8, 12, -8] }}
-                    transition={{ repeat: Infinity, duration: 10, ease: 'easeInOut' }}
-                    whileHover={{ scale: 1.15, transition: { duration: 0.25 } }}
-                    className="w-full h-full"
-                >
-                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
-                        <path
-                            d="M20 120 C 40 40, 140 40, 160 120 C 180 170, 90 190, 40 150 Z"
-                            fill="currentColor"
-                            className="text-[#FA4B00] dark:text-[#FF661F]"
-                        />
-                        <circle cx="90" cy="95" r="24" fill="currentColor" className="text-white dark:text-[#090A0D]" />
-                        <circle cx="90" cy="95" r="10" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
-                    </svg>
-                </motion.div>
-            </motion.div>
-
-            {/* 6. RIGHT-MID EDGE: Modern Orbiting Capsule (Cyan & Volt Lime) */}
             <motion.div
                 style={{ y: y7, rotate: r7 }}
                 className="absolute top-[56%] -right-14 sm:-right-20 w-56 h-56 sm:w-76 sm:h-76 pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-70"
@@ -201,10 +145,12 @@ export default function ParallaxVectors() {
                 </motion.div>
             </motion.div>
 
-            {/* 7. BOTTOM-LEFT CORNER: Scalloped Sunny Wave Tunnel (Golden Amber) */}
+            {/* ============================================================== */}
+            {/* 5. BOTTOM-LEFT: Scalloped Sunny Wave Tunnel (Shifted right)    */}
+            {/* ============================================================== */}
             <motion.div
                 style={{ y: y8, rotate: r8 }}
-                className="absolute -bottom-16 -left-16 sm:-left-24 w-68 h-68 sm:w-88 sm:h-88 pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
+                className="absolute -bottom-16 -left-6 sm:left-[3%] w-68 h-68 sm:w-88 sm:h-88 pointer-events-auto cursor-pointer z-0 opacity-75 dark:opacity-60"
                 title="Bottom-Left Scallop Wave"
             >
                 <motion.div
@@ -231,7 +177,9 @@ export default function ParallaxVectors() {
                 </motion.div>
             </motion.div>
 
-            {/* 8. BOTTOM-RIGHT CORNER: 8-Petal Rosette Daisy (Volt Lime & Lavender) */}
+            {/* ============================================================== */}
+            {/* 6. BOTTOM-RIGHT: 8-Petal Rosette Daisy (Volt Lime & Lavender)  */}
+            {/* ============================================================== */}
             <motion.div
                 style={{ y: y9, rotate: r9 }}
                 className="absolute -bottom-12 -right-8 sm:right-[3%] w-48 h-48 sm:w-60 sm:h-60 pointer-events-auto cursor-pointer z-10 opacity-80 dark:opacity-65"
