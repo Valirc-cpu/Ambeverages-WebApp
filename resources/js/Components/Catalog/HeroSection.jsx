@@ -67,7 +67,7 @@ export default function HeroSection({
                             >
                                 {allCategories.map((cat) => (
                                     <option key={cat} value={cat} className="bg-white dark:bg-[#15171C] text-[#121417] dark:text-white font-bold py-1">
-                                        {cat === 'Semua' ? '✨ Semua Menu Varian' : `🍹 ${cat}`}
+                                        {cat === 'Semua' ? 'Semua Menu' : cat}
                                     </option>
                                 ))}
                             </select>

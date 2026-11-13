@@ -1,7 +1,7 @@
 import React from 'react';
 import Badge from '../Badge';
 import Button from '../Button';
-import { MessageSquare, ExternalLink, Check, X, CheckCircle2, XCircle } from 'lucide-react';
+import { MessageSquare, ExternalLink, Check, X, CheckCircle2, XCircle, User } from 'lucide-react';
 
 export default function OrderRowCard({
     order,
@@ -42,8 +42,9 @@ export default function OrderRowCard({
 
                 {/* Customer Info */}
                 <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-[#4B5563] dark:text-[#9CA3AF]">
-                    <span className="font-bold text-[#121417] dark:text-white">
-                        👤 {order.customer_name}
+                    <span className="font-bold text-[#121417] dark:text-white flex items-center gap-1.5">
+                        <User className="w-3.5 h-3.5 text-[#6B7280] dark:text-[#9CA3AF]" />
+                        <span>{order.customer_name}</span>
                     </span>
                     <a
                         href={`https://wa.me/${waPhone}`}
