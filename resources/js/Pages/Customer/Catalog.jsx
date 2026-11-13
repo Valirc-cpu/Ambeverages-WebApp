@@ -3,7 +3,7 @@ import { Head, useForm, usePage, Link } from '@inertiajs/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from '../../Components/Navbar';
 import HeroSection from '../../Components/Catalog/HeroSection';
-import DrinkShowcase from '../../Components/Catalog/DrinkShowcase';
+import DrinkParallaxDeck from '../../Components/Catalog/DrinkParallaxDeck';
 import CartModal from '../../Components/Catalog/CartModal';
 import OrderSuccessModal from '../../Components/Catalog/OrderSuccessModal';
 import ParallaxVectors from '../../Components/ParallaxVectors';
@@ -203,7 +203,7 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                         )}
                     </motion.div>
                 ) : (
-                    <DrinkShowcase
+                    <DrinkParallaxDeck
                         drinks={filteredDrinks}
                         onAddToCart={handleAddToCart}
                     />
