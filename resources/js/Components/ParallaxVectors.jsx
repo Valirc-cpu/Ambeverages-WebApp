@@ -146,11 +146,11 @@ export default function ParallaxVectors() {
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 5. BOTTOM-LEFT: Scalloped Sunny Wave Tunnel (Golden & Lime)    */}
+            {/* 5. BOTTOM-LEFT: Scalloped Sunny Wave Tunnel (Hidden on Mobile) */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y8, rotate: r8 }}
-                className="absolute -bottom-16 -left-6 sm:left-[3%] w-68 h-68 sm:w-88 sm:h-88 pointer-events-auto cursor-pointer z-0 opacity-85 dark:opacity-75"
+                className="hidden md:block absolute -bottom-16 -left-6 sm:left-[3%] w-68 h-68 sm:w-88 sm:h-88 pointer-events-auto cursor-pointer z-0 opacity-85 dark:opacity-75"
                 title="Bottom-Left Scallop Wave"
             >
                 <motion.div
@@ -178,11 +178,11 @@ export default function ParallaxVectors() {
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 6. BOTTOM-RIGHT: 8-Petal Rosette Daisy (Volt Lime & Lavender)  */}
+            {/* 6. BOTTOM-RIGHT: 8-Petal Rosette Daisy (Hidden on Mobile)      */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y9, rotate: r9 }}
-                className="absolute -bottom-12 -right-8 sm:right-[3%] w-48 h-48 sm:w-60 sm:h-60 pointer-events-auto cursor-pointer z-10 opacity-90 dark:opacity-80"
+                className="hidden md:block absolute -bottom-12 -right-8 sm:right-[3%] w-48 h-48 sm:w-60 sm:h-60 pointer-events-auto cursor-pointer z-10 opacity-90 dark:opacity-80"
                 title="Bottom-Right Rosette Daisy"
             >
                 <motion.div
