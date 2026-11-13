@@ -31,7 +31,7 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
                     <button
                         type="button"
                         onClick={onOpenCart}
-                        className="relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#121417] dark:bg-[#1E2229] hover:bg-[#2A2E35] dark:hover:bg-[#2B303A] text-white transition-all font-bold text-sm shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-transparent dark:border-[#323844] active:scale-[0.98] group"
+                        className="relative h-10 sm:h-11 flex items-center gap-2.5 px-4 sm:px-5 rounded-full bg-[#121417] dark:bg-[#1E2229] hover:bg-[#2A2E35] dark:hover:bg-[#2B303A] text-white transition-all font-bold text-xs sm:text-sm shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-transparent dark:border-[#323844] active:scale-[0.98] group cursor-pointer"
                         aria-label="Keranjang Belanja"
                     >
                         <div className="relative">
@@ -53,28 +53,33 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
                     {/* Admin Status / Auth links */}
                     {user ? (
                         <div className="flex items-center gap-2">
-                            <Link href="/admin/orders">
-                                <Button variant="outline" size="sm" className="hidden sm:inline-flex dark:bg-[#1A1D22] dark:border-[#2E333C] dark:text-white">
+                            <Link href="/admin/orders" className="flex items-center">
+                                <button
+                                    type="button"
+                                    className="h-10 sm:h-11 px-4 sm:px-5 rounded-full inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#121417] dark:text-white bg-white dark:bg-[#1A1D23] hover:bg-gray-50 dark:hover:bg-[#252932] border border-[#DCE0E5] dark:border-[#2C313A] shadow-xs active:scale-[0.98] transition-all cursor-pointer"
+                                >
                                     <ShieldCheck className="w-4 h-4 text-[#FA4B00]" />
                                     <span>Panel Admin</span>
-                                </Button>
+                                </button>
                             </Link>
-                            <Button
-                                variant="ghost"
-                                size="sm"
+                            <button
+                                type="button"
                                 onClick={handleLogout}
                                 title="Keluar"
-                                className="text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#D73A49]"
+                                className="h-10 sm:h-11 w-10 sm:w-11 rounded-full flex items-center justify-center text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#D73A49] hover:bg-[#FEE2E2] dark:hover:bg-[#2A1517] transition-all cursor-pointer"
                             >
                                 <LogOut className="w-4 h-4" />
-                            </Button>
+                            </button>
                         </div>
                     ) : (
-                        <Link href="/login">
-                            <Button variant="ghost" size="sm" className="text-xs text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white font-semibold">
-                                <ShieldCheck className="w-4 h-4" />
-                                <span className="hidden sm:inline">Admin</span>
-                            </Button>
+                        <Link href="/login" className="flex items-center">
+                            <button
+                                type="button"
+                                className="h-10 sm:h-11 px-4 sm:px-5 rounded-full inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#4B5563] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white bg-[#ECEFF2]/80 dark:bg-[#1A1D23] hover:bg-[#E2E6EB] dark:hover:bg-[#252932] border border-[#DCE0E5] dark:border-[#2C313A] shadow-xs active:scale-[0.98] transition-all cursor-pointer"
+                            >
+                                <ShieldCheck className="w-4 h-4 text-[#FA4B00]" />
+                                <span>Admin</span>
+                            </button>
                         </Link>
                     )}
                 </div>

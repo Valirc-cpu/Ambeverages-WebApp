@@ -29,7 +29,7 @@ export default function ThemeToggle({ className = '' }) {
 
     if (!mounted) {
         return (
-            <div className={`w-10 h-10 rounded-full bg-[#ECEFF2] dark:bg-[#1A1D22] ${className}`} />
+            <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#ECEFF2] dark:bg-[#1A1D22] ${className}`} />
         );
     }
 
@@ -39,7 +39,7 @@ export default function ThemeToggle({ className = '' }) {
             onClick={toggleTheme}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
-            className={`relative flex items-center justify-center w-10 h-10 rounded-full bg-[#ECEFF2] dark:bg-[#1D2026] text-[#121417] dark:text-[#F2F4F7] border border-[#DCE0E5] dark:border-[#2C313A] shadow-xs cursor-pointer select-none transition-colors ${className}`}
+            className={`relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#ECEFF2] dark:bg-[#1D2026] text-[#121417] dark:text-[#F2F4F7] border border-[#DCE0E5] dark:border-[#2C313A] shadow-xs cursor-pointer select-none transition-colors ${className}`}
             title={isDark ? 'Beralih ke Mode Terang (Light)' : 'Beralih ke Mode Gelap (Dark)'}
             aria-label="Toggle Theme"
         >
