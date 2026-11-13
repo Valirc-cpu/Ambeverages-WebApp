@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+@import '@metamask/design-tokens/styles.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.{js,jsx,ts,tsx}';
+
+@theme {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --color-mm-orange: #F6851B;
+    --color-mm-orange-hover: #E2761B;
+    --color-mm-orange-light: #FFEFE0;
+    --color-mm-dark-bg: #121416;
+    --color-mm-dark-card: #1C1E22;
+    --color-mm-dark-card-hover: #24272C;
+    --color-mm-dark-border: #2E3238;
+    --color-mm-dark-border-light: #3D424B;
+    --color-mm-text-muted: #8F96A0;
+}
+
+body {
+    background-color: var(--color-mm-dark-bg);
+    color: #F2F4F6;
+    font-family: var(--font-sans);
+    min-height: 100vh;
+}
+
+/* Custom sleek scrollbar for web3 feel */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #121416;
+}
+::-webkit-scrollbar-thumb {
+    background: #2E3238;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #474E58;
+}
