@@ -39,6 +39,10 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             setSuccessOrder(flash.orderCreated);
             setCart([]);
             setIsCartOpen(false);
+            checkoutForm.reset();
+        }
+        if (flash?.error) {
+            alert(flash.error);
         }
     }, [flash]);
 
@@ -131,12 +135,23 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             quantity: item.quantity,
         }));
 
+        checkoutForm.transform((formData) => ({
+            ...formData,
+            items: payloadItems,
+        }));
+
         checkoutForm.post('/checkout', {
-            data: {
-                ...checkoutForm.data,
-                items: payloadItems,
-            },
             preserveScroll: true,
+            onSuccess: (page) => {
+                const order = page.props.flash?.orderCreated;
+                if (order?.whatsapp_url) {
+                    try {
+                        window.open(order.whatsapp_url, '_blank');
+                    } catch {
+                        // Handled by OrderSuccessModal
+                    }
+                }
+            },
         });
     };
 

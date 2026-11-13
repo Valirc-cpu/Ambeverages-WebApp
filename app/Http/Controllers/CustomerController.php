@@ -118,40 +118,42 @@ class CustomerController extends Controller
                 ]);
             }
 
-            // Clean admin WhatsApp phone number (strip spaces, +, -, etc.)
-            $rawAdminPhone = (string) config('services.whatsapp.number', '6281234567890');
+            // Clean admin WhatsApp phone number (from .env WHATSAPP_ADMIN_NUMBER)
+            $rawAdminPhone = (string) config('services.whatsapp.number', '6289620378128');
             $cleanAdminPhone = preg_replace('/[^0-9]/', '', $rawAdminPhone);
             if (str_starts_with($cleanAdminPhone, '0')) {
                 $cleanAdminPhone = '62'.substr($cleanAdminPhone, 1);
             }
 
-            // Build WhatsApp message
+            // Build clear, informative WhatsApp order message
             $messageLines = [
-                '🦊 *PESANAN BARU - METADRINK*',
-                '--------------------------------',
-                "📋 *Kode Order:* {$order->order_code}",
-                "👤 *Nama Pemesan:* {$order->customer_name}",
-                "📱 *No WhatsApp:* {$order->customer_phone}",
-                '',
-                '🛒 *Rincian Minuman:*',
+                '👋 *HALO METADRINK, SAYA MAU PESAN:*',
+                '====================================',
+                '📋 *RINCIAN PESANAN:*',
             ];
 
             foreach ($itemsData as $item) {
                 $formattedSubtotal = 'Rp '.number_format($item['subtotal'], 0, ',', '.');
-                $messageLines[] = "• {$item['quantity']}x {$item['drink']->name} = {$formattedSubtotal}";
+                $messageLines[] = "• *{$item['drink']->name}*";
+                $messageLines[] = "  └ Beli: {$item['quantity']} porsi | Subtotal: {$formattedSubtotal}";
             }
 
-            $messageLines[] = '--------------------------------';
-            $messageLines[] = '💰 *Total Pembayaran:* '.$order->formatted_total_price;
-
+            $messageLines[] = '------------------------------------';
+            $messageLines[] = '💰 *TOTAL BAYAR:* '.$order->formatted_total_price;
+            $messageLines[] = '====================================';
+            $messageLines[] = '👤 *DATA PEMESAN:*';
+            $messageLines[] = "• Nama: {$order->customer_name}";
+            $messageLines[] = "• No. HP: {$order->customer_phone}";
             if (! empty($order->notes)) {
-                $messageLines[] = "📝 *Catatan:* {$order->notes}";
+                $messageLines[] = "• Catatan: {$order->notes}";
             }
-
+            $messageLines[] = "• Kode Order: {$order->order_code}";
             $messageLines[] = '';
-            $messageLines[] = 'Mohon konfirmasi pesanan saya. Terima kasih!';
+            $messageLines[] = 'Mohon segera diproses ya, terima kasih!';
 
             $whatsappMessage = implode("\n", $messageLines);
+
+            // WhatsApp API URL (target phone from .env)
             $whatsappUrl = 'https://api.whatsapp.com/send?phone='.$cleanAdminPhone.'&text='.rawurlencode($whatsappMessage);
 
             return back()->with([
@@ -161,6 +163,7 @@ class CustomerController extends Controller
                     'customer_name' => $order->customer_name,
                     'total_price' => $order->formatted_total_price,
                     'whatsapp_url' => $whatsappUrl,
+                    'admin_phone' => $cleanAdminPhone,
                 ],
             ]);
         });

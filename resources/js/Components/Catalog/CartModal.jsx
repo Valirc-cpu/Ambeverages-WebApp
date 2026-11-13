@@ -115,6 +115,12 @@ export default function CartModal({
                                 <span>Data Pemesan (Guest Checkout)</span>
                             </h4>
 
+                            {errors.items && (
+                                <div className="p-2.5 rounded-xl bg-[#FFF1F0] dark:bg-[#2A1215] border border-[#FCA5A5] dark:border-[#7F1D1D] text-[#D73A49] text-xs font-semibold">
+                                    {errors.items}
+                                </div>
+                            )}
+
                             <div>
                                 <label className="block text-[11px] font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                                     Nama Lengkap <span className="text-[#D73A49]">*</span>

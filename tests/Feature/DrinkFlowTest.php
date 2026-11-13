@@ -76,6 +76,15 @@ class DrinkFlowTest extends TestCase
             'price' => 28000,
             'subtotal' => 56000,
         ]);
+
+        // Verify WhatsApp API URL targeting env number with drink & price details
+        $orderCreated = session('orderCreated');
+        $this->assertNotEmpty($orderCreated['whatsapp_url']);
+        $this->assertStringContainsString('https://api.whatsapp.com/send?phone=', $orderCreated['whatsapp_url']);
+        $this->assertStringContainsString(config('services.whatsapp.number'), $orderCreated['whatsapp_url']);
+        $this->assertStringContainsString('Meta%20Fox%20Mocha', $orderCreated['whatsapp_url']);
+        $this->assertStringContainsString('Beli%3A%202%20porsi', $orderCreated['whatsapp_url']);
+        $this->assertStringContainsString('TOTAL%20BAYAR%3A%2A%20Rp%2076.000', $orderCreated['whatsapp_url']);
     }
 
     public function test_checkout_fails_if_quantity_exceeds_stock(): void

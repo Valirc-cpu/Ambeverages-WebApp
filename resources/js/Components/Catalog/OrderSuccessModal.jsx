@@ -48,6 +48,12 @@ export default function OrderSuccessModal({ order, onClose }) {
                         <span className="text-[#6B7280] dark:text-[#9CA3AF]">PEMESAN:</span>
                         <span className="font-bold text-[#121417] dark:text-white">{order.customer_name}</span>
                     </div>
+                    {order.admin_phone && (
+                        <div className="flex justify-between">
+                            <span className="text-[#6B7280] dark:text-[#9CA3AF]">WA TUJUAN (.env):</span>
+                            <span className="font-bold text-[#25D366]">+{order.admin_phone}</span>
+                        </div>
+                    )}
                     <div className="flex justify-between border-t border-[#E5E8EC] dark:border-[#282C34] pt-2 text-sm font-sans font-bold text-[#121417] dark:text-white">
                         <span>TOTAL BAYAR:</span>
                         <span className="text-[#FA4B00] font-extrabold">{order.total_price}</span>
