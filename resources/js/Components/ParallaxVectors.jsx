@@ -35,7 +35,7 @@ export default function ParallaxVectors() {
     return (
         <div className="fixed inset-0 pointer-events-none overflow-hidden select-none z-0">
             {/* ============================================================== */}
-            {/* 1. TOP-LEFT: 8-Point Geometric Starburst (Ambmanggo Orange)    */}
+            {/* 1. TOP-LEFT: 8-Point Geometric Starburst (Ambmanggo & Volt Lime) */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y1, rotate: r1 }}
@@ -55,13 +55,13 @@ export default function ParallaxVectors() {
                             className="text-[#FF5400] dark:text-[#FF702E]"
                         />
                         <circle cx="125" cy="125" r="36" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                        <circle cx="125" cy="125" r="15" fill="currentColor" className="text-white dark:text-[#ECEFF2]" />
+                        <circle cx="125" cy="125" r="15" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
                     </svg>
                 </motion.div>
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 2. TOP-CENTER: GIGANTIC 12-Ray Sunburst Gear (Mango & Amber)   */}
+            {/* 2. TOP-CENTER: GIGANTIC 12-Ray Sunburst Gear (Solar & Volt)   */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y3, rotate: r3 }}
@@ -91,13 +91,13 @@ export default function ParallaxVectors() {
                         </g>
                         <circle cx="150" cy="150" r="68" fill="currentColor" className="text-[#FF5400] dark:text-[#FF702E]" />
                         <circle cx="150" cy="150" r="34" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                        <circle cx="150" cy="150" r="12" fill="currentColor" className="text-white dark:text-[#FDE047]" />
+                        <circle cx="150" cy="150" r="12" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
                     </svg>
                 </motion.div>
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 3. TOP-MID-RIGHT: Dual Torus Portal (Amberry Ruby & Pineapple) */}
+            {/* 3. TOP-MID-RIGHT: Dual Torus Portal (Berry, Volt Lime & Lavender) */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y4, scale: s4 }}
@@ -115,15 +115,15 @@ export default function ParallaxVectors() {
                 >
                     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
                         <circle cx="150" cy="150" r="115" stroke="currentColor" strokeWidth="24" strokeDasharray="25 15" className="text-[#E11D48] dark:text-[#FB7185]" />
-                        <circle cx="150" cy="150" r="70" stroke="currentColor" strokeWidth="16" className="text-[#FACC15] dark:text-[#FDE047]" />
+                        <circle cx="150" cy="150" r="70" stroke="currentColor" strokeWidth="16" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
                         <circle cx="150" cy="150" r="28" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                        <circle cx="150" cy="150" r="10" fill="currentColor" className="text-[#FF5400] dark:text-[#FF702E]" />
+                        <circle cx="150" cy="150" r="10" fill="currentColor" className="text-[#C66EF5] dark:text-[#D489FF]" />
                     </svg>
                 </motion.div>
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 4. RIGHT-MID EDGE: Modern Orbiting Capsule (Pineapple & Berry) */}
+            {/* 4. RIGHT-MID EDGE: Modern Orbiting Capsule (Neon Cyan & Lime)  */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y7, rotate: r7 }}
@@ -137,16 +137,16 @@ export default function ParallaxVectors() {
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
-                        <rect x="75" y="30" width="100" height="190" rx="50" fill="currentColor" className="text-[#FACC15] dark:text-[#EAB308]" />
+                        <rect x="75" y="30" width="100" height="190" rx="50" fill="currentColor" className="text-[#38BDF8] dark:text-[#42C8FF]" />
                         <circle cx="125" cy="80" r="32" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                        <circle cx="125" cy="80" r="14" fill="currentColor" className="text-[#E11D48] dark:text-[#FB7185]" />
+                        <circle cx="125" cy="80" r="14" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
                         <circle cx="125" cy="165" r="22" stroke="currentColor" strokeWidth="8" className="text-white dark:text-[#FF5400]" />
                     </svg>
                 </motion.div>
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 5. BOTTOM-LEFT: Scalloped Sunny Wave Tunnel (Mango & Berry)    */}
+            {/* 5. BOTTOM-LEFT: Scalloped Sunny Wave Tunnel (Golden & Lime)    */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y8, rotate: r8 }}
@@ -172,13 +172,13 @@ export default function ParallaxVectors() {
                             strokeLinecap="round"
                             className="text-white dark:text-[#090A0D]"
                         />
-                        <circle cx="150" cy="110" r="16" fill="currentColor" className="text-[#E11D48] dark:text-[#FB7185]" />
+                        <circle cx="150" cy="110" r="16" fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]" />
                     </svg>
                 </motion.div>
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 6. BOTTOM-RIGHT: 8-Petal Rosette Daisy (Amberry Ruby & Mango)  */}
+            {/* 6. BOTTOM-RIGHT: 8-Petal Rosette Daisy (Volt Lime & Lavender)  */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y9, rotate: r9 }}
@@ -192,7 +192,7 @@ export default function ParallaxVectors() {
                     className="w-full h-full"
                 >
                     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-sm">
-                        <g fill="currentColor" className="text-[#E11D48] dark:text-[#FB7185]">
+                        <g fill="currentColor" className="text-[#B9F24B] dark:text-[#C5FF3B]">
                             {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
                                 <ellipse
                                     key={deg}
@@ -205,7 +205,7 @@ export default function ParallaxVectors() {
                             ))}
                         </g>
                         <circle cx="150" cy="150" r="54" fill="currentColor" className="text-[#121417] dark:text-[#090A0D]" />
-                        <circle cx="150" cy="150" r="22" fill="currentColor" className="text-[#FF5400] dark:text-[#FF702E]" />
+                        <circle cx="150" cy="150" r="22" fill="currentColor" className="text-[#C66EF5] dark:text-[#D489FF]" />
                     </svg>
                 </motion.div>
             </motion.div>
