@@ -6,6 +6,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [direction, setDirection] = useState(1); // 1: next (down), -1: prev (up)
     const [boundaryBounce, setBoundaryBounce] = useState(null); // 'top' | 'bottom' | null
+    const [isDeckCompressing, setIsDeckCompressing] = useState(false);
 
     const sectionRef = useRef(null);
     const activeIndexRef = useRef(activeIndex);
@@ -15,6 +16,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     const boundaryLockUntil = useRef(0);
     const accumulatedExitDelta = useRef(0);
     const bounceTimerRef = useRef(null);
+    const compressTimerRef = useRef(null);
 
     const hasMultiple = drinks.length > 1;
 
@@ -26,11 +28,26 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
         accumulatedExitDelta.current = 0;
     }, [drinks.length]);
 
-    // Helper to trigger boundary bounce
+    // Cleanup timers on unmount
+    useEffect(() => {
+        return () => {
+            if (bounceTimerRef.current) clearTimeout(bounceTimerRef.current);
+            if (compressTimerRef.current) clearTimeout(compressTimerRef.current);
+        };
+    }, []);
+
+    // Helper to trigger deck stack compression shockwave
+    const triggerDeckCompression = () => {
+        setIsDeckCompressing(true);
+        if (compressTimerRef.current) clearTimeout(compressTimerRef.current);
+        compressTimerRef.current = setTimeout(() => setIsDeckCompressing(false), 440);
+    };
+
+    // Helper to trigger rubber-band boundary bounce
     const triggerBoundaryEffect = (type) => {
         setBoundaryBounce(type);
         if (bounceTimerRef.current) clearTimeout(bounceTimerRef.current);
-        bounceTimerRef.current = setTimeout(() => setBoundaryBounce(null), 350);
+        bounceTimerRef.current = setTimeout(() => setBoundaryBounce(null), 420);
     };
 
     // Intercept scroll: when user scrolls over catalog, cards scroll first with robust boundary protection!
@@ -52,7 +69,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                     e.preventDefault();
                     accumulatedDelta += delta;
 
-                    if (Math.abs(accumulatedDelta) > 26 && now - lastStepTime > 340) {
+                    if (Math.abs(accumulatedDelta) > 24 && now - lastStepTime > 360) {
                         lastStepTime = now;
                         accumulatedDelta = 0;
                         accumulatedExitDelta.current = 0;
@@ -60,6 +77,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         const nextIdx = activeIndexRef.current + 1;
                         setDirection(1);
                         setActiveIndex(nextIdx);
+                        triggerDeckCompression();
 
                         // If entering the last card, arm a 700ms momentum isolation lock
                         if (nextIdx === drinks.length - 1) {
@@ -97,7 +115,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                     e.preventDefault();
                     accumulatedDelta += delta;
 
-                    if (Math.abs(accumulatedDelta) > 26 && now - lastStepTime > 340) {
+                    if (Math.abs(accumulatedDelta) > 24 && now - lastStepTime > 360) {
                         lastStepTime = now;
                         accumulatedDelta = 0;
                         accumulatedExitDelta.current = 0;
@@ -105,6 +123,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         const prevIdx = activeIndexRef.current - 1;
                         setDirection(-1);
                         setActiveIndex(prevIdx);
+                        triggerDeckCompression();
 
                         // If entering the first card, arm a 700ms momentum isolation lock
                         if (prevIdx === 0) {
@@ -115,7 +134,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                 }
 
                 // Currently on the FIRST CARD:
-                // If within the fast-scroll momentum cooldown, ABSORB EVERYTHING and trigger bounce!
                 if (now < boundaryLockUntil.current) {
                     e.preventDefault();
                     triggerBoundaryEffect('top');
@@ -161,11 +179,12 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
             if (diff > 35) {
                 if (activeIndexRef.current < drinks.length - 1) {
                     e.preventDefault();
-                    if (now - lastStepTime > 340) {
+                    if (now - lastStepTime > 360) {
                         lastStepTime = now;
                         const nextIdx = activeIndexRef.current + 1;
                         setDirection(1);
                         setActiveIndex(nextIdx);
+                        triggerDeckCompression();
                         startY = currentY;
                         accumulatedExitDelta.current = 0;
                         if (nextIdx === drinks.length - 1) {
@@ -180,11 +199,12 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                 // Swipe down (scroll up)
                 if (activeIndexRef.current > 0) {
                     e.preventDefault();
-                    if (now - lastStepTime > 340) {
+                    if (now - lastStepTime > 360) {
                         lastStepTime = now;
                         const prevIdx = activeIndexRef.current - 1;
                         setDirection(-1);
                         setActiveIndex(prevIdx);
+                        triggerDeckCompression();
                         startY = currentY;
                         accumulatedExitDelta.current = 0;
                         if (prevIdx === 0) {
@@ -222,38 +242,59 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     }
 
     const currentDrink = drinks[activeIndex];
+    const tiltSign = activeIndex % 2 === 0 ? 1 : -1;
 
-    // Clean animation variants: previous card descends smoothly ("pindah ke bawah"),
-    // and new card rises up into view ("naik ke atas")
+    // Choreographed 3D Spatial Variants:
+    // When advancing, outgoing card plunges into the deck with an organic arc trajectory,
+    // while incoming card ascends from the depths with authentic spring settle!
     const cardVariants = {
         enter: (dir) => ({
-            y: dir > 0 ? 80 : -80,
+            y: dir > 0 ? 120 : -120,
+            z: -120,
+            rotateX: dir > 0 ? -10 : 10,
+            rotateZ: dir > 0 ? 1.8 * tiltSign : -1.8 * tiltSign,
+            scale: 0.92,
             opacity: 0,
-            scale: 0.96,
-            rotateX: dir > 0 ? -6 : 6,
+            filter: 'blur(3px)',
+            zIndex: 20,
         }),
         center: {
             y: 0,
-            opacity: 1,
-            scale: 1,
+            z: 0,
             rotateX: 0,
+            rotateZ: 0,
+            scale: 1,
+            opacity: 1,
+            filter: 'blur(0px)',
+            zIndex: 20,
             transition: {
-                y: { type: 'spring', stiffness: 280, damping: 26, mass: 0.8 },
-                rotateX: { type: 'spring', stiffness: 280, damping: 26, mass: 0.8 },
-                scale: { duration: 0.28, ease: 'easeOut' },
-                opacity: { duration: 0.22 },
+                y: { type: 'spring', stiffness: 220, damping: 22, mass: 0.75 },
+                z: { type: 'spring', stiffness: 220, damping: 22, mass: 0.75 },
+                rotateX: { type: 'spring', stiffness: 220, damping: 22, mass: 0.75 },
+                rotateZ: { type: 'spring', stiffness: 240, damping: 24, mass: 0.75 },
+                scale: { type: 'spring', stiffness: 200, damping: 20, mass: 0.75 },
+                opacity: { duration: 0.28, ease: 'easeOut' },
+                filter: { duration: 0.28, ease: 'easeOut' },
             },
         },
         exit: (dir) => ({
-            y: dir > 0 ? 80 : -80,
+            y: dir > 0 ? 140 : -140,
+            z: -160,
+            rotateX: dir > 0 ? 12 : -12,
+            rotateZ: dir > 0 ? -2.2 * tiltSign : 2.2 * tiltSign,
+            scale: 0.89,
             opacity: 0,
-            scale: 0.96,
-            rotateX: dir > 0 ? 6 : -6,
+            filter: 'blur(4px)',
+            pointerEvents: 'none',
+            zIndex: 10,
             transition: {
-                y: { duration: 0.2, ease: 'easeIn' },
-                rotateX: { duration: 0.2, ease: 'easeIn' },
-                scale: { duration: 0.2 },
-                opacity: { duration: 0.16 },
+                y: { duration: 0.32, ease: [0.32, 0, 0.67, 0] },
+                z: { duration: 0.32, ease: [0.32, 0, 0.67, 0] },
+                rotateX: { duration: 0.32, ease: 'easeIn' },
+                rotateZ: { duration: 0.32, ease: 'easeIn' },
+                scale: { duration: 0.32 },
+                opacity: { duration: 0.26, ease: 'easeIn' },
+                filter: { duration: 0.3 },
             },
         }),
     };
@@ -261,27 +302,36 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     return (
         <section
             ref={sectionRef}
-            className="w-full py-6 select-none relative"
-            style={{ perspective: '1400px' }}
+            className="w-full py-8 select-none relative"
+            style={{ perspective: '1600px' }}
         >
             {/* Perspective Card Stage with Elastic Boundary Bounce */}
             <motion.div
                 animate={
                     boundaryBounce === 'bottom'
-                        ? { y: [0, 14, -6, 0] }
+                        ? { y: [0, 22, -9, 3, 0], rotateX: [0, 4, -1.5, 0] }
                         : boundaryBounce === 'top'
-                        ? { y: [0, -14, 6, 0] }
-                        : { y: 0 }
+                        ? { y: [0, -22, 9, -3, 0], rotateX: [0, -4, 1.5, 0] }
+                        : { y: 0, rotateX: 0 }
                 }
-                transition={{ duration: 0.32, ease: 'easeOut' }}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                style={{ transformStyle: 'preserve-3d' }}
                 className="relative w-full max-w-6xl mx-auto flex items-center justify-center"
             >
-                {/* Subtle Deck Stack Layers underneath for physical depth */}
-                <div className="absolute inset-x-6 sm:inset-x-10 -bottom-3 sm:-bottom-4 h-20 rounded-[32px] bg-[#121417]/[0.04] dark:bg-white/[0.04] border border-[#121417]/10 dark:border-white/10 -z-10 scale-[0.98] pointer-events-none transition-all" />
-                <div className="absolute inset-x-12 sm:inset-x-16 -bottom-6 sm:-bottom-7 h-20 rounded-[32px] bg-[#121417]/[0.02] dark:bg-white/[0.02] border border-[#121417]/5 dark:border-white/5 -z-20 scale-[0.96] pointer-events-none transition-all" />
+                {/* Dynamic Reactive Deck Stack (Physical Depth Layers) */}
+                <motion.div
+                    animate={isDeckCompressing ? { scaleY: 0.93, y: [0, 7, -2, 0] } : { scaleY: 1, y: 0 }}
+                    transition={{ duration: 0.38, ease: 'easeOut' }}
+                    className="absolute inset-x-6 sm:inset-x-12 -bottom-3 sm:-bottom-4 h-24 rounded-[32px] bg-gradient-to-b from-[#121417]/[0.06] to-[#121417]/[0.01] dark:from-white/[0.06] dark:to-transparent border border-[#121417]/10 dark:border-white/10 -z-10 scale-[0.98] pointer-events-none origin-top transition-transform"
+                />
+                <motion.div
+                    animate={isDeckCompressing ? { scaleY: 0.88, y: [0, 13, -3, 0] } : { scaleY: 1, y: 0 }}
+                    transition={{ duration: 0.44, ease: 'easeOut' }}
+                    className="absolute inset-x-12 sm:inset-x-20 -bottom-6 sm:-bottom-8 h-24 rounded-[32px] bg-gradient-to-b from-[#121417]/[0.03] to-[#121417]/[0.005] dark:from-white/[0.03] dark:to-transparent border border-[#121417]/5 dark:border-white/5 -z-20 scale-[0.95] pointer-events-none origin-top transition-transform"
+                />
 
                 {/* Animated Active Card Showcase */}
-                <AnimatePresence mode="wait" custom={direction} initial={false}>
+                <AnimatePresence mode="popLayout" custom={direction} initial={false}>
                     <motion.div
                         key={currentDrink.id}
                         custom={direction}
@@ -289,7 +339,8 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         initial="enter"
                         animate="center"
                         exit="exit"
-                        className="w-full"
+                        style={{ transformStyle: 'preserve-3d' }}
+                        className="w-full relative"
                     >
                         <DrinkCard
                             drink={currentDrink}

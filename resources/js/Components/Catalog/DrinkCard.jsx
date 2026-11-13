@@ -48,9 +48,9 @@ export default function DrinkCard({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={isHighlighted ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : {}}
-            className={`w-full bg-white dark:bg-[#15171C] rounded-[32px] p-6 sm:p-8 lg:p-9 transition-colors duration-200 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 lg:gap-10 ${
+            className={`w-full bg-white dark:bg-[#15171C] rounded-[32px] p-6 sm:p-8 lg:p-9 transition-colors duration-200 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 lg:gap-10 will-change-transform ${
                 isHighlighted
-                    ? 'border-2 border-[#121417] dark:border-white shadow-xl'
+                    ? 'border-2 border-[#121417] dark:border-white shadow-[0_20px_50px_-12px_rgba(18,20,23,0.12)] dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.6)]'
                     : 'border border-[#DCE0E5] dark:border-[#282C34] shadow-xs hover:border-[#CBD2D9] dark:hover:border-[#383E4A]'
             } ${className}`}
         >
