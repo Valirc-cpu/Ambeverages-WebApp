@@ -34,17 +34,17 @@ export default function Modal({ isOpen, onClose, title, children, maxWidth = 'ma
 
             {/* Modal Dialog */}
             <div
-                className={`relative w-full ${maxWidth} bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[32px] shadow-[0_25px_70px_rgba(0,0,0,0.25)] dark:shadow-[0_25px_70px_rgba(0,0,0,0.6)] p-7 z-10 max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-150 transition-colors`}
+                className={`relative w-full ${maxWidth} bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[24px] sm:rounded-[32px] shadow-[0_25px_70px_rgba(0,0,0,0.25)] dark:shadow-[0_25px_70px_rgba(0,0,0,0.6)] p-5 sm:p-7 z-10 max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-150 transition-colors`}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between pb-4 border-b border-[#F0F2F5] dark:border-[#24272D] mb-5">
-                    <h3 className="text-xl font-extrabold text-[#121417] dark:text-white tracking-tight">
+                <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-[#F0F2F5] dark:border-[#24272D] mb-4 sm:mb-5">
+                    <h3 className="text-lg sm:text-xl font-extrabold text-[#121417] dark:text-white tracking-tight">
                         {title}
                     </h3>
                     <button
                         type="button"
                         onClick={onClose}
-                        className="p-2 rounded-full text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white hover:bg-[#F2F4F7] dark:hover:bg-[#1E222A] transition-colors"
+                        className="p-1.5 sm:p-2 rounded-full text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white hover:bg-[#F2F4F7] dark:hover:bg-[#1E222A] transition-colors"
                         aria-label="Tutup"
                     >
                         <X className="w-5 h-5" />

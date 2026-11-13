@@ -17,11 +17,11 @@ export default function OrderRowCard({
     const waPhone = cleanPhone.startsWith('0') ? '62' + cleanPhone.substring(1) : cleanPhone;
 
     return (
-        <div className="p-6 bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] flex flex-col lg:flex-row lg:items-center justify-between gap-6 transition-colors">
+        <div className="p-4 sm:p-6 bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[22px] sm:rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6 transition-colors">
             {/* Order Info */}
             <div className="space-y-3 flex-1">
-                <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-mono text-sm font-extrabold text-[#FA4B00]">
+                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                    <span className="font-mono text-xs sm:text-sm font-extrabold text-[#FA4B00]">
                         {order.order_code}
                     </span>
                     <span className="text-xs text-[#9CA3AF] font-medium">
@@ -89,7 +89,7 @@ export default function OrderRowCard({
                     <span className="text-[10px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                         Total Pembayaran
                     </span>
-                    <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
+                    <span className="text-lg sm:text-2xl font-extrabold text-[#121417] dark:text-white">
                         {order.formatted_total_price}
                     </span>
                 </div>

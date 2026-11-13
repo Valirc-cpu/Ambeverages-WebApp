@@ -120,8 +120,8 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                 {/* Header title & Action */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
-                            <Coffee className="w-7 h-7 text-[#FA4B00]" />
+                        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
+                            <Coffee className="w-6 h-6 sm:w-7 sm:h-7 text-[#FA4B00]" />
                             <span>Katalog & Stok Minuman</span>
                         </h1>
                         <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
@@ -133,7 +133,7 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                         variant="orange"
                         size="md"
                         onClick={() => setIsAddModalOpen(true)}
-                        className="font-bold shadow-sm shrink-0"
+                        className="font-bold shadow-sm shrink-0 text-xs sm:text-sm"
                     >
                         <Plus className="w-4 h-4" />
                         <span>Tambah Minuman Baru</span>
@@ -143,42 +143,42 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                 {/* Stat cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
-                        <div className="p-3.5 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00]">
-                            <Layers className="w-6 h-6" />
+                        <div className="p-3 sm:p-3.5 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00]">
+                            <Layers className="w-5 h-5 sm:w-6 sm:h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
+                            <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Varian Menu
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
+                            <span className="text-xl sm:text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.total_drinks || 0} Minuman
                             </span>
                         </div>
                     </Card>
 
                     <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
-                        <div className="p-3.5 rounded-2xl bg-[#E8F8EE] dark:bg-[#142B1C] text-[#1EBE5D]">
-                            <Boxes className="w-6 h-6" />
+                        <div className="p-3 sm:p-3.5 rounded-2xl bg-[#E8F8EE] dark:bg-[#142B1C] text-[#1EBE5D]">
+                            <Boxes className="w-5 h-5 sm:w-6 sm:h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
+                            <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Unit Stok
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
+                            <span className="text-xl sm:text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.total_stock || 0} Porsi
                             </span>
                         </div>
                     </Card>
 
                     <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
-                        <div className="p-3.5 rounded-2xl bg-[#FEE2E2] dark:bg-[#2E1417] text-[#D73A49]">
-                            <AlertTriangle className="w-6 h-6" />
+                        <div className="p-3 sm:p-3.5 rounded-2xl bg-[#FEE2E2] dark:bg-[#2E1417] text-[#D73A49]">
+                            <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
+                            <span className="text-[10px] sm:text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Stok Kritis (≤ 5 Porsi)
                             </span>
-                            <span className="text-2xl font-extrabold text-[#D73A49]">
+                            <span className="text-xl sm:text-2xl font-extrabold text-[#D73A49]">
                                 {stats.low_stock || 0} Minuman
                             </span>
                         </div>

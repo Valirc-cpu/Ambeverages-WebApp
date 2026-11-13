@@ -14,7 +14,7 @@ export default function DrinkAdminCard({
     const isLowStock = drink.stock > 0 && drink.stock <= 5;
 
     return (
-        <div className="p-5 bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between">
+        <div className="p-4 sm:p-5 bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[22px] sm:rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between">
             <div>
                 {/* Image & Badges */}
                 <div className="relative aspect-video w-full bg-[#F2F4F7] dark:bg-[#1A1D23] rounded-[20px] overflow-hidden mb-3.5 border border-transparent dark:border-[#282C34]">
@@ -48,11 +48,11 @@ export default function DrinkAdminCard({
                     </div>
                 </div>
 
-                <h3 className="font-extrabold text-[#121417] dark:text-white text-sm line-clamp-1">{drink.name}</h3>
-                <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 line-clamp-2 min-h-[32px] leading-relaxed">
+                <h3 className="font-extrabold text-[#121417] dark:text-white text-xs sm:text-sm line-clamp-1">{drink.name}</h3>
+                <p className="text-[11px] sm:text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 line-clamp-2 min-h-[30px] sm:min-h-[32px] leading-relaxed">
                     {drink.description || 'Tidak ada deskripsi.'}
                 </p>
-                <div className="text-base font-extrabold text-[#FA4B00] mt-2">
+                <div className="text-sm sm:text-base font-extrabold text-[#FA4B00] mt-1.5 sm:mt-2">
                     {drink.formatted_price}
                 </div>
             </div>

@@ -88,8 +88,8 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                 {/* Header title */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
-                            <ShoppingCart className="w-7 h-7 text-[#FA4B00]" />
+                        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
+                            <ShoppingCart className="w-6 h-6 sm:w-7 sm:h-7 text-[#FA4B00]" />
                             <span>Pesanan Masuk</span>
                         </h1>
                         <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
@@ -108,7 +108,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Menunggu Konfirmasi
                             </span>
-                            <span className="text-2xl font-extrabold text-[#FA4B00]">
+                            <span className="text-xl sm:text-2xl font-extrabold text-[#FA4B00]">
                                 {stats.pending_orders || 0}
                             </span>
                         </div>
@@ -122,7 +122,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Pesanan Dikonfirmasi
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
+                            <span className="text-xl sm:text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.confirmed_orders || 0}
                             </span>
                         </div>
@@ -136,7 +136,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Pesanan
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
+                            <span className="text-xl sm:text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.total_orders || 0}
                             </span>
                         </div>
@@ -150,7 +150,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Omset Penjualan
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
+                            <span className="text-lg sm:text-2xl font-extrabold text-[#121417] dark:text-white truncate block">
                                 {stats.formatted_total_revenue || 'Rp 0'}
                             </span>
                         </div>
@@ -171,7 +171,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                 key={tab.id}
                                 type="button"
                                 onClick={() => handleStatusTab(tab.id)}
-                                className={`px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                                className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all ${
                                     currentStatus === tab.id
                                         ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-md'
                                         : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
@@ -183,23 +183,23 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                     </div>
 
                     {/* Search Form */}
-                    <form onSubmit={handleSearch} className="relative min-w-[280px]">
+                    <form onSubmit={handleSearch} className="relative min-w-[240px] sm:min-w-[280px]">
                         <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
                         <input
                             type="text"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Cari kode order, nama pemesan..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#181A20] border border-[#DCE0E5] dark:border-[#282C34] focus:border-[#FA4B00] rounded-full text-[#121417] dark:text-white placeholder-[#9CA3AF] text-xs outline-none shadow-sm transition-colors"
+                            className="w-full pl-10 pr-4 py-2 sm:py-2.5 bg-white dark:bg-[#181A20] border border-[#DCE0E5] dark:border-[#282C34] focus:border-[#FA4B00] rounded-full text-[#121417] dark:text-white placeholder-[#9CA3AF] text-xs outline-none shadow-sm transition-colors"
                         />
                     </form>
                 </div>
 
                 {/* Orders List */}
                 {orders.data.length === 0 ? (
-                    <Card className="text-center py-20 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
-                        <ShoppingCart className="w-14 h-14 text-[#CBD2D9] dark:text-[#3B424E] mx-auto mb-3" />
-                        <h3 className="text-base font-bold text-[#121417] dark:text-white">Tidak ada data pesanan</h3>
+                    <Card className="text-center py-16 sm:py-20 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <ShoppingCart className="w-12 h-12 sm:w-14 sm:h-14 text-[#CBD2D9] dark:text-[#3B424E] mx-auto mb-3" />
+                        <h3 className="text-sm sm:text-base font-bold text-[#121417] dark:text-white">Tidak ada data pesanan</h3>
                         <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1">
                             Belum ada pesanan yang sesuai dengan filter saat ini.
                         </p>
@@ -219,9 +219,9 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
 
                 {/* Full-featured Responsive Pagination Bar */}
                 {orders.total > 0 && (
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs text-xs">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-3.5 sm:gap-4 p-3.5 sm:p-4 rounded-2xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs text-xs">
                         {/* Left: Summary */}
-                        <div className="text-[#6B7280] dark:text-[#9CA3AF] text-center md:text-left">
+                        <div className="text-[11px] sm:text-xs text-[#6B7280] dark:text-[#9CA3AF] text-center md:text-left">
                             Menampilkan <span className="font-extrabold text-[#121417] dark:text-white">{orders.from || 0}</span> – <span className="font-extrabold text-[#121417] dark:text-white">{orders.to || 0}</span> dari <span className="font-extrabold text-[#121417] dark:text-white">{orders.total || 0}</span> pesanan
                         </div>
 
