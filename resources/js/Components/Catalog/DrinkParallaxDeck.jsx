@@ -205,7 +205,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
 
     if (!hasMultiple) {
         return (
-            <div className="w-full max-w-4xl mx-auto">
+            <div className="w-full max-w-6xl mx-auto">
                 <DrinkCard
                     drink={drinks[0]}
                     onAddToCart={onAddToCart}
@@ -235,7 +235,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         : { y: 0 }
                 }
                 transition={{ duration: 0.32, ease: 'easeOut' }}
-                className="relative min-h-[460px] sm:min-h-[480px] flex flex-col items-center justify-center gap-3"
+                className="relative min-h-[480px] sm:min-h-[520px] flex flex-col items-center justify-center gap-3"
             >
                 {/* 1. Previous Card (3D Receded Above) */}
                 {prevDrink && (
@@ -249,7 +249,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                             setActiveIndex((prev) => Math.max(0, prev - 1));
                             accumulatedExitDelta.current = 0;
                         }}
-                        className="w-full max-w-4xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
+                        className="w-full max-w-6xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
                         title="Klik untuk kembali ke menu sebelumnya"
                     >
                         <DrinkCard
@@ -265,10 +265,10 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                     key={`active-${currentDrink.id}`}
                     layoutId={`deck-card-${currentDrink.id}`}
                     initial={{ opacity: 0, scale: 0.93, y: 30, rotateX: -10 }}
-                    animate={{ opacity: 1, scale: 1.03, y: 0, rotateX: 0 }}
+                    animate={{ opacity: 1, scale: 1.02, y: 0, rotateX: 0 }}
                     exit={{ opacity: 0, scale: 0.93, y: -30, rotateX: 10 }}
                     transition={{ type: 'spring', stiffness: 320, damping: 24, mass: 0.8 }}
-                    className="w-full max-w-4xl mx-auto z-20"
+                    className="w-full max-w-6xl mx-auto z-20"
                 >
                     <DrinkCard
                         drink={currentDrink}
@@ -289,7 +289,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                             setActiveIndex((prev) => Math.min(drinks.length - 1, prev + 1));
                             accumulatedExitDelta.current = 0;
                         }}
-                        className="w-full max-w-4xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
+                        className="w-full max-w-6xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
                         title="Klik untuk lanjut ke menu berikutnya"
                     >
                         <DrinkCard

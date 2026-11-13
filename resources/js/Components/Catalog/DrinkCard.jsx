@@ -48,14 +48,14 @@ export default function DrinkCard({
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={isHighlighted ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : {}}
-            className={`w-full bg-white dark:bg-[#15171C] rounded-[28px] p-5 sm:p-7 transition-colors duration-200 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 ${
+            className={`w-full bg-white dark:bg-[#15171C] rounded-[32px] p-6 sm:p-8 lg:p-9 transition-colors duration-200 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 lg:gap-10 ${
                 isHighlighted
-                    ? 'border-2 border-[#121417] dark:border-white shadow-md'
+                    ? 'border-2 border-[#121417] dark:border-white shadow-xl'
                     : 'border border-[#DCE0E5] dark:border-[#282C34] shadow-xs hover:border-[#CBD2D9] dark:hover:border-[#383E4A]'
             } ${className}`}
         >
             {/* Left Image Section with Internal Parallax Shift */}
-            <div className="w-full md:w-80 lg:w-96 h-56 sm:h-64 rounded-[22px] overflow-hidden relative shrink-0 bg-[#F4F5F7] dark:bg-[#1D2026] border border-[#E5E8EC] dark:border-[#2B303A]">
+            <div className="w-full md:w-88 lg:w-[420px] h-60 sm:h-72 md:h-80 rounded-[24px] overflow-hidden relative shrink-0 bg-[#F4F5F7] dark:bg-[#1D2026] border border-[#E5E8EC] dark:border-[#2B303A]">
                 {drink.image_url ? (
                     <motion.img
                         style={isHighlighted ? { x: imgX, y: imgY, scale: 1.05 } : {}}
@@ -119,7 +119,7 @@ export default function DrinkCard({
                     </div>
 
                     {/* Drink Name */}
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#121417] dark:text-white transition-colors leading-tight">
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#121417] dark:text-white transition-colors leading-tight">
                         {drink.name}
                     </h3>
 
@@ -151,7 +151,7 @@ export default function DrinkCard({
                         <span className="text-[10px] sm:text-xs uppercase font-bold tracking-wider text-[#9CA3AF] block mb-0.5">
                             Harga Satuan
                         </span>
-                        <div className="text-2xl sm:text-3xl font-black text-[#121417] dark:text-white">
+                        <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#121417] dark:text-white">
                             {drink.formatted_price}
                         </div>
                     </div>
@@ -165,7 +165,7 @@ export default function DrinkCard({
                                 e.stopPropagation();
                                 onAddToCart(drink);
                             }}
-                            className="px-6 sm:px-8 py-3.5 font-bold flex items-center gap-2"
+                            className="px-7 sm:px-9 py-4 font-bold flex items-center gap-2 text-sm sm:text-base"
                         >
                             <Plus className="w-5 h-5" />
                             <span>{isOutOfStock ? 'Stok Habis' : 'Pesan Sekarang'}</span>
