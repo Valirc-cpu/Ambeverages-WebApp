@@ -10,12 +10,15 @@ import {
     Clock,
     CheckCircle2,
     TrendingUp,
-    Search
+    Search,
+    ChevronLeft,
+    ChevronRight
 } from 'lucide-react';
 
 export default function Orders({ orders = { data: [] }, filters = {}, stats = {} }) {
     const [search, setSearch] = useState(filters.search || '');
     const [currentStatus, setCurrentStatus] = useState(filters.status || 'all');
+    const [perPage, setPerPage] = useState(filters.per_page || 5);
     const [confirmModalOrder, setConfirmModalOrder] = useState(null);
     const [cancelModalOrder, setCancelModalOrder] = useState(null);
     const [processingAction, setProcessingAction] = useState(false);
@@ -24,7 +27,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
         e.preventDefault();
         router.get(
             '/admin/orders',
-            { search, status: currentStatus },
+            { search, status: currentStatus, per_page: perPage },
             { preserveState: true, replace: true }
         );
     };
@@ -33,7 +36,16 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
         setCurrentStatus(status);
         router.get(
             '/admin/orders',
-            { search, status },
+            { search, status, per_page: perPage },
+            { preserveState: true, replace: true }
+        );
+    };
+
+    const handlePerPageChange = (newPerPage) => {
+        setPerPage(newPerPage);
+        router.get(
+            '/admin/orders',
+            { search, status: currentStatus, per_page: newPerPage },
             { preserveState: true, replace: true }
         );
     };
@@ -205,24 +217,71 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                     </div>
                 )}
 
-                {/* Pagination */}
-                {orders.links && orders.links.length > 3 && (
-                    <div className="flex items-center justify-center gap-2 pt-6">
-                        {orders.links.map((link, idx) => (
-                            <Link
-                                key={idx}
-                                href={link.url || '#'}
-                                preserveScroll
-                                dangerouslySetInnerHTML={{ __html: link.label }}
-                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                                    link.active
-                                        ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-sm'
-                                        : link.url
-                                        ? 'bg-white dark:bg-[#15171C] text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white border border-[#DCE0E5] dark:border-[#282C34]'
-                                        : 'opacity-40 cursor-not-allowed text-[#CBD2D9] dark:text-[#3B424E]'
-                                }`}
-                            />
-                        ))}
+                {/* Full-featured Responsive Pagination Bar */}
+                {orders.total > 0 && (
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs text-xs">
+                        {/* Left: Summary */}
+                        <div className="text-[#6B7280] dark:text-[#9CA3AF] text-center md:text-left">
+                            Menampilkan <span className="font-extrabold text-[#121417] dark:text-white">{orders.from || 0}</span> – <span className="font-extrabold text-[#121417] dark:text-white">{orders.to || 0}</span> dari <span className="font-extrabold text-[#121417] dark:text-white">{orders.total || 0}</span> pesanan
+                        </div>
+
+                        {/* Center: Per page selector */}
+                        <div className="flex items-center gap-2 text-[#6B7280] dark:text-[#9CA3AF]">
+                            <span className="font-medium text-[11px] uppercase tracking-wider">Per Halaman:</span>
+                            <div className="flex items-center gap-1 bg-[#F2F4F7] dark:bg-[#191C22] p-1 rounded-full border border-[#DCE0E5] dark:border-[#282C34]">
+                                {[5, 10, 15, 25].map((val) => (
+                                    <button
+                                        key={val}
+                                        type="button"
+                                        onClick={() => handlePerPageChange(val)}
+                                        className={`px-2.5 py-0.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                                            perPage === val
+                                                ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-xs'
+                                                : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
+                                        }`}
+                                    >
+                                        {val}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Right: Page navigation links */}
+                        <div className="flex items-center gap-1.5 flex-wrap justify-center">
+                            {orders.links && orders.links.map((link, idx) => {
+                                const isPrev = idx === 0;
+                                const isNext = idx === orders.links.length - 1;
+
+                                return (
+                                    <Link
+                                        key={idx}
+                                        href={link.url || '#'}
+                                        preserveScroll
+                                        className={`min-w-8 h-8 px-2.5 flex items-center justify-center rounded-xl text-xs font-bold transition-all ${
+                                            link.active
+                                                ? 'bg-[#FA4B00] text-white shadow-xs'
+                                                : link.url
+                                                ? 'bg-[#F7F8FA] dark:bg-[#191C22] text-[#4B5563] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white hover:bg-gray-100 dark:hover:bg-[#252932] border border-[#DCE0E5] dark:border-[#282C34]'
+                                                : 'opacity-30 cursor-not-allowed bg-transparent text-[#9CA3AF]'
+                                        }`}
+                                    >
+                                        {isPrev ? (
+                                            <span className="flex items-center gap-1">
+                                                <ChevronLeft className="w-3.5 h-3.5" />
+                                                <span className="hidden sm:inline">Prev</span>
+                                            </span>
+                                        ) : isNext ? (
+                                            <span className="flex items-center gap-1">
+                                                <span className="hidden sm:inline">Next</span>
+                                                <ChevronRight className="w-3.5 h-3.5" />
+                                            </span>
+                                        ) : (
+                                            <span dangerouslySetInnerHTML={{ __html: link.label }} />
+                                        )}
+                                    </Link>
+                                );
+                            })}
+                        </div>
                     </div>
                 )}
             </div>

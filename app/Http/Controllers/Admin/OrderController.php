@@ -17,6 +17,10 @@ class OrderController extends Controller
     {
         $status = $request->input('status', 'all');
         $search = $request->input('search');
+        $perPage = (int) $request->input('per_page', 5);
+        if (! in_array($perPage, [5, 10, 15, 25, 50], true)) {
+            $perPage = 5;
+        }
 
         $query = Order::with('items')->latest();
 
@@ -32,7 +36,7 @@ class OrderController extends Controller
             });
         }
 
-        $orders = $query->paginate(15)->withQueryString();
+        $orders = $query->paginate($perPage)->withQueryString();
 
         $stats = [
             'total_orders' => Order::count(),
@@ -47,6 +51,7 @@ class OrderController extends Controller
             'filters' => [
                 'status' => $status,
                 'search' => $search ?? '',
+                'per_page' => $perPage,
             ],
             'stats' => $stats,
         ]);

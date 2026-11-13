@@ -241,4 +241,32 @@ class DrinkFlowTest extends TestCase
         $this->actingAs($admin)->delete(route('admin.drinks.destroy', $drink));
         $this->assertDatabaseMissing('drinks', ['id' => $drink->id]);
     }
+
+    public function test_admin_can_paginate_orders_and_customize_per_page(): void
+    {
+        $admin = User::factory()->create();
+
+        // Create 8 dummy orders
+        for ($i = 1; $i <= 8; $i++) {
+            Order::create([
+                'order_code' => "ORD-PAG-$i",
+                'customer_name' => "Customer $i",
+                'customer_phone' => '08123456789',
+                'total_price' => 30000,
+                'status' => Order::STATUS_PENDING,
+            ]);
+        }
+
+        $response = $this->actingAs($admin)
+            ->get(route('admin.orders.index', ['per_page' => 5]));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->component('Admin/Orders')
+            ->has('orders.data', 5)
+            ->where('orders.total', 8)
+            ->where('orders.last_page', 2)
+            ->where('filters.per_page', 5)
+        );
+    }
 }
