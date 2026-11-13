@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import DrinkCard from './DrinkCard';
 
 export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [direction, setDirection] = useState(1); // 1: next (down), -1: prev (up)
     const [boundaryBounce, setBoundaryBounce] = useState(null); // 'top' | 'bottom' | null
 
     const sectionRef = useRef(null);
@@ -20,6 +21,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     // Reset when category/search filter changes
     useEffect(() => {
         setActiveIndex(0);
+        setDirection(1);
         boundaryLockUntil.current = Date.now() + 600;
         accumulatedExitDelta.current = 0;
     }, [drinks.length]);
@@ -50,12 +52,13 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                     e.preventDefault();
                     accumulatedDelta += delta;
 
-                    if (Math.abs(accumulatedDelta) > 28 && now - lastStepTime > 320) {
+                    if (Math.abs(accumulatedDelta) > 26 && now - lastStepTime > 340) {
                         lastStepTime = now;
                         accumulatedDelta = 0;
                         accumulatedExitDelta.current = 0;
 
                         const nextIdx = activeIndexRef.current + 1;
+                        setDirection(1);
                         setActiveIndex(nextIdx);
 
                         // If entering the last card, arm a 700ms momentum isolation lock
@@ -94,12 +97,13 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                     e.preventDefault();
                     accumulatedDelta += delta;
 
-                    if (Math.abs(accumulatedDelta) > 28 && now - lastStepTime > 320) {
+                    if (Math.abs(accumulatedDelta) > 26 && now - lastStepTime > 340) {
                         lastStepTime = now;
                         accumulatedDelta = 0;
                         accumulatedExitDelta.current = 0;
 
                         const prevIdx = activeIndexRef.current - 1;
+                        setDirection(-1);
                         setActiveIndex(prevIdx);
 
                         // If entering the first card, arm a 700ms momentum isolation lock
@@ -157,9 +161,10 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
             if (diff > 35) {
                 if (activeIndexRef.current < drinks.length - 1) {
                     e.preventDefault();
-                    if (now - lastStepTime > 320) {
+                    if (now - lastStepTime > 340) {
                         lastStepTime = now;
                         const nextIdx = activeIndexRef.current + 1;
+                        setDirection(1);
                         setActiveIndex(nextIdx);
                         startY = currentY;
                         accumulatedExitDelta.current = 0;
@@ -175,9 +180,10 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                 // Swipe down (scroll up)
                 if (activeIndexRef.current > 0) {
                     e.preventDefault();
-                    if (now - lastStepTime > 320) {
+                    if (now - lastStepTime > 340) {
                         lastStepTime = now;
                         const prevIdx = activeIndexRef.current - 1;
+                        setDirection(-1);
                         setActiveIndex(prevIdx);
                         startY = currentY;
                         accumulatedExitDelta.current = 0;
@@ -215,17 +221,50 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
         );
     }
 
-    const prevDrink = activeIndex > 0 ? drinks[activeIndex - 1] : null;
     const currentDrink = drinks[activeIndex];
-    const nextDrink = activeIndex < drinks.length - 1 ? drinks[activeIndex + 1] : null;
+
+    // Clean animation variants: previous card descends smoothly ("pindah ke bawah"),
+    // and new card rises up into view ("naik ke atas")
+    const cardVariants = {
+        enter: (dir) => ({
+            y: dir > 0 ? 80 : -80,
+            opacity: 0,
+            scale: 0.96,
+            rotateX: dir > 0 ? -6 : 6,
+        }),
+        center: {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            transition: {
+                y: { type: 'spring', stiffness: 280, damping: 26, mass: 0.8 },
+                rotateX: { type: 'spring', stiffness: 280, damping: 26, mass: 0.8 },
+                scale: { duration: 0.28, ease: 'easeOut' },
+                opacity: { duration: 0.22 },
+            },
+        },
+        exit: (dir) => ({
+            y: dir > 0 ? 80 : -80,
+            opacity: 0,
+            scale: 0.96,
+            rotateX: dir > 0 ? 6 : -6,
+            transition: {
+                y: { duration: 0.2, ease: 'easeIn' },
+                rotateX: { duration: 0.2, ease: 'easeIn' },
+                scale: { duration: 0.2 },
+                opacity: { duration: 0.16 },
+            },
+        }),
+    };
 
     return (
         <section
             ref={sectionRef}
-            className="w-full py-4 select-none relative"
+            className="w-full py-6 select-none relative"
             style={{ perspective: '1400px' }}
         >
-            {/* True 3D Parallax Perspective Card Deck Stack with Elastic Boundary Bounce */}
+            {/* Perspective Card Stage with Elastic Boundary Bounce */}
             <motion.div
                 animate={
                     boundaryBounce === 'bottom'
@@ -235,70 +274,30 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         : { y: 0 }
                 }
                 transition={{ duration: 0.32, ease: 'easeOut' }}
-                className="relative min-h-[480px] sm:min-h-[520px] flex flex-col items-center justify-center gap-3"
+                className="relative w-full max-w-6xl mx-auto flex items-center justify-center"
             >
-                {/* 1. Previous Card (3D Receded Above) */}
-                {prevDrink && (
+                {/* Subtle Deck Stack Layers underneath for physical depth */}
+                <div className="absolute inset-x-6 sm:inset-x-10 -bottom-3 sm:-bottom-4 h-20 rounded-[32px] bg-[#121417]/[0.04] dark:bg-white/[0.04] border border-[#121417]/10 dark:border-white/10 -z-10 scale-[0.98] pointer-events-none transition-all" />
+                <div className="absolute inset-x-12 sm:inset-x-16 -bottom-6 sm:-bottom-7 h-20 rounded-[32px] bg-[#121417]/[0.02] dark:bg-white/[0.02] border border-[#121417]/5 dark:border-white/5 -z-20 scale-[0.96] pointer-events-none transition-all" />
+
+                {/* Animated Active Card Showcase */}
+                <AnimatePresence mode="wait" custom={direction} initial={false}>
                     <motion.div
-                        key={`prev-${prevDrink.id}`}
-                        initial={{ opacity: 0, y: -45, scale: 0.88, rotateX: 14 }}
-                        animate={{ opacity: 0.35, y: -20, scale: 0.91, rotateX: 9 }}
-                        exit={{ opacity: 0, y: -60, scale: 0.84, rotateX: 18 }}
-                        transition={{ type: 'spring', stiffness: 280, damping: 24, mass: 0.85 }}
-                        onClick={() => {
-                            setActiveIndex((prev) => Math.max(0, prev - 1));
-                            accumulatedExitDelta.current = 0;
-                        }}
-                        className="w-full max-w-6xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
-                        title="Klik untuk kembali ke menu sebelumnya"
+                        key={currentDrink.id}
+                        custom={direction}
+                        variants={cardVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        className="w-full"
                     >
                         <DrinkCard
-                            drink={prevDrink}
+                            drink={currentDrink}
                             onAddToCart={onAddToCart}
-                            isHighlighted={false}
+                            isHighlighted={true}
                         />
                     </motion.div>
-                )}
-
-                {/* 2. Active Card (Prominent Center) */}
-                <motion.div
-                    key={`active-${currentDrink.id}`}
-                    layoutId={`deck-card-${currentDrink.id}`}
-                    initial={{ opacity: 0, scale: 0.93, y: 30, rotateX: -10 }}
-                    animate={{ opacity: 1, scale: 1.02, y: 0, rotateX: 0 }}
-                    exit={{ opacity: 0, scale: 0.93, y: -30, rotateX: 10 }}
-                    transition={{ type: 'spring', stiffness: 320, damping: 24, mass: 0.8 }}
-                    className="w-full max-w-6xl mx-auto z-20"
-                >
-                    <DrinkCard
-                        drink={currentDrink}
-                        onAddToCart={onAddToCart}
-                        isHighlighted={true}
-                    />
-                </motion.div>
-
-                {/* 3. Next Card (3D Receded Below) */}
-                {nextDrink && (
-                    <motion.div
-                        key={`next-${nextDrink.id}`}
-                        initial={{ opacity: 0, y: 45, scale: 0.88, rotateX: -14 }}
-                        animate={{ opacity: 0.35, y: 20, scale: 0.91, rotateX: -9 }}
-                        exit={{ opacity: 0, y: 60, scale: 0.84, rotateX: -18 }}
-                        transition={{ type: 'spring', stiffness: 280, damping: 24, mass: 0.85 }}
-                        onClick={() => {
-                            setActiveIndex((prev) => Math.min(drinks.length - 1, prev + 1));
-                            accumulatedExitDelta.current = 0;
-                        }}
-                        className="w-full max-w-6xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
-                        title="Klik untuk lanjut ke menu berikutnya"
-                    >
-                        <DrinkCard
-                            drink={nextDrink}
-                            onAddToCart={onAddToCart}
-                            isHighlighted={false}
-                        />
-                    </motion.div>
-                )}
+                </AnimatePresence>
             </motion.div>
         </section>
     );
