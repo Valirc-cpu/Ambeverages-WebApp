@@ -171,11 +171,8 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 flex-1 w-full relative z-10">
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h2 className="text-2xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
-                            <span>Katalog Varian Ambeverages</span>
-                            <span className="text-xs px-3 py-1 rounded-full bg-[#ECEFF2] dark:bg-[#1E222A] text-[#4B5563] dark:text-[#9CA3AF] font-bold border border-transparent dark:border-[#2C313B]">
-                                {filteredDrinks.length} Varian
-                            </span>
+                        <h2 className="text-2xl font-extrabold text-[#121417] dark:text-white tracking-tight">
+                            Katalog Varian Ambeverages
                         </h2>
                         <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
                             Ketersediaan stok realtime dari gudang Ambeverages
