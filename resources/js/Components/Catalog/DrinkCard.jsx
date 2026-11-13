@@ -72,32 +72,6 @@ export default function DrinkCard({
                         <span className="text-xs font-bold uppercase tracking-wider">Ambeverages Craft</span>
                     </div>
                 )}
-
-                {/* Category Badge on Image */}
-                <div className="absolute top-3.5 left-3.5">
-                    <span className="px-3 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-[#121417]/85 dark:bg-[#1E222A]/85 backdrop-blur-md text-white border border-white/10">
-                        {drink.category}
-                    </span>
-                </div>
-
-                {/* Stock Indicator on Image */}
-                <div className="absolute top-3.5 right-3.5">
-                    {isOutOfStock ? (
-                        <Badge variant="danger" size="sm">
-                            Stok Habis
-                        </Badge>
-                    ) : isLowStock ? (
-                        <Badge variant="warning" size="sm">
-                            Sisa {drink.stock} Porsi
-                        </Badge>
-                    ) : (
-                        <Badge variant="success" size="sm">
-                            {drink.stock} Tersedia
-                        </Badge>
-                    )}
-                </div>
-
-
             </div>
 
             {/* Right Content Section */}
@@ -126,10 +100,18 @@ export default function DrinkCard({
                         <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F2F4F7] dark:bg-[#1E222A] text-[#4B5563] dark:text-[#9CA3AF] border border-[#E5E8EC] dark:border-[#2C313B]">
                             {drink.category}
                         </span>
-                        {drink.stock > 0 && (
-                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#E8F8EE] dark:bg-[#142B1C] text-[#145D25] dark:text-[#7AE595] border border-[#86EFAC]/30 dark:border-[#166534]">
-                                Stok: {drink.stock} unit
-                            </span>
+                        {isOutOfStock ? (
+                            <Badge variant="danger" size="sm">
+                                Stok Habis
+                            </Badge>
+                        ) : isLowStock ? (
+                            <Badge variant="warning" size="sm">
+                                Sisa {drink.stock} Porsi
+                            </Badge>
+                        ) : (
+                            <Badge variant="success" size="sm">
+                                {drink.stock} Tersedia
+                            </Badge>
                         )}
                     </div>
                 </div>
