@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
+                'orderCreated' => fn () => $request->session()->get('orderCreated'),
             ],
             'whatsappNumber' => config('services.whatsapp.number', '6281234567890'),
         ];

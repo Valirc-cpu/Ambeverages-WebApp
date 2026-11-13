@@ -40,6 +40,11 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             setCart([]);
             setIsCartOpen(false);
             checkoutForm.reset();
+
+            // Direct automatic redirect to WhatsApp API
+            if (flash.orderCreated.whatsapp_url) {
+                window.location.href = flash.orderCreated.whatsapp_url;
+            }
         }
         if (flash?.error) {
             alert(flash.error);
@@ -145,11 +150,7 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             onSuccess: (page) => {
                 const order = page.props.flash?.orderCreated;
                 if (order?.whatsapp_url) {
-                    try {
-                        window.open(order.whatsapp_url, '_blank');
-                    } catch {
-                        // Handled by OrderSuccessModal
-                    }
+                    window.location.href = order.whatsapp_url;
                 }
             },
         });
