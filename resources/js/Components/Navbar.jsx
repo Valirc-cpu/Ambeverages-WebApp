@@ -37,7 +37,7 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
                         <div className="relative">
                             <ShoppingBag className="w-4 h-4 text-[#FA4B00] group-hover:scale-110 transition-transform" />
                             {cartItemCount > 0 && (
-                                <span className="absolute -top-2.5 -right-3 bg-[#B9F24B] text-[#121417] text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-md">
+                                <span className="absolute -top-2.5 -right-3 bg-[#FA4B00] text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-xs">
                                     {cartItemCount}
                                 </span>
                             )}

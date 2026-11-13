@@ -12,7 +12,7 @@ export default function OrderSuccessModal({ order, onClose }) {
                 particleCount: 65,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: ['#FA4B00', '#B9F24B', '#121417', '#E2761B'],
+                colors: ['#FA4B00', '#EAB308', '#BE123C', '#121417'],
             });
         }
     }, [order]);
@@ -27,7 +27,7 @@ export default function OrderSuccessModal({ order, onClose }) {
             maxWidth="max-w-md"
         >
             <div className="text-center py-2 space-y-4">
-                <div className="w-14 h-14 rounded-full bg-[#121417] dark:bg-[#1E222A] text-[#B9F24B] flex items-center justify-center mx-auto shadow-md border border-transparent dark:border-[#353B47]">
+                <div className="w-14 h-14 rounded-full bg-[#121417] dark:bg-[#1E222A] text-[#16A34A] dark:text-[#22C55E] flex items-center justify-center mx-auto shadow-md border border-transparent dark:border-[#353B47]">
                     <CheckCircle className="w-7 h-7" />
                 </div>
 
@@ -69,7 +69,7 @@ export default function OrderSuccessModal({ order, onClose }) {
                         href={order.whatsapp_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-extrabold text-sm shadow-[0_4px_16px_rgba(37,211,102,0.3)] transition-all hover:scale-[1.01] active:scale-[0.99]"
+                        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-extrabold text-sm shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]"
                     >
                         <ExternalLink className="w-4 h-4" />
                         <span>Kirim Rincian ke WhatsApp Admin</span>

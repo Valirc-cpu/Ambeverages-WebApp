@@ -194,7 +194,7 @@ export default function CartModal({
                                 variant="whatsapp"
                                 size="lg"
                                 disabled={processing}
-                                className="w-full font-bold shadow-[0_4px_16px_rgba(37,211,102,0.3)]"
+                                className="w-full font-bold shadow-sm"
                             >
                                 <Send className="w-4 h-4" />
                                 <span>{processing ? 'Menyiapkan...' : 'Kirim via WhatsApp'}</span>

@@ -68,7 +68,7 @@ export default function ConfirmOrderModal({
                         size="md"
                         onClick={onConfirm}
                         disabled={processing}
-                        className="flex-1 font-bold shadow-[0_4px_16px_rgba(250,75,0,0.3)]"
+                        className="flex-1 font-bold shadow-sm"
                     >
                         {processing ? 'Memproses...' : 'Ya, Konfirmasi & Potong'}
                     </Button>

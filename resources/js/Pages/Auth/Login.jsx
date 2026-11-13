@@ -123,7 +123,7 @@ export default function Login() {
                             type="submit"
                             variant="orange"
                             size="lg"
-                            className="w-full font-bold shadow-[0_4px_20px_rgba(250,75,0,0.3)]"
+                            className="w-full font-bold shadow-sm"
                             disabled={processing}
                         >
                             {processing ? 'Memproses Masuk...' : 'Masuk ke Dashboard Admin'}

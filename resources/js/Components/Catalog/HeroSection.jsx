@@ -91,7 +91,7 @@ export default function HeroSection({
                             type="text"
                             value={searchQuery}
                             onChange={(e) => onSearchChange(e.target.value)}
-                            placeholder="Cari menu kopi, matcha, tea..."
+                            placeholder="Cari menu Ambmanggo, Amberry, Ambpinaple..."
                             className="w-full pl-10 pr-9 py-2.5 bg-white dark:bg-[#181A1F] border border-[#DCE0E5] dark:border-[#282C34] focus:border-[#FA4B00] rounded-full text-[#121417] dark:text-white placeholder-[#9CA3AF] text-xs font-medium outline-none shadow-xs transition-colors"
                         />
                         {searchQuery && (

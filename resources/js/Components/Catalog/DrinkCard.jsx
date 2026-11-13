@@ -134,7 +134,7 @@ export default function DrinkCard({
                             {drink.category}
                         </span>
                         {drink.stock > 0 && (
-                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#E8F8EE] dark:bg-[#142B1C] text-[#145D25] dark:text-[#7AE595] border border-[#B9F24B]/30">
+                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#E8F8EE] dark:bg-[#142B1C] text-[#145D25] dark:text-[#7AE595] border border-[#86EFAC]/30 dark:border-[#166534]">
                                 Stok: {drink.stock} unit
                             </span>
                         )}

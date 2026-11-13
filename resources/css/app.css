@@ -11,11 +11,10 @@
 @theme {
     --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     
-    --color-mm-orange: #FA4B00;
-    --color-mm-orange-hover: #E24200;
-    
-    --color-mm-lime: #B9F24B;
-    --color-mm-lime-dark: #8DBF28;
+    --color-amb-orange: #FA4B00;
+    --color-amb-mango: #F59E0B;
+    --color-amb-berry: #BE123C;
+    --color-amb-pineapple: #EAB308;
 }
 
 html.dark body {

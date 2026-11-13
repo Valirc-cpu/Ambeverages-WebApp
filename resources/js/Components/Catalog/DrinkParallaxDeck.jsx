@@ -322,12 +322,12 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                 <motion.div
                     animate={isDeckCompressing ? { scaleY: 0.93, y: [0, 7, -2, 0] } : { scaleY: 1, y: 0 }}
                     transition={{ duration: 0.38, ease: 'easeOut' }}
-                    className="absolute inset-x-6 sm:inset-x-12 -bottom-3 sm:-bottom-4 h-24 rounded-[32px] bg-gradient-to-b from-[#121417]/[0.06] to-[#121417]/[0.01] dark:from-white/[0.06] dark:to-transparent border border-[#121417]/10 dark:border-white/10 -z-10 scale-[0.98] pointer-events-none origin-top transition-transform"
+                    className="absolute inset-x-6 sm:inset-x-12 -bottom-3 sm:-bottom-4 h-24 rounded-[32px] bg-[#121417]/[0.04] dark:bg-white/[0.04] border border-[#121417]/10 dark:border-white/10 -z-10 scale-[0.98] pointer-events-none origin-top transition-transform"
                 />
                 <motion.div
                     animate={isDeckCompressing ? { scaleY: 0.88, y: [0, 13, -3, 0] } : { scaleY: 1, y: 0 }}
                     transition={{ duration: 0.44, ease: 'easeOut' }}
-                    className="absolute inset-x-12 sm:inset-x-20 -bottom-6 sm:-bottom-8 h-24 rounded-[32px] bg-gradient-to-b from-[#121417]/[0.03] to-[#121417]/[0.005] dark:from-white/[0.03] dark:to-transparent border border-[#121417]/5 dark:border-white/5 -z-20 scale-[0.95] pointer-events-none origin-top transition-transform"
+                    className="absolute inset-x-12 sm:inset-x-20 -bottom-6 sm:-bottom-8 h-24 rounded-[32px] bg-[#121417]/[0.02] dark:bg-white/[0.02] border border-[#121417]/5 dark:border-white/5 -z-20 scale-[0.95] pointer-events-none origin-top transition-transform"
                 />
 
                 {/* Animated Active Card Showcase */}

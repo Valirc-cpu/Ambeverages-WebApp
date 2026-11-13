@@ -133,7 +133,7 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                         variant="orange"
                         size="md"
                         onClick={() => setIsAddModalOpen(true)}
-                        className="font-bold shadow-[0_4px_16px_rgba(250,75,0,0.3)] shrink-0"
+                        className="font-bold shadow-sm shrink-0"
                     >
                         <Plus className="w-4 h-4" />
                         <span>Tambah Minuman Baru</span>

@@ -3,7 +3,7 @@ import React from 'react';
 export default function Badge({ children, variant = 'neutral', size = 'sm', className = '' }) {
     const variants = {
         primary: 'bg-[#FFF3EB] text-[#FA4B00] border border-[#FA4B00]/25 font-bold',
-        success: 'bg-[#B9F24B] text-[#121417] border border-[#A5DD3C] font-bold shadow-sm',
+        success: 'bg-[#DCFCE7] text-[#15803D] dark:bg-[#14532D]/40 dark:text-[#86EFAC] border border-[#BBF7D0] dark:border-[#166534] font-bold',
         warning: 'bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A] font-bold',
         danger: 'bg-[#FEE2E2] text-[#B91C1C] border border-[#FECACA] font-bold',
         info: 'bg-[#E0F2FE] text-[#0369A1] border border-[#BAE6FD] font-bold',

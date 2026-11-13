@@ -101,7 +101,7 @@ export default function OrderRowCard({
                                 variant="orange"
                                 size="sm"
                                 onClick={() => onOpenConfirm(order)}
-                                className="font-bold shadow-[0_4px_14px_rgba(250,75,0,0.25)]"
+                                className="font-bold shadow-sm"
                             >
                                 <Check className="w-4 h-4 stroke-[3]" />
                                 <span>Konfirmasi Pesanan</span>

@@ -94,7 +94,7 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
             {/* Flash Alerts */}
             <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-6">
                 {flash?.success && (
-                    <div className="mb-4 p-4 rounded-2xl bg-[#E8F8EE] dark:bg-[#142B1C] border border-[#B9F24B] dark:border-[#279F41] text-[#145D25] dark:text-[#7AE595] flex items-center justify-between gap-3 animate-in fade-in duration-200">
+                    <div className="mb-4 p-4 rounded-2xl bg-[#E8F8EE] dark:bg-[#142B1C] border border-[#86EFAC] dark:border-[#279F41] text-[#145D25] dark:text-[#7AE595] flex items-center justify-between gap-3 animate-in fade-in duration-200">
                         <div className="flex items-center gap-3">
                             <CheckCircle2 className="w-5 h-5 shrink-0 text-[#279F41]" />
                             <span className="text-sm font-bold">{flash.success}</span>

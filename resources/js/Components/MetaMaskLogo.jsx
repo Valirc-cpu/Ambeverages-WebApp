@@ -9,7 +9,7 @@ export default function MetaMaskLogo({ className = 'w-9 h-9', showText = true, t
                     viewBox="0 0 318.6 315.9"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-full drop-shadow-md"
+                    className="w-full h-full"
                 >
                     <path fill="#E2761B" stroke="#E2761B" strokeWidth="2" d="M274.1 35.5l-99.5 73.9L194 65.4z" />
                     <path fill="#E4761B" stroke="#E4761B" strokeWidth="2" d="M44.4 35.5l119.1 30-20.9 44z" />

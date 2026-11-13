@@ -11,14 +11,14 @@ export default function Button({
     ...props
 }) {
     const variants = {
-        primary: 'bg-[#121417] hover:bg-[#2A2E35] text-white shadow-[0_4px_14px_rgba(0,0,0,0.15)] active:scale-[0.98]',
-        orange: 'bg-[#FA4B00] hover:bg-[#E24200] text-white shadow-[0_4px_16px_rgba(250,75,0,0.3)] active:scale-[0.98]',
-        whatsapp: 'bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-[0_4px_16px_rgba(37,211,102,0.3)] active:scale-[0.98]',
+        primary: 'bg-[#121417] hover:bg-[#2A2E35] text-white shadow-sm active:scale-[0.98]',
+        orange: 'bg-[#FA4B00] hover:bg-[#E24200] text-white shadow-sm active:scale-[0.98]',
+        whatsapp: 'bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-sm active:scale-[0.98]',
         outline: 'bg-white hover:bg-gray-50 text-[#121417] border border-[#DCE0E5] hover:border-[#121417] active:scale-[0.98]',
         secondary: 'bg-[#F2F4F7] hover:bg-[#E5E8EC] text-[#121417] active:scale-[0.98]',
         ghost: 'bg-transparent hover:bg-gray-100 text-[#6B7280] hover:text-[#121417]',
-        danger: 'bg-[#D73A49] hover:bg-[#C22837] text-white shadow-[0_4px_14px_rgba(215,58,73,0.25)] active:scale-[0.98]',
-        success: 'bg-[#1EBE5D] hover:bg-[#17A34E] text-white shadow-[0_4px_14px_rgba(30,190,93,0.25)] active:scale-[0.98]',
+        danger: 'bg-[#D73A49] hover:bg-[#C22837] text-white shadow-sm active:scale-[0.98]',
+        success: 'bg-[#1EBE5D] hover:bg-[#17A34E] text-white shadow-sm active:scale-[0.98]',
     };
 
     const sizes = {

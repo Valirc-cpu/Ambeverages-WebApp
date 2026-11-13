@@ -52,7 +52,7 @@ export default function ThemeToggle({ className = '' }) {
                         exit={{ opacity: 0, rotate: 60, scale: 0.5 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <Moon className="w-4 h-4 text-[#B9F24B] fill-[#B9F24B]/30" />
+                        <Moon className="w-4 h-4 text-[#EAB308] fill-[#EAB308]/20" />
                     </motion.div>
                 ) : (
                     <motion.div
