@@ -6,7 +6,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [direction, setDirection] = useState(1); // 1: next (down), -1: prev (up)
     const [boundaryBounce, setBoundaryBounce] = useState(null); // 'top' | 'bottom' | null
-    const [isDeckCompressing, setIsDeckCompressing] = useState(false);
 
     const sectionRef = useRef(null);
     const activeIndexRef = useRef(activeIndex);
@@ -16,7 +15,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     const boundaryLockUntil = useRef(0);
     const accumulatedExitDelta = useRef(0);
     const bounceTimerRef = useRef(null);
-    const compressTimerRef = useRef(null);
 
     const hasMultiple = drinks.length > 1;
 
@@ -32,16 +30,8 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     useEffect(() => {
         return () => {
             if (bounceTimerRef.current) clearTimeout(bounceTimerRef.current);
-            if (compressTimerRef.current) clearTimeout(compressTimerRef.current);
         };
     }, []);
-
-    // Helper to trigger deck stack compression shockwave
-    const triggerDeckCompression = () => {
-        setIsDeckCompressing(true);
-        if (compressTimerRef.current) clearTimeout(compressTimerRef.current);
-        compressTimerRef.current = setTimeout(() => setIsDeckCompressing(false), 440);
-    };
 
     // Helper to trigger rubber-band boundary bounce
     const triggerBoundaryEffect = (type) => {
@@ -77,7 +67,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         const nextIdx = activeIndexRef.current + 1;
                         setDirection(1);
                         setActiveIndex(nextIdx);
-                        triggerDeckCompression();
 
                         // If entering the last card, arm a 700ms momentum isolation lock
                         if (nextIdx === drinks.length - 1) {
@@ -204,7 +193,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         const prevIdx = activeIndexRef.current - 1;
                         setDirection(-1);
                         setActiveIndex(prevIdx);
-                        triggerDeckCompression();
                         startY = currentY;
                         accumulatedExitDelta.current = 0;
                         if (prevIdx === 0) {
@@ -318,18 +306,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                 style={{ transformStyle: 'preserve-3d' }}
                 className="relative w-full max-w-6xl mx-auto flex items-center justify-center"
             >
-                {/* Dynamic Reactive Deck Stack (Physical Depth Layers) */}
-                <motion.div
-                    animate={isDeckCompressing ? { scaleY: 0.93, y: [0, 7, -2, 0] } : { scaleY: 1, y: 0 }}
-                    transition={{ duration: 0.38, ease: 'easeOut' }}
-                    className="absolute inset-x-6 sm:inset-x-12 -bottom-3 sm:-bottom-4 h-24 rounded-[32px] bg-[#121417]/[0.04] dark:bg-white/[0.04] border border-[#121417]/10 dark:border-white/10 -z-10 scale-[0.98] pointer-events-none origin-top transition-transform"
-                />
-                <motion.div
-                    animate={isDeckCompressing ? { scaleY: 0.88, y: [0, 13, -3, 0] } : { scaleY: 1, y: 0 }}
-                    transition={{ duration: 0.44, ease: 'easeOut' }}
-                    className="absolute inset-x-12 sm:inset-x-20 -bottom-6 sm:-bottom-8 h-24 rounded-[32px] bg-[#121417]/[0.02] dark:bg-white/[0.02] border border-[#121417]/5 dark:border-white/5 -z-20 scale-[0.95] pointer-events-none origin-top transition-transform"
-                />
-
                 {/* Animated Active Card Showcase */}
                 <AnimatePresence mode="popLayout" custom={direction} initial={false}>
                     <motion.div
