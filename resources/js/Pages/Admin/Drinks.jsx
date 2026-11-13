@@ -120,11 +120,11 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                 {/* Header title & Action */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-[#121417] tracking-tight flex items-center gap-2.5">
+                        <h1 className="text-3xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
                             <Coffee className="w-7 h-7 text-[#FA4B00]" />
                             <span>Katalog & Stok Minuman</span>
                         </h1>
-                        <p className="text-xs text-[#6B7280] mt-1 font-medium">
+                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
                             Input menu minuman baru, atur harga, dan pantau ketersediaan stok fisik.
                         </p>
                     </div>
@@ -142,36 +142,36 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
 
                 {/* Stat cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
-                        <div className="p-3.5 rounded-2xl bg-[#FFF3EB] text-[#FA4B00]">
+                    <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <div className="p-3.5 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00]">
                             <Layers className="w-6 h-6" />
                         </div>
                         <div>
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Varian Menu
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417]">
+                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.total_drinks || 0} Minuman
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
-                        <div className="p-3.5 rounded-2xl bg-[#E8F8EE] text-[#1EBE5D]">
+                    <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <div className="p-3.5 rounded-2xl bg-[#E8F8EE] dark:bg-[#142B1C] text-[#1EBE5D]">
                             <Boxes className="w-6 h-6" />
                         </div>
                         <div>
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Unit Stok
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417]">
+                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.total_stock || 0} Porsi
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
-                        <div className="p-3.5 rounded-2xl bg-[#FEE2E2] text-[#D73A49]">
+                    <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <div className="p-3.5 rounded-2xl bg-[#FEE2E2] dark:bg-[#2E1417] text-[#D73A49]">
                             <AlertTriangle className="w-6 h-6" />
                         </div>
                         <div>
@@ -187,7 +187,7 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
 
                 {/* Filters */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="inline-flex items-center gap-1 bg-[#ECEFF2] p-1.5 rounded-full border border-[#DCE0E5] overflow-x-auto scrollbar-none">
+                    <div className="inline-flex items-center gap-1 bg-[#ECEFF2] dark:bg-[#181A20] p-1.5 rounded-full border border-[#DCE0E5] dark:border-[#282C34] overflow-x-auto scrollbar-none">
                         {['Semua', ...categories].map((cat) => (
                             <button
                                 key={cat}
@@ -195,8 +195,8 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                 onClick={() => setCategoryFilter(cat)}
                                 className={`px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                                     categoryFilter === cat
-                                        ? 'bg-[#121417] text-white shadow-md'
-                                        : 'text-[#6B7280] hover:text-[#121417]'
+                                        ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-md'
+                                        : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
                                 }`}
                             >
                                 {cat}
@@ -211,17 +211,17 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Cari nama atau deskripsi..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#DCE0E5] focus:border-[#FA4B00] rounded-full text-[#121417] placeholder-[#9CA3AF] text-xs outline-none shadow-sm"
+                            className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#181A20] border border-[#DCE0E5] dark:border-[#282C34] focus:border-[#FA4B00] rounded-full text-[#121417] dark:text-white placeholder-[#9CA3AF] text-xs outline-none shadow-sm transition-colors"
                         />
                     </div>
                 </div>
 
                 {/* Drinks Grid */}
                 {filteredDrinks.length === 0 ? (
-                    <Card className="text-center py-20 bg-white">
-                        <Coffee className="w-14 h-14 text-[#CBD2D9] mx-auto mb-3" />
-                        <h3 className="text-base font-bold text-[#121417]">Belum ada menu minuman</h3>
-                        <p className="text-xs text-[#6B7280] mt-1">
+                    <Card className="text-center py-20 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <Coffee className="w-14 h-14 text-[#CBD2D9] dark:text-[#3B424E] mx-auto mb-3" />
+                        <h3 className="text-base font-bold text-[#121417] dark:text-white">Belum ada menu minuman</h3>
+                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1">
                             Klik tombol "Tambah Minuman Baru" untuk menginputkan data minuman pertama Anda.
                         </p>
                     </Card>

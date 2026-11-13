@@ -76,11 +76,11 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                 {/* Header title */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-extrabold text-[#121417] tracking-tight flex items-center gap-2.5">
+                        <h1 className="text-3xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
                             <ShoppingCart className="w-7 h-7 text-[#FA4B00]" />
                             <span>Pesanan Masuk</span>
                         </h1>
-                        <p className="text-xs text-[#6B7280] mt-1 font-medium">
+                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
                             Kelola pesanan pembeli dan lakukan konfirmasi untuk otomatis memotong stok minuman.
                         </p>
                     </div>
@@ -88,8 +88,8 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
-                        <div className="p-3.5 rounded-2xl bg-[#FFF3EB] text-[#FA4B00]">
+                    <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <div className="p-3.5 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00]">
                             <Clock className="w-6 h-6" />
                         </div>
                         <div>
@@ -102,43 +102,43 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
-                        <div className="p-3.5 rounded-2xl bg-[#E8F8EE] text-[#1EBE5D]">
+                    <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <div className="p-3.5 rounded-2xl bg-[#E8F8EE] dark:bg-[#142B1C] text-[#1EBE5D]">
                             <CheckCircle2 className="w-6 h-6" />
                         </div>
                         <div>
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Pesanan Dikonfirmasi
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417]">
+                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.confirmed_orders || 0}
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
-                        <div className="p-3.5 rounded-2xl bg-[#F0F5FF] text-[#0066FF]">
+                    <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <div className="p-3.5 rounded-2xl bg-[#F0F5FF] dark:bg-[#152238] text-[#0066FF] dark:text-[#3B82F6]">
                             <ShoppingCart className="w-6 h-6" />
                         </div>
                         <div>
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Pesanan
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417]">
+                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.total_orders || 0}
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
-                        <div className="p-3.5 rounded-2xl bg-[#FAF0FF] text-[#8F44E4]">
+                    <Card className="flex items-center gap-4 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <div className="p-3.5 rounded-2xl bg-[#FAF0FF] dark:bg-[#281533] text-[#8F44E4] dark:text-[#A855F7]">
                             <TrendingUp className="w-6 h-6" />
                         </div>
                         <div>
                             <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Omset Penjualan
                             </span>
-                            <span className="text-2xl font-extrabold text-[#121417]">
+                            <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
                                 {stats.formatted_total_revenue || 'Rp 0'}
                             </span>
                         </div>
@@ -148,7 +148,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                 {/* Filter and Search Bar */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     {/* Status Tabs Capsule */}
-                    <div className="inline-flex items-center gap-1 bg-[#ECEFF2] p-1.5 rounded-full border border-[#DCE0E5] overflow-x-auto scrollbar-none">
+                    <div className="inline-flex items-center gap-1 bg-[#ECEFF2] dark:bg-[#181A20] p-1.5 rounded-full border border-[#DCE0E5] dark:border-[#282C34] overflow-x-auto scrollbar-none">
                         {[
                             { id: 'all', label: 'Semua Pesanan' },
                             { id: 'pending', label: 'Menunggu' },
@@ -161,8 +161,8 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                 onClick={() => handleStatusTab(tab.id)}
                                 className={`px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                                     currentStatus === tab.id
-                                        ? 'bg-[#121417] text-white shadow-md'
-                                        : 'text-[#6B7280] hover:text-[#121417]'
+                                        ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-md'
+                                        : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
                                 }`}
                             >
                                 {tab.label}
@@ -178,17 +178,17 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Cari kode order, nama pemesan..."
-                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#DCE0E5] focus:border-[#FA4B00] rounded-full text-[#121417] placeholder-[#9CA3AF] text-xs outline-none shadow-sm"
+                            className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-[#181A20] border border-[#DCE0E5] dark:border-[#282C34] focus:border-[#FA4B00] rounded-full text-[#121417] dark:text-white placeholder-[#9CA3AF] text-xs outline-none shadow-sm transition-colors"
                         />
                     </form>
                 </div>
 
                 {/* Orders List */}
                 {orders.data.length === 0 ? (
-                    <Card className="text-center py-20 bg-white">
-                        <ShoppingCart className="w-14 h-14 text-[#CBD2D9] mx-auto mb-3" />
-                        <h3 className="text-base font-bold text-[#121417]">Tidak ada data pesanan</h3>
-                        <p className="text-xs text-[#6B7280] mt-1">
+                    <Card className="text-center py-20 bg-white dark:bg-[#15171C] border-[#E5E8EC] dark:border-[#262A32]">
+                        <ShoppingCart className="w-14 h-14 text-[#CBD2D9] dark:text-[#3B424E] mx-auto mb-3" />
+                        <h3 className="text-base font-bold text-[#121417] dark:text-white">Tidak ada data pesanan</h3>
+                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1">
                             Belum ada pesanan yang sesuai dengan filter saat ini.
                         </p>
                     </Card>
@@ -216,10 +216,10 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                 dangerouslySetInnerHTML={{ __html: link.label }}
                                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                                     link.active
-                                        ? 'bg-[#121417] text-white shadow-sm'
+                                        ? 'bg-[#121417] dark:bg-[#FA4B00] text-white shadow-sm'
                                         : link.url
-                                        ? 'bg-white text-[#6B7280] hover:text-[#121417] border border-[#DCE0E5]'
-                                        : 'opacity-40 cursor-not-allowed text-[#CBD2D9]'
+                                        ? 'bg-white dark:bg-[#15171C] text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white border border-[#DCE0E5] dark:border-[#282C34]'
+                                        : 'opacity-40 cursor-not-allowed text-[#CBD2D9] dark:text-[#3B424E]'
                                 }`}
                             />
                         ))}

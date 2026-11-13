@@ -6,6 +6,7 @@ import HeroSection from '../../Components/Catalog/HeroSection';
 import DrinkCard from '../../Components/Catalog/DrinkCard';
 import CartModal from '../../Components/Catalog/CartModal';
 import OrderSuccessModal from '../../Components/Catalog/OrderSuccessModal';
+import ParallaxVectors from '../../Components/ParallaxVectors';
 import Button from '../../Components/Button';
 import { Coffee, PlusCircle, Sparkles } from 'lucide-react';
 
@@ -140,8 +141,11 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
     };
 
     return (
-        <div className="min-h-screen bg-[#F7F8FA] text-[#121417] flex flex-col font-sans selection:bg-[#FA4B00] selection:text-white">
+        <div className="min-h-screen bg-[#F7F8FA] dark:bg-[#0E1013] text-[#121417] dark:text-[#F2F4F7] flex flex-col font-sans selection:bg-[#FA4B00] selection:text-white relative overflow-x-hidden transition-colors duration-200">
             <Head title="MetaMask Brew - Artisanal Coffee & Drinks" />
+
+            {/* Interactive Parallax Background Vectors (Responsive to Scroll) */}
+            <ParallaxVectors />
 
             {/* Navbar */}
             <Navbar onOpenCart={() => setIsCartOpen(true)} cartItemCount={cartItemCount} />
@@ -156,16 +160,16 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             />
 
             {/* Menu Grid */}
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 flex-1 w-full">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 flex-1 w-full relative z-10">
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h2 className="text-2xl font-extrabold text-[#121417] tracking-tight flex items-center gap-2.5">
+                        <h2 className="text-2xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
                             <span>Katalog Menu Pilihan</span>
-                            <span className="text-xs px-3 py-1 rounded-full bg-[#ECEFF2] text-[#4B5563] font-bold">
+                            <span className="text-xs px-3 py-1 rounded-full bg-[#ECEFF2] dark:bg-[#1E222A] text-[#4B5563] dark:text-[#9CA3AF] font-bold border border-transparent dark:border-[#2C313B]">
                                 {filteredDrinks.length} Varian
                             </span>
                         </h2>
-                        <p className="text-xs text-[#6B7280] mt-1 font-medium">
+                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
                             Ketersediaan stok realtime dari gudang MetaDrink
                         </p>
                     </div>
@@ -175,13 +179,13 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-center py-20 px-6 bg-white rounded-[32px] border border-[#E5E8EC] shadow-xs max-w-xl mx-auto"
+                        className="text-center py-20 px-6 bg-white dark:bg-[#15171C] rounded-[32px] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs max-w-xl mx-auto transition-colors"
                     >
-                        <div className="w-16 h-16 rounded-2xl bg-[#FFF3EB] text-[#FA4B00] flex items-center justify-center mx-auto mb-4 border border-[#FA4B00]/20">
+                        <div className="w-16 h-16 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00] flex items-center justify-center mx-auto mb-4 border border-[#FA4B00]/20">
                             <Coffee className="w-8 h-8" />
                         </div>
-                        <h3 className="text-lg font-extrabold text-[#121417]">Barista Station Sedang Standby</h3>
-                        <p className="text-xs text-[#6B7280] mt-1.5 leading-relaxed max-w-sm mx-auto">
+                        <h3 className="text-lg font-extrabold text-[#121417] dark:text-white">Barista Station Sedang Standby</h3>
+                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1.5 leading-relaxed max-w-sm mx-auto">
                             {drinks.length === 0
                                 ? 'Belum ada menu minuman yang ditambahkan. Masuk ke Panel Admin untuk mulai menginput data minuman pertamamu!'
                                 : 'Tidak ada menu yang sesuai dengan filter atau kata kunci saat ini.'}
@@ -232,9 +236,9 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             />
 
             {/* Footer */}
-            <footer className="border-t border-[#E5E8EC] py-10 bg-white mt-auto">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-[#6B7280] space-y-2">
-                    <p className="font-semibold text-[#121417]">MetaMask Brew © {new Date().getFullYear()} — Handcrafted Beverages</p>
+            <footer className="border-t border-[#E5E8EC] dark:border-[#24272D] py-10 bg-white dark:bg-[#121417] mt-auto transition-colors relative z-10">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-[#6B7280] dark:text-[#9CA3AF] space-y-2">
+                    <p className="font-semibold text-[#121417] dark:text-white">MetaMask Brew © {new Date().getFullYear()} — Handcrafted Beverages</p>
                     <p>Designed with MetaMask Design System tokens, Laravel 13, React, and Tailwind CSS.</p>
                 </div>
             </footer>

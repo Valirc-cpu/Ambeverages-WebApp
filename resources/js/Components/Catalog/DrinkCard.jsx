@@ -25,9 +25,8 @@ export default function DrinkCard({ drink, onAddToCart }) {
                         <img
                             src={drink.image_url}
                             alt={drink.name}
-                            className={`w-full h-full object-cover transition-transform duration-300 ${
-                                isOutOfStock ? 'grayscale opacity-40' : 'group-hover:scale-105'
-                            }`}
+                            className={`w-full h-full object-cover transition-transform duration-300 ${isOutOfStock ? 'grayscale opacity-40' : 'group-hover:scale-105'
+                                }`}
                             loading="lazy"
                         />
                     ) : (

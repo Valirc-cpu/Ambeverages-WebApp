@@ -27,34 +27,34 @@ export default function OrderSuccessModal({ order, onClose }) {
             maxWidth="max-w-md"
         >
             <div className="text-center py-2 space-y-4">
-                <div className="w-14 h-14 rounded-full bg-[#121417] text-[#B9F24B] flex items-center justify-center mx-auto shadow-md">
+                <div className="w-14 h-14 rounded-full bg-[#121417] dark:bg-[#1E222A] text-[#B9F24B] flex items-center justify-center mx-auto shadow-md border border-transparent dark:border-[#353B47]">
                     <CheckCircle className="w-7 h-7" />
                 </div>
 
                 <div>
-                    <h3 className="text-xl font-extrabold text-[#121417]">Kirim ke WhatsApp</h3>
-                    <p className="text-xs text-[#6B7280] mt-1 font-medium">
+                    <h3 className="text-xl font-extrabold text-[#121417] dark:text-white">Kirim ke WhatsApp</h3>
+                    <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
                         Tiket pesanan Anda telah tersimpan dengan status <span className="font-bold text-[#FA4B00]">Menunggu Konfirmasi</span>.
                     </p>
                 </div>
 
                 {/* Receipt Card */}
-                <div className="p-4 rounded-2xl bg-[#F7F8FA] border border-[#E5E8EC] text-left space-y-2 text-xs font-mono">
+                <div className="p-4 rounded-2xl bg-[#F7F8FA] dark:bg-[#181A20] border border-[#E5E8EC] dark:border-[#282C34] text-left space-y-2 text-xs font-mono">
                     <div className="flex justify-between">
-                        <span className="text-[#6B7280]">KODE ORDER:</span>
+                        <span className="text-[#6B7280] dark:text-[#9CA3AF]">KODE ORDER:</span>
                         <span className="font-extrabold text-[#FA4B00]">{order.order_code}</span>
                     </div>
                     <div className="flex justify-between">
-                        <span className="text-[#6B7280]">PEMESAN:</span>
-                        <span className="font-bold text-[#121417]">{order.customer_name}</span>
+                        <span className="text-[#6B7280] dark:text-[#9CA3AF]">PEMESAN:</span>
+                        <span className="font-bold text-[#121417] dark:text-white">{order.customer_name}</span>
                     </div>
-                    <div className="flex justify-between border-t border-[#E5E8EC] pt-2 text-sm font-sans font-bold">
+                    <div className="flex justify-between border-t border-[#E5E8EC] dark:border-[#282C34] pt-2 text-sm font-sans font-bold text-[#121417] dark:text-white">
                         <span>TOTAL BAYAR:</span>
                         <span className="text-[#FA4B00] font-extrabold">{order.total_price}</span>
                     </div>
                 </div>
 
-                <p className="text-xs text-[#6B7280] leading-relaxed">
+                <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] leading-relaxed">
                     Klik tombol di bawah ini untuk mengirim pesan pesanan langsung ke WhatsApp admin.
                 </p>
 
@@ -73,7 +73,7 @@ export default function OrderSuccessModal({ order, onClose }) {
                         variant="ghost"
                         size="sm"
                         onClick={onClose}
-                        className="w-full text-xs text-[#6B7280] hover:text-[#121417]"
+                        className="w-full text-xs text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white"
                     >
                         Tutup Jendela Ini
                     </Button>
