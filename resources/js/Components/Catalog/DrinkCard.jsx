@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Badge from '../Badge';
 import Button from '../Button';
 import { Coffee, Plus, CheckCircle2 } from 'lucide-react';
@@ -11,26 +11,58 @@ export default function DrinkCard({
     className = '',
     onSelect,
 }) {
+    const cardRef = useRef(null);
     const isOutOfStock = drink.stock <= 0;
     const isLowStock = drink.stock > 0 && drink.stock <= 5;
 
+    // Interactive 3D Cursor Tilt Physics
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const springConfig = { damping: 20, stiffness: 220 };
+    const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), springConfig);
+    const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), springConfig);
+
+    // Internal image parallax translation (moves slightly in opposite direction)
+    const imgX = useSpring(useTransform(x, [-0.5, 0.5], [10, -10]), springConfig);
+    const imgY = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), springConfig);
+
+    const handleMouseMove = (e) => {
+        if (!isHighlighted || !cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const clientX = (e.clientX - rect.left) / rect.width - 0.5;
+        const clientY = (e.clientY - rect.top) / rect.height - 0.5;
+        x.set(clientX);
+        y.set(clientY);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
     return (
-        <div
+        <motion.div
+            ref={cardRef}
             onClick={onSelect}
-            className={`w-full bg-white dark:bg-[#15171C] rounded-[28px] p-5 sm:p-7 transition-all duration-300 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 ${
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={isHighlighted ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : {}}
+            className={`w-full bg-white dark:bg-[#15171C] rounded-[28px] p-5 sm:p-7 transition-colors duration-200 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 sm:gap-8 ${
                 isHighlighted
-                    ? 'border-2 border-[#FA4B00] dark:border-[#FA4B00] shadow-md dark:shadow-black/50'
-                    : 'border border-[#E5E8EC] dark:border-[#272B33] shadow-xs hover:border-[#CBD2D9] dark:hover:border-[#383E4A]'
+                    ? 'border-2 border-[#121417] dark:border-white shadow-md'
+                    : 'border border-[#DCE0E5] dark:border-[#282C34] shadow-xs hover:border-[#CBD2D9] dark:hover:border-[#383E4A]'
             } ${className}`}
         >
-            {/* Left Image Section */}
-            <div className="w-full md:w-80 lg:w-96 h-56 sm:h-64 rounded-[22px] overflow-hidden relative shrink-0 bg-[#F4F5F7] dark:bg-[#1D2026] border border-[#ECEFF2] dark:border-[#2B303A]">
+            {/* Left Image Section with Internal Parallax Shift */}
+            <div className="w-full md:w-80 lg:w-96 h-56 sm:h-64 rounded-[22px] overflow-hidden relative shrink-0 bg-[#F4F5F7] dark:bg-[#1D2026] border border-[#E5E8EC] dark:border-[#2B303A]">
                 {drink.image_url ? (
-                    <img
+                    <motion.img
+                        style={isHighlighted ? { x: imgX, y: imgY, scale: 1.05 } : {}}
                         src={drink.image_url}
                         alt={drink.name}
-                        className={`w-full h-full object-cover transition-transform duration-500 ${
-                            isOutOfStock ? 'grayscale opacity-40' : 'group-hover:scale-105'
+                        className={`w-full h-full object-cover transition-opacity duration-300 ${
+                            isOutOfStock ? 'grayscale opacity-40' : 'opacity-100'
                         }`}
                         loading="lazy"
                     />
@@ -65,11 +97,11 @@ export default function DrinkCard({
                     )}
                 </div>
 
-                {/* Clean Highlight Badge */}
+                {/* Matte Minimalist Highlight Badge (No Glow) */}
                 {isHighlighted && (
                     <div className="absolute bottom-3 left-3">
-                        <span className="px-3 py-1 rounded-full text-[11px] font-extrabold bg-[#121417] dark:bg-white text-white dark:text-[#121417] border border-transparent dark:border-[#333]">
-                            Menu Sorotan
+                        <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-[#121417] dark:bg-white text-white dark:text-[#121417] border border-transparent dark:border-[#222]">
+                            Fokus Menu
                         </span>
                     </div>
                 )}
@@ -141,6 +173,6 @@ export default function DrinkCard({
                     </motion.div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 }
