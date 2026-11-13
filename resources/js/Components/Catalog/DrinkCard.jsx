@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Badge from '../Badge';
 import Button from '../Button';
-import { Coffee, Plus, CheckCircle2 } from 'lucide-react';
+import { Coffee, Plus } from 'lucide-react';
 
 export default function DrinkCard({
     drink,
@@ -132,10 +132,6 @@ export default function DrinkCard({
                     <div className="flex flex-wrap items-center gap-2 mt-4">
                         <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F2F4F7] dark:bg-[#1E222A] text-[#4B5563] dark:text-[#9CA3AF] border border-[#E5E8EC] dark:border-[#2C313B]">
                             {drink.category}
-                        </span>
-                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F2F4F7] dark:bg-[#1E222A] text-[#4B5563] dark:text-[#9CA3AF] border border-[#E5E8EC] dark:border-[#2C313B] flex items-center gap-1">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#1EBE5D]" />
-                            <span>Siap Diseduh</span>
                         </span>
                         {drink.stock > 0 && (
                             <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#E8F8EE] dark:bg-[#142B1C] text-[#145D25] dark:text-[#7AE595] border border-[#B9F24B]/30">
