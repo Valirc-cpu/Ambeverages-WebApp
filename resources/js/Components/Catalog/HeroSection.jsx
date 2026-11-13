@@ -1,5 +1,7 @@
-import React from 'react';
-import { Flame, Search } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Search, X } from 'lucide-react';
+import InteractiveFox from '../InteractiveFox';
 
 export default function HeroSection({
     categories = [],
@@ -8,69 +10,99 @@ export default function HeroSection({
     searchQuery = '',
     onSearchChange,
 }) {
+    const searchInputRef = useRef(null);
+
+    const allCategories = ['Semua', ...categories];
+
     return (
-        <section className="relative overflow-hidden pt-12 pb-16 bg-white border-b border-[#E5E8EC]">
-            {/* Ambient gradients */}
-            <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#FA4B00]/8 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-[#B9F24B]/15 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                {/* Eyebrow Pill */}
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFF3EB] border border-[#FA4B00]/25 text-[#FA4B00] text-xs font-bold uppercase tracking-wider mb-5">
-                    <Flame className="w-4 h-4 fill-[#FA4B00]" />
-                    <span>Artisanal Coffee & Beverage Store</span>
-                </div>
-
-                {/* Headline */}
-                <h1 className="text-4xl sm:text-6xl font-extrabold text-[#121417] tracking-tight mb-5 max-w-3xl mx-auto leading-[1.12]">
-                    Crafted Drinks for <br className="hidden sm:inline" />
-                    <span className="text-[#FA4B00]">Web3 Enthusiasts.</span>
-                </h1>
-
-                {/* Subtitle */}
-                <p className="text-base sm:text-lg text-[#6B7280] max-w-2xl mx-auto mb-8 font-medium leading-relaxed">
-                    Pesan minuman favorit Anda tanpa registrasi akun. Rincian pesanan otomatis tersambung ke WhatsApp admin dan stok akan terpotong seketika dikonfirmasi.
-                </p>
-
-                {/* MetaMask Segmented Capsule Pill Tabs */}
-                <div className="inline-flex flex-wrap items-center justify-center p-1.5 rounded-full bg-[#ECEFF2] border border-[#DCE0E5] shadow-inner max-w-full overflow-x-auto gap-1 mb-8">
-                    <button
-                        type="button"
-                        onClick={() => onSelectCategory('Semua')}
-                        className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                            selectedCategory === 'Semua'
-                                ? 'bg-[#121417] text-white shadow-md'
-                                : 'text-[#6B7280] hover:text-[#121417]'
-                        }`}
-                    >
-                        Semua Menu
-                    </button>
-                    {categories.map((cat) => (
-                        <button
-                            key={cat}
-                            type="button"
-                            onClick={() => onSelectCategory(cat)}
-                            className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
-                                selectedCategory === cat
-                                    ? 'bg-[#121417] text-white shadow-md'
-                                    : 'text-[#6B7280] hover:text-[#121417]'
-                            }`}
+        <section className="relative pt-12 pb-16 bg-white border-b border-[#E5E8EC]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Hero Header with Interactive Fox */}
+                <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10">
+                    <div className="text-left max-w-2xl">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4 }}
+                            className="text-4xl sm:text-6xl font-extrabold text-[#121417] tracking-tight leading-[1.08]"
                         >
-                            {cat}
-                        </button>
-                    ))}
+                            Specialty Brews. <br />
+                            <span className="text-[#FA4B00]">Instant WhatsApp Checkout.</span>
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.4, delay: 0.1 }}
+                            className="text-base sm:text-lg text-[#4B5563] font-medium mt-4 leading-relaxed max-w-xl"
+                        >
+                            Pilih menu kopi atau minuman dingin favoritmu. Pesan langsung tanpa registrasi akun, rincian terkirim ke WhatsApp, dan stok otomatis terpotong saat pesanan dikonfirmasi.
+                        </motion.p>
+                    </div>
+
+                    {/* Interactive 3D Perspective Fox */}
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.15 }}
+                        className="flex flex-col items-center gap-2 shrink-0"
+                    >
+                        <InteractiveFox size={120} />
+                        <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#9CA3AF]">
+                            Hover & Drag Fox
+                        </span>
+                    </motion.div>
                 </div>
 
-                {/* Search Pill Bar */}
-                <div className="max-w-md mx-auto relative">
-                    <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
-                    <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={(e) => onSearchChange(e.target.value)}
-                        placeholder="Cari menu kopi, matcha, tea..."
-                        className="w-full pl-12 pr-4 py-3 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] focus:bg-white rounded-full text-[#121417] placeholder-[#9CA3AF] text-sm transition-all outline-none shadow-sm"
-                    />
+                {/* Controls Bar: Animated Pill Switcher & Search */}
+                <div className="pt-6 border-t border-[#F0F2F5] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                    {/* Framer Motion Sliding Pill Tabs */}
+                    <div className="flex items-center gap-1.5 p-1.5 bg-[#F2F4F7] rounded-full border border-[#DCE0E5] overflow-x-auto scrollbar-none max-w-full">
+                        {allCategories.map((cat) => {
+                            const isSelected = selectedCategory === cat;
+                            return (
+                                <button
+                                    key={cat}
+                                    type="button"
+                                    onClick={() => onSelectCategory(cat)}
+                                    className={`relative px-5 py-2 text-xs font-bold whitespace-nowrap transition-colors select-none ${
+                                        isSelected ? 'text-white' : 'text-[#6B7280] hover:text-[#121417]'
+                                    }`}
+                                >
+                                    {isSelected && (
+                                        <motion.div
+                                            layoutId="active-category-pill"
+                                            className="absolute inset-0 bg-[#121417] rounded-full shadow-sm"
+                                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                                        />
+                                    )}
+                                    <span className="relative z-10">{cat === 'Semua' ? 'Semua Menu' : cat}</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Search Field */}
+                    <div className="relative min-w-[280px] sm:w-80">
+                        <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
+                        <input
+                            ref={searchInputRef}
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => onSearchChange(e.target.value)}
+                            placeholder="Cari menu kopi, matcha, tea..."
+                            className="w-full pl-10 pr-9 py-2.5 bg-white border border-[#DCE0E5] focus:border-[#FA4B00] rounded-full text-[#121417] placeholder-[#9CA3AF] text-xs font-medium outline-none shadow-xs transition-colors"
+                        />
+                        {searchQuery && (
+                            <button
+                                type="button"
+                                onClick={() => onSearchChange('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9CA3AF] hover:text-[#121417] p-1"
+                            >
+                                <X className="w-3.5 h-3.5" />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </section>

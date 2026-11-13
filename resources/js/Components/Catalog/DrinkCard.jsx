@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import Badge from '../Badge';
 import Button from '../Button';
 import { Coffee, Plus } from 'lucide-react';
@@ -8,16 +9,24 @@ export default function DrinkCard({ drink, onAddToCart }) {
     const isLowStock = drink.stock > 0 && drink.stock <= 5;
 
     return (
-        <div className="bg-white border border-[#E5E8EC] rounded-[28px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between group">
+        <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.25 }}
+            whileHover={!isOutOfStock ? { y: -4, transition: { duration: 0.15 } } : {}}
+            className="bg-white border border-[#E5E8EC] rounded-[26px] p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.07)] hover:border-[#CBD2D9] transition-all flex flex-col justify-between group"
+        >
             <div>
-                {/* Beverage Image */}
-                <div className="relative aspect-[4/3] w-full bg-[#F2F4F7] rounded-[20px] overflow-hidden mb-4">
+                {/* Beverage Image Frame */}
+                <div className="relative aspect-[4/3] w-full bg-[#F4F5F7] rounded-[18px] overflow-hidden mb-4 border border-[#ECEFF2]">
                     {drink.image_url ? (
                         <img
                             src={drink.image_url}
                             alt={drink.name}
                             className={`w-full h-full object-cover transition-transform duration-300 ${
-                                isOutOfStock ? 'grayscale opacity-50' : 'group-hover:scale-105'
+                                isOutOfStock ? 'grayscale opacity-40' : 'group-hover:scale-105'
                             }`}
                             loading="lazy"
                         />
@@ -28,14 +37,14 @@ export default function DrinkCard({ drink, onAddToCart }) {
                         </div>
                     )}
 
-                    {/* Category Tag Pill */}
+                    {/* Category Tag */}
                     <div className="absolute top-3 left-3">
-                        <Badge variant="dark" size="xs" className="bg-[#121417]/85 backdrop-blur-md">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#121417] text-white">
                             {drink.category}
-                        </Badge>
+                        </span>
                     </div>
 
-                    {/* Stock Indicator Badge */}
+                    {/* Stock Indicator */}
                     <div className="absolute top-3 right-3">
                         {isOutOfStock ? (
                             <Badge variant="danger" size="xs">
@@ -53,7 +62,7 @@ export default function DrinkCard({ drink, onAddToCart }) {
                     </div>
                 </div>
 
-                {/* Drink Information */}
+                {/* Details */}
                 <h3 className="font-extrabold text-base text-[#121417] group-hover:text-[#FA4B00] transition-colors line-clamp-1">
                     {drink.name}
                 </h3>
@@ -73,17 +82,19 @@ export default function DrinkCard({ drink, onAddToCart }) {
                     </span>
                 </div>
 
-                <Button
-                    variant={isOutOfStock ? 'secondary' : 'orange'}
-                    size="sm"
-                    disabled={isOutOfStock}
-                    onClick={() => onAddToCart(drink)}
-                    className="shrink-0"
-                >
-                    <Plus className="w-4 h-4" />
-                    <span>{isOutOfStock ? 'Habis' : 'Pesan'}</span>
-                </Button>
+                <motion.div whileTap={{ scale: 0.92 }}>
+                    <Button
+                        variant={isOutOfStock ? 'secondary' : 'orange'}
+                        size="sm"
+                        disabled={isOutOfStock}
+                        onClick={() => onAddToCart(drink)}
+                        className="shrink-0"
+                    >
+                        <Plus className="w-4 h-4" />
+                        <span>{isOutOfStock ? 'Habis' : 'Pesan'}</span>
+                    </Button>
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 }

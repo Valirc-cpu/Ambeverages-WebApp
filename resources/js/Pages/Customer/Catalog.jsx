@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm, usePage, Link } from '@inertiajs/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from '../../Components/Navbar';
 import HeroSection from '../../Components/Catalog/HeroSection';
 import DrinkCard from '../../Components/Catalog/DrinkCard';
 import CartModal from '../../Components/Catalog/CartModal';
 import OrderSuccessModal from '../../Components/Catalog/OrderSuccessModal';
-import { Coffee } from 'lucide-react';
+import Button from '../../Components/Button';
+import { Coffee, PlusCircle, Sparkles } from 'lucide-react';
 
 export default function Catalog({ drinks = [], categories = [], filters = {} }) {
     const { flash } = usePage().props;
@@ -170,23 +172,44 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                 </div>
 
                 {filteredDrinks.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-[32px] border border-[#E5E8EC] shadow-sm">
-                        <Coffee className="w-14 h-14 text-[#9CA3AF] mx-auto mb-3" />
-                        <h3 className="text-base font-bold text-[#121417]">Belum ada menu minuman</h3>
-                        <p className="text-xs text-[#6B7280] mt-1">
-                            Silakan tambahkan menu minuman melalui Panel Admin.
+                    <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center py-20 px-6 bg-white rounded-[32px] border border-[#E5E8EC] shadow-xs max-w-xl mx-auto"
+                    >
+                        <div className="w-16 h-16 rounded-2xl bg-[#FFF3EB] text-[#FA4B00] flex items-center justify-center mx-auto mb-4 border border-[#FA4B00]/20">
+                            <Coffee className="w-8 h-8" />
+                        </div>
+                        <h3 className="text-lg font-extrabold text-[#121417]">Barista Station Sedang Standby</h3>
+                        <p className="text-xs text-[#6B7280] mt-1.5 leading-relaxed max-w-sm mx-auto">
+                            {drinks.length === 0
+                                ? 'Belum ada menu minuman yang ditambahkan. Masuk ke Panel Admin untuk mulai menginput data minuman pertamamu!'
+                                : 'Tidak ada menu yang sesuai dengan filter atau kata kunci saat ini.'}
                         </p>
-                    </div>
+
+                        {drinks.length === 0 && (
+                            <div className="mt-6">
+                                <Link href="/admin/drinks">
+                                    <Button variant="orange" size="md">
+                                        <PlusCircle className="w-4 h-4" />
+                                        <span>Buka Admin & Tambah Menu</span>
+                                    </Button>
+                                </Link>
+                            </div>
+                        )}
+                    </motion.div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {filteredDrinks.map((drink) => (
-                            <DrinkCard
-                                key={drink.id}
-                                drink={drink}
-                                onAddToCart={handleAddToCart}
-                            />
-                        ))}
-                    </div>
+                    <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <AnimatePresence>
+                            {filteredDrinks.map((drink) => (
+                                <DrinkCard
+                                    key={drink.id}
+                                    drink={drink}
+                                    onAddToCart={handleAddToCart}
+                                />
+                            ))}
+                        </AnimatePresence>
+                    </motion.div>
                 )}
             </main>
 
@@ -202,7 +225,7 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                 onCheckout={handleCheckout}
             />
 
-            {/* Modular Order Success Modal */}
+            {/* Modular Order Success Modal with Confetti & Receipt */}
             <OrderSuccessModal
                 order={successOrder}
                 onClose={() => setSuccessOrder(null)}
