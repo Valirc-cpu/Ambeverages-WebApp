@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import DrinkCard from './DrinkCard';
-import { MousePointer, AlertCircle } from 'lucide-react';
 
 export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [boundaryBounce, setBoundaryBounce] = useState(null); // 'top' | 'bottom' | null
-    const [boundaryFeedback, setBoundaryFeedback] = useState(null); // message string
 
     const sectionRef = useRef(null);
     const activeIndexRef = useRef(activeIndex);
@@ -15,7 +13,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     // Safety buffer & momentum isolation refs
     const boundaryLockUntil = useRef(0);
     const accumulatedExitDelta = useRef(0);
-    const feedbackTimerRef = useRef(null);
     const bounceTimerRef = useRef(null);
 
     const hasMultiple = drinks.length > 1;
@@ -27,19 +24,11 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
         accumulatedExitDelta.current = 0;
     }, [drinks.length]);
 
-    // Helper to trigger boundary bounce & tactile warning
+    // Helper to trigger boundary bounce
     const triggerBoundaryEffect = (type) => {
         setBoundaryBounce(type);
         if (bounceTimerRef.current) clearTimeout(bounceTimerRef.current);
         bounceTimerRef.current = setTimeout(() => setBoundaryBounce(null), 350);
-
-        const msg = type === 'bottom'
-            ? 'Batas akhir menu tercapai • Gulir sekali lagi untuk lanjut ke footer'
-            : 'Batas awal menu tercapai • Gulir sekali lagi untuk kembali ke atas';
-        setBoundaryFeedback(msg);
-
-        if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current);
-        feedbackTimerRef.current = setTimeout(() => setBoundaryFeedback(null), 2000);
     };
 
     // Intercept scroll: when user scrolls over catalog, cards scroll first with robust boundary protection!
@@ -236,39 +225,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
             className="w-full py-4 select-none relative"
             style={{ perspective: '1400px' }}
         >
-            {/* Minimal Parallax Navigation Indicator with Boundary Alert */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] max-w-4xl mx-auto px-2 mb-3">
-                <div className="flex items-center gap-2">
-                    <MousePointer className="w-3.5 h-3.5 text-[#121417] dark:text-white" />
-                    <span>Scroll pada kartu untuk menggulir menu</span>
-                </div>
-
-                <div className="flex items-center gap-3">
-                    {/* Boundary Alert Chip (Non-intrusive feedback) */}
-                    <AnimatePresence>
-                        {boundaryFeedback && (
-                            <motion.span
-                                initial={{ opacity: 0, y: -4 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0 }}
-                                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#121417] dark:bg-white text-white dark:text-[#121417] text-[11px] font-mono shadow-xs"
-                            >
-                                <AlertCircle className="w-3 h-3 text-[#FA4B00]" />
-                                <span>{boundaryFeedback}</span>
-                            </motion.span>
-                        )}
-                    </AnimatePresence>
-
-                    <div className="flex items-center gap-1 font-mono">
-                        <span className="font-extrabold text-[#121417] dark:text-white">
-                            {String(activeIndex + 1).padStart(2, '0')}
-                        </span>
-                        <span className="text-[#9CA3AF]">/</span>
-                        <span className="text-[#9CA3AF]">{String(drinks.length).padStart(2, '0')}</span>
-                    </div>
-                </div>
-            </div>
-
             {/* True 3D Parallax Perspective Card Deck Stack with Elastic Boundary Bounce */}
             <motion.div
                 animate={
