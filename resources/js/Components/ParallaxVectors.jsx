@@ -97,11 +97,11 @@ export default function ParallaxVectors() {
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 3. TOP-MID-RIGHT: Dual Torus Portal (Berry, Volt Lime & Lavender) */}
+            {/* 3. TOP-MID-RIGHT: Dual Torus Portal (Hidden on Mobile)         */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y4, scale: s4 }}
-                className="absolute top-4 left-[68%] sm:left-[72%] w-36 h-36 sm:w-48 sm:h-48 pointer-events-auto cursor-pointer z-10 opacity-90 dark:opacity-80"
+                className="hidden md:block absolute top-4 left-[68%] sm:left-[72%] w-36 h-36 sm:w-48 sm:h-48 pointer-events-auto cursor-pointer z-10 opacity-90 dark:opacity-80"
                 title="Top-Mid-Right Torus"
             >
                 <motion.div
@@ -123,11 +123,11 @@ export default function ParallaxVectors() {
             </motion.div>
 
             {/* ============================================================== */}
-            {/* 4. RIGHT-MID EDGE: Modern Orbiting Capsule (Neon Cyan & Lime)  */}
+            {/* 4. RIGHT-MID EDGE: Modern Orbiting Capsule (Hidden on Mobile)  */}
             {/* ============================================================== */}
             <motion.div
                 style={{ y: y7, rotate: r7 }}
-                className="absolute top-[56%] -right-14 sm:-right-20 w-56 h-56 sm:w-76 sm:h-76 pointer-events-auto cursor-pointer z-10 opacity-90 dark:opacity-80"
+                className="hidden md:block absolute top-[56%] -right-14 sm:-right-20 w-56 h-56 sm:w-76 sm:h-76 pointer-events-auto cursor-pointer z-10 opacity-90 dark:opacity-80"
                 title="Right Mid-Edge Capsule"
             >
                 <motion.div
