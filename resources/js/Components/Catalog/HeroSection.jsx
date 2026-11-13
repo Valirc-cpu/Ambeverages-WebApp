@@ -1,16 +1,13 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, X } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import InteractiveFox from '../InteractiveFox';
 
 export default function HeroSection({
     categories = [],
     selectedCategory = 'Semua',
     onSelectCategory,
-    searchQuery = '',
-    onSearchChange,
 }) {
-    const searchInputRef = useRef(null);
     const allCategories = ['Semua', ...categories];
 
     return (
@@ -55,10 +52,33 @@ export default function HeroSection({
                     </motion.div>
                 </div>
 
-                {/* Controls Bar: Animated Pill Switcher & Search */}
-                <div className="pt-6 border-t border-[#F0F2F5] dark:border-[#24272D] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-                    {/* Framer Motion Sliding Pill Tabs */}
-                    <div className="flex items-center gap-1.5 p-1.5 bg-[#F2F4F7] dark:bg-[#181A1F] rounded-full border border-[#DCE0E5] dark:border-[#282C34] overflow-x-auto scrollbar-none max-w-full">
+                {/* Controls Bar: Category Selection (Dropdown on Mobile, Capsules on Desktop) */}
+                <div className="pt-6 border-t border-[#F0F2F5] dark:border-[#24272D] flex items-center justify-between">
+                    {/* Mobile Category Dropdown Selector */}
+                    <div className="sm:hidden w-full">
+                        <label className="text-[11px] font-bold uppercase tracking-wider text-[#6B7280] dark:text-[#9CA3AF] mb-1.5 block">
+                            Pilih Kategori Menu
+                        </label>
+                        <div className="relative">
+                            <select
+                                value={selectedCategory}
+                                onChange={(e) => onSelectCategory(e.target.value)}
+                                className="w-full appearance-none pl-4 pr-10 py-3 rounded-2xl bg-[#F2F4F7] dark:bg-[#181A1F] border border-[#DCE0E5] dark:border-[#282C34] text-[#121417] dark:text-white font-bold text-sm outline-none focus:border-[#FA4B00] shadow-xs cursor-pointer transition-colors"
+                            >
+                                {allCategories.map((cat) => (
+                                    <option key={cat} value={cat} className="bg-white dark:bg-[#15171C] text-[#121417] dark:text-white font-bold py-1">
+                                        {cat === 'Semua' ? '✨ Semua Menu Varian' : `🍹 ${cat}`}
+                                    </option>
+                                ))}
+                            </select>
+                            <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#6B7280] dark:text-[#9CA3AF]">
+                                <ChevronDown className="w-4 h-4" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Desktop Sliding Capsule Pills */}
+                    <div className="hidden sm:flex items-center gap-1.5 p-1.5 bg-[#F2F4F7] dark:bg-[#181A1F] rounded-full border border-[#DCE0E5] dark:border-[#282C34] overflow-x-auto scrollbar-none">
                         {allCategories.map((cat) => {
                             const isSelected = selectedCategory === cat;
                             return (
@@ -66,7 +86,7 @@ export default function HeroSection({
                                     key={cat}
                                     type="button"
                                     onClick={() => onSelectCategory(cat)}
-                                    className={`relative px-5 py-2 text-xs font-bold whitespace-nowrap transition-colors select-none ${
+                                    className={`relative px-5 py-2 text-xs font-bold whitespace-nowrap transition-colors select-none cursor-pointer ${
                                         isSelected ? 'text-white' : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
                                     }`}
                                 >
@@ -81,28 +101,6 @@ export default function HeroSection({
                                 </button>
                             );
                         })}
-                    </div>
-
-                    {/* Search Field */}
-                    <div className="relative w-full sm:w-80">
-                        <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
-                        <input
-                            ref={searchInputRef}
-                            type="text"
-                            value={searchQuery}
-                            onChange={(e) => onSearchChange(e.target.value)}
-                            placeholder="Cari menu Ambmanggo, Amberry, Ambpinaple..."
-                            className="w-full pl-10 pr-9 py-2.5 bg-white dark:bg-[#181A1F] border border-[#DCE0E5] dark:border-[#282C34] focus:border-[#FA4B00] rounded-full text-[#121417] dark:text-white placeholder-[#9CA3AF] text-xs font-medium outline-none shadow-xs transition-colors"
-                        />
-                        {searchQuery && (
-                            <button
-                                type="button"
-                                onClick={() => onSearchChange('')}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white p-1"
-                            >
-                                <X className="w-3.5 h-3.5" />
-                            </button>
-                        )}
                     </div>
                 </div>
             </div>

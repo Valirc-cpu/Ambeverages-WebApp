@@ -25,7 +25,6 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
 
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(filters.category || 'Semua');
-    const [searchQuery, setSearchQuery] = useState(filters.search || '');
     const [successOrder, setSuccessOrder] = useState(null);
 
     // Save cart to localStorage
@@ -113,14 +112,9 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
     const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-    // Filter drinks
+    // Filter drinks by category
     const filteredDrinks = drinks.filter((drink) => {
-        const matchesCategory =
-            selectedCategory === 'Semua' || drink.category === selectedCategory;
-        const matchesSearch =
-            drink.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (drink.description && drink.description.toLowerCase().includes(searchQuery.toLowerCase()));
-        return matchesCategory && matchesSearch;
+        return selectedCategory === 'Semua' || drink.category === selectedCategory;
     });
 
     // Form checkout
@@ -171,8 +165,6 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                 categories={categories}
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
             />
 
             {/* Menu Grid */}
