@@ -141,7 +141,7 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
     };
 
     return (
-        <div className="min-h-screen bg-[#F7F8FA] dark:bg-[#0E1013] text-[#121417] dark:text-[#F2F4F7] flex flex-col font-sans selection:bg-[#FA4B00] selection:text-white relative overflow-x-hidden transition-colors duration-200">
+        <div className="min-h-screen bg-[#F7F8FA] dark:bg-[#0E1013] text-[#121417] dark:text-[#F2F4F7] flex flex-col font-sans selection:bg-[#FA4B00] selection:text-white relative overflow-x-clip transition-colors duration-200">
             <Head title="MetaMask Brew - Artisanal Coffee & Drinks" />
 
             {/* Interactive Parallax Background Vectors (Responsive to Scroll) */}

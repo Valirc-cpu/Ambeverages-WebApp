@@ -15,7 +15,7 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
     };
 
     return (
-        <header className="sticky top-0 z-40 bg-white/90 dark:bg-[#121417]/90 backdrop-blur-md border-b border-[#E5E8EC] dark:border-[#262A32] transition-colors">
+        <header className="sticky top-0 z-50 bg-white/95 dark:bg-[#121417]/95 backdrop-blur-md border-b border-[#E5E8EC] dark:border-[#262A32] transition-colors">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
                 {/* Brand Logo */}
                 <Link href="/" className="hover:opacity-90 transition-opacity flex items-center">
