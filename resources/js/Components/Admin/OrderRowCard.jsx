@@ -17,7 +17,7 @@ export default function OrderRowCard({
     const waPhone = cleanPhone.startsWith('0') ? '62' + cleanPhone.substring(1) : cleanPhone;
 
     return (
-        <div className="p-6 bg-white border border-[#E5E8EC] rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div className="p-6 bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] flex flex-col lg:flex-row lg:items-center justify-between gap-6 transition-colors">
             {/* Order Info */}
             <div className="space-y-3 flex-1">
                 <div className="flex flex-wrap items-center gap-3">
@@ -41,8 +41,8 @@ export default function OrderRowCard({
                 </div>
 
                 {/* Customer Info */}
-                <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-[#4B5563]">
-                    <span className="font-bold text-[#121417]">
+                <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-[#4B5563] dark:text-[#9CA3AF]">
+                    <span className="font-bold text-[#121417] dark:text-white">
                         👤 {order.customer_name}
                     </span>
                     <a
@@ -56,14 +56,14 @@ export default function OrderRowCard({
                         <ExternalLink className="w-3 h-3" />
                     </a>
                     {order.notes && (
-                        <span className="text-[#6B7280] italic">
+                        <span className="text-[#6B7280] dark:text-[#9CA3AF] italic">
                             Catatan: "{order.notes}"
                         </span>
                     )}
                 </div>
 
                 {/* Items Ordered */}
-                <div className="p-3.5 rounded-2xl bg-[#F7F8FA] border border-[#E5E8EC] text-xs">
+                <div className="p-3.5 rounded-2xl bg-[#F7F8FA] dark:bg-[#1A1D24] border border-[#E5E8EC] dark:border-[#292D36] text-xs">
                     <span className="text-[10px] uppercase font-bold text-[#9CA3AF] block mb-1.5 tracking-wider">
                         Minuman yang Dipesan:
                     </span>
@@ -71,11 +71,11 @@ export default function OrderRowCard({
                         {order.items?.map((item) => (
                             <span
                                 key={item.id}
-                                className="px-3 py-1 rounded-full bg-white border border-[#DCE0E5] text-[#121417] flex items-center gap-1.5 shadow-sm"
+                                className="px-3 py-1 rounded-full bg-white dark:bg-[#14161B] border border-[#DCE0E5] dark:border-[#2C313B] text-[#121417] dark:text-white flex items-center gap-1.5 shadow-xs"
                             >
                                 <span className="text-[#FA4B00] font-extrabold">{item.quantity}x</span>
                                 <span className="font-semibold">{item.drink_name}</span>
-                                <span className="text-[#6B7280]">({item.formatted_subtotal})</span>
+                                <span className="text-[#6B7280] dark:text-[#9CA3AF]">({item.formatted_subtotal})</span>
                             </span>
                         ))}
                     </div>
@@ -83,12 +83,12 @@ export default function OrderRowCard({
             </div>
 
             {/* Price and Actions */}
-            <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-4 shrink-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-[#F0F2F5]">
+            <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-4 shrink-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-[#F0F2F5] dark:border-[#24272D]">
                 <div className="text-left sm:text-right">
                     <span className="text-[10px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                         Total Pembayaran
                     </span>
-                    <span className="text-2xl font-extrabold text-[#121417]">
+                    <span className="text-2xl font-extrabold text-[#121417] dark:text-white">
                         {order.formatted_total_price}
                     </span>
                 </div>
@@ -111,7 +111,7 @@ export default function OrderRowCard({
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => onOpenCancel(order)}
-                                className="text-xs text-[#6B7280] hover:text-[#D73A49]"
+                                className="text-xs text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#D73A49]"
                             >
                                 <X className="w-4 h-4" />
                                 <span>Batal</span>
@@ -130,7 +130,7 @@ export default function OrderRowCard({
                                 size="sm"
                                 onClick={() => onOpenCancel(order)}
                                 title="Batalkan dan pulihkan stok"
-                                className="text-[11px] text-[#6B7280] hover:text-[#D73A49]"
+                                className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#D73A49]"
                             >
                                 Batal
                             </Button>
@@ -138,7 +138,7 @@ export default function OrderRowCard({
                     )}
 
                     {isCancelled && (
-                        <span className="text-xs text-[#6B7280] flex items-center gap-1 font-semibold">
+                        <span className="text-xs text-[#6B7280] dark:text-[#9CA3AF] flex items-center gap-1 font-semibold">
                             <XCircle className="w-4 h-4 text-[#D73A49]" />
                             <span>Pesanan Dibatalkan</span>
                         </span>

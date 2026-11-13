@@ -2,7 +2,7 @@ import React from 'react';
 import { Head, useForm, Link } from '@inertiajs/react';
 import MetaMaskLogo from '../../Components/MetaMaskLogo';
 import Button from '../../Components/Button';
-import Card from '../../Components/Card';
+import ThemeToggle from '../../Components/ThemeToggle';
 import { Lock, Mail, ArrowLeft, KeyRound, Sparkles } from 'lucide-react';
 
 export default function Login() {
@@ -26,24 +26,26 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F7F8FA] flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
+        <div className="min-h-screen bg-[#F7F8FA] dark:bg-[#0E1013] text-[#121417] dark:text-white flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans transition-colors">
             <Head title="Admin Login" />
 
-            {/* Ambient gradients */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FA4B00]/10 rounded-full blur-3xl pointer-events-none" />
+            {/* Top Right Theme Toggle */}
+            <div className="absolute top-6 right-6 z-20">
+                <ThemeToggle />
+            </div>
 
             <div className="w-full max-w-md relative z-10">
                 <div className="text-center mb-8">
                     <div className="inline-flex justify-center mb-3">
                         <MetaMaskLogo className="w-12 h-12" textSize="text-2xl" />
                     </div>
-                    <p className="text-sm font-semibold text-[#6B7280] mt-1">
+                    <p className="text-sm font-semibold text-[#6B7280] dark:text-[#9CA3AF] mt-1">
                         Portal Administrator MetaDrink
                     </p>
                 </div>
 
-                <div className="bg-white border border-[#E5E8EC] rounded-[32px] p-8 shadow-[0_16px_40px_rgba(0,0,0,0.06)]">
-                    <h2 className="text-xl font-extrabold text-[#121417] mb-6 flex items-center gap-2">
+                <div className="bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[32px] p-8 shadow-[0_16px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_16px_40px_rgba(0,0,0,0.4)] transition-colors">
+                    <h2 className="text-xl font-extrabold text-[#121417] dark:text-white mb-6 flex items-center gap-2">
                         <KeyRound className="w-5 h-5 text-[#FA4B00]" />
                         <span>Masuk ke Dashboard</span>
                     </h2>
@@ -51,7 +53,7 @@ export default function Login() {
                     <form onSubmit={handleSubmit} className="space-y-5">
                         {/* Email */}
                         <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-[#4B5563] mb-1.5">
+                            <label className="block text-xs font-bold uppercase tracking-wider text-[#4B5563] dark:text-[#9CA3AF] mb-1.5">
                                 Email Admin
                             </label>
                             <div className="relative">
@@ -64,7 +66,7 @@ export default function Login() {
                                     onChange={(e) => setData('email', e.target.value)}
                                     placeholder="admin@example.com"
                                     required
-                                    className="w-full pl-10 pr-4 py-2.5 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] focus:bg-white rounded-xl text-[#121417] placeholder-[#9CA3AF] text-sm transition-colors outline-none"
+                                    className="w-full pl-10 pr-4 py-2.5 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white placeholder-[#9CA3AF] text-sm transition-colors outline-none"
                                 />
                             </div>
                             {errors.email && (
@@ -74,7 +76,7 @@ export default function Login() {
 
                         {/* Password */}
                         <div>
-                            <label className="block text-xs font-bold uppercase tracking-wider text-[#4B5563] mb-1.5">
+                            <label className="block text-xs font-bold uppercase tracking-wider text-[#4B5563] dark:text-[#9CA3AF] mb-1.5">
                                 Kata Sandi
                             </label>
                             <div className="relative">
@@ -87,7 +89,7 @@ export default function Login() {
                                     onChange={(e) => setData('password', e.target.value)}
                                     placeholder="••••••••"
                                     required
-                                    className="w-full pl-10 pr-4 py-2.5 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] focus:bg-white rounded-xl text-[#121417] placeholder-[#9CA3AF] text-sm transition-colors outline-none"
+                                    className="w-full pl-10 pr-4 py-2.5 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white placeholder-[#9CA3AF] text-sm transition-colors outline-none"
                                 />
                             </div>
                             {errors.password && (
@@ -96,13 +98,13 @@ export default function Login() {
                         </div>
 
                         {/* Remember Me */}
-                        <div className="flex items-center justify-between text-xs text-[#6B7280]">
+                        <div className="flex items-center justify-between text-xs text-[#6B7280] dark:text-[#9CA3AF]">
                             <label className="flex items-center gap-2 cursor-pointer select-none">
                                 <input
                                     type="checkbox"
                                     checked={data.remember}
                                     onChange={(e) => setData('remember', e.target.checked)}
-                                    className="rounded border-[#DCE0E5] text-[#FA4B00] focus:ring-0"
+                                    className="rounded border-[#DCE0E5] dark:border-[#2C313B] text-[#FA4B00] focus:ring-0"
                                 />
                                 <span>Ingat saya</span>
                             </label>
@@ -133,7 +135,7 @@ export default function Login() {
                 <div className="text-center mt-6">
                     <Link
                         href="/"
-                        className="inline-flex items-center gap-2 text-xs font-bold text-[#6B7280] hover:text-[#FA4B00] transition-colors"
+                        className="inline-flex items-center gap-2 text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#FA4B00] transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4" />
                         <span>Kembali ke Katalog Minuman</span>

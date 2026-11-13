@@ -41,7 +41,7 @@ export default function InteractiveFox({ size = 110 }) {
             }}
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.96 }}
-            className="cursor-pointer select-none inline-flex items-center justify-center p-2 rounded-2xl bg-white border border-[#E5E8EC] shadow-[0_8px_24px_rgba(0,0,0,0.06)]"
+            className="cursor-pointer select-none inline-flex items-center justify-center p-2.5 rounded-3xl bg-white dark:bg-[#17191E] border border-[#E5E8EC] dark:border-[#2A2E36] shadow-[0_8px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.4)] transition-colors"
             title="Arahkan kursor untuk menggerakkan Fox!"
         >
             <svg

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 import MetaMaskLogo from './MetaMaskLogo';
 import Button from './Button';
+import ThemeToggle from './ThemeToggle';
 import { ShoppingBag, ShieldCheck, LogOut } from 'lucide-react';
 
 export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
@@ -14,7 +15,7 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
     };
 
     return (
-        <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-[#E5E8EC] transition-all">
+        <header className="sticky top-0 z-40 bg-white/90 dark:bg-[#121417]/90 backdrop-blur-md border-b border-[#E5E8EC] dark:border-[#262A32] transition-colors">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
                 {/* Brand Logo */}
                 <Link href="/" className="hover:opacity-90 transition-opacity flex items-center">
@@ -22,12 +23,15 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
                 </Link>
 
                 {/* Right Actions */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2.5">
+                    {/* Theme Toggle (Light / Dark) */}
+                    <ThemeToggle />
+
                     {/* Cart Trigger Button */}
                     <button
                         type="button"
                         onClick={onOpenCart}
-                        className="relative flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#121417] hover:bg-[#2A2E35] text-white transition-all font-bold text-sm shadow-[0_4px_14px_rgba(0,0,0,0.12)] active:scale-[0.98] group"
+                        className="relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full bg-[#121417] dark:bg-[#1E2229] hover:bg-[#2A2E35] dark:hover:bg-[#2B303A] text-white transition-all font-bold text-sm shadow-[0_4px_14px_rgba(0,0,0,0.12)] border border-transparent dark:border-[#323844] active:scale-[0.98] group"
                         aria-label="Keranjang Belanja"
                     >
                         <div className="relative">
@@ -50,7 +54,7 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
                     {user ? (
                         <div className="flex items-center gap-2">
                             <Link href="/admin/orders">
-                                <Button variant="outline" size="sm" className="hidden sm:inline-flex">
+                                <Button variant="outline" size="sm" className="hidden sm:inline-flex dark:bg-[#1A1D22] dark:border-[#2E333C] dark:text-white">
                                     <ShieldCheck className="w-4 h-4 text-[#FA4B00]" />
                                     <span>Panel Admin</span>
                                 </Button>
@@ -60,16 +64,16 @@ export default function Navbar({ onOpenCart, cartItemCount = 0 }) {
                                 size="sm"
                                 onClick={handleLogout}
                                 title="Keluar"
-                                className="text-[#6B7280] hover:text-[#D73A49]"
+                                className="text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#D73A49]"
                             >
                                 <LogOut className="w-4 h-4" />
                             </Button>
                         </div>
                     ) : (
                         <Link href="/login">
-                            <Button variant="ghost" size="sm" className="text-xs text-[#6B7280] hover:text-[#121417] font-semibold">
+                            <Button variant="ghost" size="sm" className="text-xs text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white font-semibold">
                                 <ShieldCheck className="w-4 h-4" />
-                                <span className="hidden sm:inline">Admin Login</span>
+                                <span className="hidden sm:inline">Admin</span>
                             </Button>
                         </Link>
                     )}

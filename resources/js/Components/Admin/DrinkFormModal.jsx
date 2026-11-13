@@ -20,7 +20,7 @@ export default function DrinkFormModal({
         >
             <form onSubmit={onSubmit} className="space-y-4 py-2">
                 <div>
-                    <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                    <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                         Nama Minuman <span className="text-[#D73A49]">*</span>
                     </label>
                     <input
@@ -29,7 +29,7 @@ export default function DrinkFormModal({
                         onChange={(e) => setData('name', e.target.value)}
                         placeholder="Contoh: MetaMask Nitro Cold Brew"
                         required
-                        className="w-full px-4 py-2.5 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-sm outline-none"
+                        className="w-full px-4 py-2.5 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-sm outline-none transition-colors"
                     />
                     {errors.name && (
                         <p className="text-xs text-[#D73A49] mt-1">{errors.name}</p>
@@ -38,7 +38,7 @@ export default function DrinkFormModal({
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
-                        <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                        <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                             Kategori
                         </label>
                         <input
@@ -46,12 +46,12 @@ export default function DrinkFormModal({
                             value={data.category}
                             onChange={(e) => setData('category', e.target.value)}
                             placeholder="Signature / Kopi"
-                            className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
+                            className="w-full px-3.5 py-2 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none transition-colors"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                        <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                             Harga (Rp) <span className="text-[#D73A49]">*</span>
                         </label>
                         <input
@@ -61,12 +61,12 @@ export default function DrinkFormModal({
                             onChange={(e) => setData('price', e.target.value)}
                             placeholder="25000"
                             required
-                            className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
+                            className="w-full px-3.5 py-2 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none transition-colors"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                        <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                             Stok Fisik <span className="text-[#D73A49]">*</span>
                         </label>
                         <input
@@ -76,13 +76,13 @@ export default function DrinkFormModal({
                             onChange={(e) => setData('stock', e.target.value)}
                             placeholder="20"
                             required
-                            className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
+                            className="w-full px-3.5 py-2 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none transition-colors"
                         />
                     </div>
                 </div>
 
                 <div>
-                    <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                    <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                         URL Gambar Minuman (Opsional)
                     </label>
                     <input
@@ -90,24 +90,24 @@ export default function DrinkFormModal({
                         value={data.image_url}
                         onChange={(e) => setData('image_url', e.target.value)}
                         placeholder="https://images.unsplash.com/..."
-                        className="w-full px-4 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
+                        className="w-full px-4 py-2 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none transition-colors"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                    <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                         Atau Unggah Berkas Gambar
                     </label>
                     <input
                         type="file"
                         accept="image/*"
                         onChange={(e) => setData('image', e.target.files[0])}
-                        className="w-full text-xs text-[#6B7280] file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#121417] file:text-white hover:file:bg-[#2A2E35]"
+                        className="w-full text-xs text-[#6B7280] dark:text-[#9CA3AF] file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#121417] dark:file:bg-[#20242D] file:text-white hover:file:bg-[#2A2E35]"
                     />
                 </div>
 
                 <div>
-                    <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                    <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
                         Deskripsi Minuman
                     </label>
                     <textarea
@@ -115,13 +115,13 @@ export default function DrinkFormModal({
                         value={data.description}
                         onChange={(e) => setData('description', e.target.value)}
                         placeholder="Tuliskan komposisi rasa atau keunggulan menu..."
-                        className="w-full px-4 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none resize-none"
+                        className="w-full px-4 py-2 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none resize-none transition-colors"
                     />
                 </div>
 
                 {isEdit && (
                     <div className="flex items-center gap-2">
-                        <label className="flex items-center gap-2 text-xs text-[#4B5563] cursor-pointer">
+                        <label className="flex items-center gap-2 text-xs text-[#4B5563] dark:text-[#9CA3AF] cursor-pointer">
                             <input
                                 type="checkbox"
                                 checked={data.is_active}
@@ -133,12 +133,12 @@ export default function DrinkFormModal({
                     </div>
                 )}
 
-                <div className="flex items-center gap-3 pt-3 border-t border-[#F0F2F5]">
+                <div className="flex items-center gap-3 pt-3 border-t border-[#F0F2F5] dark:border-[#24272D]">
                     <Button
                         variant="outline"
                         size="md"
                         onClick={onClose}
-                        className="flex-1"
+                        className="flex-1 dark:bg-[#191C22] dark:border-[#2C313B] dark:text-white"
                     >
                         Batal
                     </Button>

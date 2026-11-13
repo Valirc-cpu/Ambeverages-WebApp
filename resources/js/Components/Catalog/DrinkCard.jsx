@@ -16,11 +16,11 @@ export default function DrinkCard({ drink, onAddToCart }) {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.25 }}
             whileHover={!isOutOfStock ? { y: -4, transition: { duration: 0.15 } } : {}}
-            className="bg-white border border-[#E5E8EC] rounded-[26px] p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.07)] hover:border-[#CBD2D9] transition-all flex flex-col justify-between group"
+            className="bg-white dark:bg-[#16181D] border border-[#E5E8EC] dark:border-[#272B33] rounded-[26px] p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.07)] hover:border-[#CBD2D9] dark:hover:border-[#383E4A] transition-all flex flex-col justify-between group"
         >
             <div>
                 {/* Beverage Image Frame */}
-                <div className="relative aspect-[4/3] w-full bg-[#F4F5F7] rounded-[18px] overflow-hidden mb-4 border border-[#ECEFF2]">
+                <div className="relative aspect-[4/3] w-full bg-[#F4F5F7] dark:bg-[#1D2026] rounded-[18px] overflow-hidden mb-4 border border-[#ECEFF2] dark:border-[#2B303A]">
                     {drink.image_url ? (
                         <img
                             src={drink.image_url}
@@ -39,7 +39,7 @@ export default function DrinkCard({ drink, onAddToCart }) {
 
                     {/* Category Tag */}
                     <div className="absolute top-3 left-3">
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#121417] text-white">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#121417] dark:bg-[#1E222A] text-white border border-transparent dark:border-[#353C48]">
                             {drink.category}
                         </span>
                     </div>
@@ -63,21 +63,21 @@ export default function DrinkCard({ drink, onAddToCart }) {
                 </div>
 
                 {/* Details */}
-                <h3 className="font-extrabold text-base text-[#121417] group-hover:text-[#FA4B00] transition-colors line-clamp-1">
+                <h3 className="font-extrabold text-base text-[#121417] dark:text-white group-hover:text-[#FA4B00] transition-colors line-clamp-1">
                     {drink.name}
                 </h3>
-                <p className="text-xs text-[#6B7280] mt-1.5 line-clamp-2 min-h-[32px] font-normal leading-relaxed">
+                <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1.5 line-clamp-2 min-h-[32px] font-normal leading-relaxed">
                     {drink.description || 'Minuman segar diracik khusus untuk menemani aktivitas harian Anda.'}
                 </p>
             </div>
 
             {/* Price & Action Row */}
-            <div className="pt-4 mt-4 border-t border-[#F0F2F5] flex items-center justify-between gap-3">
+            <div className="pt-4 mt-4 border-t border-[#F0F2F5] dark:border-[#24272D] flex items-center justify-between gap-3">
                 <div>
                     <span className="text-[10px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                         Harga
                     </span>
-                    <span className="text-lg font-extrabold text-[#121417]">
+                    <span className="text-lg font-extrabold text-[#121417] dark:text-white">
                         {drink.formatted_price}
                     </span>
                 </div>
