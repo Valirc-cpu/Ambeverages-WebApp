@@ -125,31 +125,29 @@ class CustomerController extends Controller
                 $cleanAdminPhone = '62'.substr($cleanAdminPhone, 1);
             }
 
-            // Build clear, informative WhatsApp order message
+            // Simple, natural order message format (no slop, no emojis, no ascii art)
             $messageLines = [
-                '👋 *HALO METADRINK, SAYA MAU PESAN:*',
-                '====================================',
-                '📋 *RINCIAN PESANAN:*',
+                'Halo, saya mau pesan minuman:',
+                '',
+                'Pesanan:',
             ];
 
             foreach ($itemsData as $item) {
                 $formattedSubtotal = 'Rp '.number_format($item['subtotal'], 0, ',', '.');
-                $messageLines[] = "• *{$item['drink']->name}*";
-                $messageLines[] = "  └ Beli: {$item['quantity']} porsi | Subtotal: {$formattedSubtotal}";
+                $messageLines[] = "- {$item['drink']->name} ({$item['quantity']}x) : {$formattedSubtotal}";
             }
 
-            $messageLines[] = '------------------------------------';
-            $messageLines[] = '💰 *TOTAL BAYAR:* '.$order->formatted_total_price;
-            $messageLines[] = '====================================';
-            $messageLines[] = '👤 *DATA PEMESAN:*';
-            $messageLines[] = "• Nama: {$order->customer_name}";
-            $messageLines[] = "• No. HP: {$order->customer_phone}";
-            if (! empty($order->notes)) {
-                $messageLines[] = "• Catatan: {$order->notes}";
-            }
-            $messageLines[] = "• Kode Order: {$order->order_code}";
             $messageLines[] = '';
-            $messageLines[] = 'Mohon segera diproses ya, terima kasih!';
+            $messageLines[] = 'Total Bayar: '.$order->formatted_total_price;
+            $messageLines[] = '';
+            $messageLines[] = 'Nama: '.$order->customer_name;
+            $messageLines[] = 'No Telp: '.$order->customer_phone;
+            if (! empty($order->notes)) {
+                $messageLines[] = 'Catatan: '.$order->notes;
+            }
+            $messageLines[] = 'Kode Pesanan: '.$order->order_code;
+            $messageLines[] = '';
+            $messageLines[] = 'Terima kasih.';
 
             $whatsappMessage = implode("\n", $messageLines);
 
