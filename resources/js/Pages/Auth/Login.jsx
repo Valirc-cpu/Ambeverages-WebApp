@@ -40,7 +40,7 @@ export default function Login() {
                         <MetaMaskLogo className="w-12 h-12" textSize="text-2xl" />
                     </div>
                     <p className="text-sm font-semibold text-[#6B7280] dark:text-[#9CA3AF] mt-1">
-                        Portal Administrator MetaDrink
+                        Portal Administrator Ambeverages
                     </p>
                 </div>
 

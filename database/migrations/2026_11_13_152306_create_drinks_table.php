@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             $table->string('image')->nullable();
             $table->text('description')->nullable();
-            $table->string('category')->default('Signature');
+            $table->string('category')->default('Ambmanggo');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

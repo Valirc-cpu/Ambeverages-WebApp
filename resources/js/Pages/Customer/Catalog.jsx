@@ -158,7 +158,7 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
 
     return (
         <div className="min-h-screen bg-[#F7F8FA] dark:bg-[#0E1013] text-[#121417] dark:text-[#F2F4F7] flex flex-col font-sans selection:bg-[#FA4B00] selection:text-white relative overflow-x-clip transition-colors duration-200">
-            <Head title="MetaMask Brew - Artisanal Coffee & Drinks" />
+            <Head title="Ambeverages — I Am Beverages." />
 
             {/* Interactive Parallax Background Vectors (Responsive to Scroll) */}
             <ParallaxVectors />
@@ -180,13 +180,13 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         <h2 className="text-2xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
-                            <span>Katalog Menu Pilihan</span>
+                            <span>Katalog Varian Ambeverages</span>
                             <span className="text-xs px-3 py-1 rounded-full bg-[#ECEFF2] dark:bg-[#1E222A] text-[#4B5563] dark:text-[#9CA3AF] font-bold border border-transparent dark:border-[#2C313B]">
                                 {filteredDrinks.length} Varian
                             </span>
                         </h2>
                         <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
-                            Ketersediaan stok realtime dari gudang MetaDrink
+                            Ketersediaan stok realtime dari gudang Ambeverages
                         </p>
                     </div>
                 </div>
@@ -200,7 +200,7 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
                         <div className="w-16 h-16 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00] flex items-center justify-center mx-auto mb-4 border border-[#FA4B00]/20">
                             <Coffee className="w-8 h-8" />
                         </div>
-                        <h3 className="text-lg font-extrabold text-[#121417] dark:text-white">Barista Station Sedang Standby</h3>
+                        <h3 className="text-lg font-extrabold text-[#121417] dark:text-white">Ambeverages Station Sedang Standby</h3>
                         <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1.5 leading-relaxed max-w-sm mx-auto">
                             {drinks.length === 0
                                 ? 'Belum ada menu minuman yang ditambahkan. Masuk ke Panel Admin untuk mulai menginput data minuman pertamamu!'
@@ -247,8 +247,8 @@ export default function Catalog({ drinks = [], categories = [], filters = {} }) 
             {/* Footer */}
             <footer className="border-t border-[#E5E8EC] dark:border-[#24272D] py-10 bg-white/80 dark:bg-[#121417]/80 backdrop-blur-md mt-auto transition-colors relative z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-[#6B7280] dark:text-[#9CA3AF] space-y-2">
-                    <p className="font-semibold text-[#121417] dark:text-white">MetaMask Brew © {new Date().getFullYear()} — Handcrafted Beverages</p>
-                    <p>Designed with MetaMask Design System tokens, Laravel 13, React, and Tailwind CSS.</p>
+                    <p className="font-semibold text-[#121417] dark:text-white">Ambeverages © {new Date().getFullYear()} — I Am Beverages.</p>
+                    <p>Artisanal handcrafted fruit drinks: Ambmanggo, Amberry, and Ambpinaple.</p>
                 </div>
             </footer>
         </div>

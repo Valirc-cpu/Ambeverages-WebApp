@@ -34,12 +34,16 @@ class CustomerController extends Controller
 
         $drinks = $query->orderBy('name')->get();
 
-        $categories = Drink::query()
+        $defaultCategories = ['Ambmanggo', 'Amberry', 'Ambpinaple'];
+        $dbCategories = Drink::query()
             ->where('is_active', true)
             ->distinct()
             ->pluck('category')
             ->filter()
-            ->values();
+            ->values()
+            ->all();
+
+        $categories = array_values(array_unique(array_merge($defaultCategories, $dbCategories)));
 
         return Inertia::render('Customer/Catalog', [
             'drinks' => $drinks,
@@ -127,7 +131,7 @@ class CustomerController extends Controller
 
             // Simple, natural order message format (no slop, no emojis, no ascii art)
             $messageLines = [
-                'Halo, saya mau pesan minuman:',
+                'Halo Ambeverages, saya mau pesan minuman:',
                 '',
                 'Pesanan:',
             ];

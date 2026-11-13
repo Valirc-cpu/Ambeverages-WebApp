@@ -25,8 +25,8 @@ export default function HeroSection({
                             transition={{ duration: 0.4 }}
                             className="text-4xl sm:text-6xl font-extrabold text-[#121417] dark:text-white tracking-tight leading-[1.08]"
                         >
-                            Specialty Brews. <br />
-                            <span className="text-[#FA4B00]">Instant WhatsApp Checkout.</span>
+                            Ambeverages. <br />
+                            <span className="text-[#FA4B00]">I Am Beverages.</span>
                         </motion.h1>
 
                         <motion.p
@@ -35,7 +35,7 @@ export default function HeroSection({
                             transition={{ duration: 0.4, delay: 0.1 }}
                             className="text-base sm:text-lg text-[#4B5563] dark:text-[#9CA3AF] font-medium mt-4 leading-relaxed max-w-xl"
                         >
-                            Pilih menu kopi atau minuman dingin favoritmu. Pesan langsung tanpa registrasi akun, rincian terkirim ke WhatsApp, dan stok otomatis terpotong saat pesanan dikonfirmasi.
+                            Nikmati sensasi kesegaran Ambmanggo, Amberry, dan Ambpinaple. Pesan cepat tanpa registrasi akun, rincian terkirim ke WhatsApp, dan stok terpotong otomatis saat pesanan dikonfirmasi.
                         </motion.p>
                     </div>
 

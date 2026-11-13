@@ -25,6 +25,12 @@ class DrinkFlowTest extends TestCase
         $response = $this->get(route('catalog'));
 
         $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->component('Customer/Catalog')
+            ->where('categories.0', 'Ambmanggo')
+            ->where('categories.1', 'Amberry')
+            ->where('categories.2', 'Ambpinaple')
+        );
     }
 
     public function test_guest_can_order_drinks_without_user_account(): void

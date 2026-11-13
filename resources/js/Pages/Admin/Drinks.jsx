@@ -36,7 +36,7 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
     // Add Form
     const addForm = useForm({
         name: '',
-        category: 'Signature',
+        category: 'Ambmanggo',
         price: '',
         stock: '',
         image_url: '',
@@ -60,7 +60,7 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
         setEditingDrink(drink);
         editForm.setData({
             name: drink.name,
-            category: drink.category || 'Signature',
+            category: drink.category || 'Ambmanggo',
             price: drink.price,
             stock: drink.stock,
             image_url: drink.image && drink.image.startsWith('http') ? drink.image : '',

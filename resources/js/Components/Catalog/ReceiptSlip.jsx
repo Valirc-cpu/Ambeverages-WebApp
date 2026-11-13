@@ -13,8 +13,8 @@ export default function ReceiptSlip({
         <div className="bg-[#FAFBFD] dark:bg-[#15171C] border border-[#DCE0E5] dark:border-[#2C313B] rounded-2xl p-5 text-[#121417] dark:text-[#F2F4F7] font-mono text-xs shadow-xs relative overflow-hidden transition-colors">
             {/* Header */}
             <div className="text-center pb-3 border-b border-dashed border-[#CBD2D9] dark:border-[#353B47] space-y-1">
-                <div className="font-extrabold text-sm tracking-wider uppercase">METAMASK BREW BAR</div>
-                <div className="text-[10px] text-[#6B7280] dark:text-[#9CA3AF]">EST. 2026 • HANDCRAFTED DRINKS</div>
+                <div className="font-extrabold text-sm tracking-wider uppercase">AMBEVERAGES BAR</div>
+                <div className="text-[10px] text-[#6B7280] dark:text-[#9CA3AF]">EST. 2026 • I AM BEVERAGES.</div>
                 <div className="text-[11px] font-bold text-[#FA4B00] pt-1">#{orderCode}</div>
             </div>
 

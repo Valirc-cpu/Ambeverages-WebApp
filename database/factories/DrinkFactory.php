@@ -34,7 +34,7 @@ class DrinkFactory extends Factory
             'stock' => fake()->numberBetween(10, 50),
             'image' => null,
             'description' => fake()->sentence(8),
-            'category' => fake()->randomElement(['Kopi', 'Tea', 'Signature', 'Non-Kopi']),
+            'category' => fake()->randomElement(['Ambmanggo', 'Amberry', 'Ambpinaple']),
             'is_active' => true,
         ];
     }

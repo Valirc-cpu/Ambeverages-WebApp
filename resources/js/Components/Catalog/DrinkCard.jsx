@@ -69,7 +69,7 @@ export default function DrinkCard({
                 ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center text-[#9CA3AF]">
                         <Coffee className="w-16 h-16 mb-2 text-[#CBD2D9] dark:text-[#383E4A]" />
-                        <span className="text-xs font-bold uppercase tracking-wider">MetaDrink Craft</span>
+                        <span className="text-xs font-bold uppercase tracking-wider">Ambeverages Craft</span>
                     </div>
                 )}
 
@@ -114,7 +114,7 @@ export default function DrinkCard({
                     <div className="flex items-center gap-2 mb-2">
                         <span className="text-[11px] font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-1.5">
                             <Coffee className="w-3.5 h-3.5 text-[#FA4B00]" />
-                            <span>Batch #{String(drink.id).padStart(2, '0')} • Handcrafted Beverage</span>
+                            <span>Batch #{String(drink.id).padStart(2, '0')} • Ambeverages Handcrafted</span>
                         </span>
                     </div>
 
@@ -125,7 +125,7 @@ export default function DrinkCard({
 
                     {/* Description */}
                     <p className="text-sm sm:text-base text-[#6B7280] dark:text-[#9CA3AF] mt-3 leading-relaxed line-clamp-3 font-normal">
-                        {drink.description || 'Minuman segar spesial racikan barista MetaDrink dengan kualitas bahan premium terpilih.'}
+                        {drink.description || 'Minuman segar spesial racikan Ambeverages dengan sensasi buah premium terpilih.'}
                     </p>
 
                     {/* Chips info */}

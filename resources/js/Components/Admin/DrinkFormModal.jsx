@@ -27,7 +27,7 @@ export default function DrinkFormModal({
                         type="text"
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
-                        placeholder="Contoh: MetaMask Nitro Cold Brew"
+                        placeholder="Contoh: Ambmanggo Sparkling Delight"
                         required
                         className="w-full px-4 py-2.5 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-sm outline-none transition-colors"
                     />
@@ -45,7 +45,7 @@ export default function DrinkFormModal({
                             type="text"
                             value={data.category}
                             onChange={(e) => setData('category', e.target.value)}
-                            placeholder="Signature / Kopi"
+                            placeholder="Ambmanggo / Amberry / Ambpinaple"
                             className="w-full px-3.5 py-2 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none transition-colors"
                         />
                     </div>

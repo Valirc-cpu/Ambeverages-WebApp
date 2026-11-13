@@ -36,13 +36,10 @@ export default function MetaMaskLogo({ className = 'w-9 h-9', showText = true, t
             {showText && (
                 <div className="flex flex-col">
                     <span className={`font-extrabold tracking-tight text-[#121417] dark:text-white leading-none ${textSize}`}>
-                        Meta<span className="text-[#FA4B00]">Mask</span>
-                        <span className="ml-1.5 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#FA4B00]/10 text-[#FA4B00] border border-[#FA4B00]/25">
-                            Brew
-                        </span>
+                        Am<span className="text-[#FA4B00]">beverages</span>
                     </span>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-[#8F96A0] dark:text-[#9CA3AF] mt-0.5">
-                        Fresh Coffee & Drinks
+                    <span className="text-[10px] font-bold tracking-widest text-[#8F96A0] dark:text-[#9CA3AF] mt-0.5">
+                        I Am Beverages.
                     </span>
                 </div>
             )}
