@@ -97,14 +97,7 @@ export default function DrinkCard({
                     )}
                 </div>
 
-                {/* Matte Minimalist Highlight Badge (No Glow) */}
-                {isHighlighted && (
-                    <div className="absolute bottom-3 left-3">
-                        <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-[#121417] dark:bg-white text-white dark:text-[#121417] border border-transparent dark:border-[#222]">
-                            Fokus Menu
-                        </span>
-                    </div>
-                )}
+
             </div>
 
             {/* Right Content Section */}
