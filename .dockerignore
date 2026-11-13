@@ -1,0 +1,12 @@
+.git
+.github
+node_modules
+vendor
+tests
+storage/*.key
+.phpunit.cache
+.env
+.env.backup
+.env.production
+Thumbs.db
+.DS_Store
