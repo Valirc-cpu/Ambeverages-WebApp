@@ -14,9 +14,7 @@ import {
     Search,
     MessageSquare,
     ExternalLink,
-    Coffee,
     AlertTriangle,
-    Eye,
     Check,
     X
 } from 'lucide-react';
@@ -26,7 +24,6 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
     const [currentStatus, setCurrentStatus] = useState(filters.status || 'all');
     const [confirmModalOrder, setConfirmModalOrder] = useState(null);
     const [cancelModalOrder, setCancelModalOrder] = useState(null);
-    const [detailModalOrder, setDetailModalOrder] = useState(null);
     const [processingAction, setProcessingAction] = useState(false);
 
     const handleSearch = (e) => {
@@ -85,11 +82,11 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                 {/* Header title */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-                            <ShoppingCart className="w-6 h-6 text-[#F6851B]" />
+                        <h1 className="text-3xl font-extrabold text-[#121417] tracking-tight flex items-center gap-2.5">
+                            <ShoppingCart className="w-7 h-7 text-[#FA4B00]" />
                             <span>Pesanan Masuk</span>
                         </h1>
-                        <p className="text-xs text-[#8F96A0] mt-1">
+                        <p className="text-xs text-[#6B7280] mt-1 font-medium">
                             Kelola pesanan pembeli dan lakukan konfirmasi untuk otomatis memotong stok minuman.
                         </p>
                     </div>
@@ -97,57 +94,57 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <Card className="flex items-center gap-4 bg-[#181A1D] border-[#2A2E35]">
-                        <div className="p-3 rounded-xl bg-[#F6851B]/15 text-[#F6851B]">
+                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
+                        <div className="p-3.5 rounded-2xl bg-[#FFF3EB] text-[#FA4B00]">
                             <Clock className="w-6 h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-semibold text-[#8F96A0] block">
+                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Menunggu Konfirmasi
                             </span>
-                            <span className="text-2xl font-bold text-[#F6851B]">
+                            <span className="text-2xl font-extrabold text-[#FA4B00]">
                                 {stats.pending_orders || 0}
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-[#181A1D] border-[#2A2E35]">
-                        <div className="p-3 rounded-xl bg-[#28A745]/15 text-[#48D168]">
+                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
+                        <div className="p-3.5 rounded-2xl bg-[#E8F8EE] text-[#1EBE5D]">
                             <CheckCircle2 className="w-6 h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-semibold text-[#8F96A0] block">
+                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Pesanan Dikonfirmasi
                             </span>
-                            <span className="text-2xl font-bold text-white">
+                            <span className="text-2xl font-extrabold text-[#121417]">
                                 {stats.confirmed_orders || 0}
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-[#181A1D] border-[#2A2E35]">
-                        <div className="p-3 rounded-xl bg-[#037DD6]/15 text-[#42A5F5]">
+                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
+                        <div className="p-3.5 rounded-2xl bg-[#F0F5FF] text-[#0066FF]">
                             <ShoppingCart className="w-6 h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-semibold text-[#8F96A0] block">
+                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Pesanan
                             </span>
-                            <span className="text-2xl font-bold text-white">
+                            <span className="text-2xl font-extrabold text-[#121417]">
                                 {stats.total_orders || 0}
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-[#181A1D] border-[#2A2E35]">
-                        <div className="p-3 rounded-xl bg-purple-500/15 text-purple-400">
+                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
+                        <div className="p-3.5 rounded-2xl bg-[#FAF0FF] text-[#8F44E4]">
                             <TrendingUp className="w-6 h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-semibold text-[#8F96A0] block">
-                                Total Pendapatan
+                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
+                                Total Omset Penjualan
                             </span>
-                            <span className="text-2xl font-bold text-white">
+                            <span className="text-2xl font-extrabold text-[#121417]">
                                 {stats.formatted_total_revenue || 'Rp 0'}
                             </span>
                         </div>
@@ -156,8 +153,8 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
 
                 {/* Filter and Search Bar */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    {/* Status Tabs */}
-                    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    {/* Status Tabs Capsule */}
+                    <div className="inline-flex items-center gap-1 bg-[#ECEFF2] p-1.5 rounded-full border border-[#DCE0E5] overflow-x-auto scrollbar-none">
                         {[
                             { id: 'all', label: 'Semua Pesanan' },
                             { id: 'pending', label: 'Menunggu' },
@@ -168,10 +165,10 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                 key={tab.id}
                                 type="button"
                                 onClick={() => handleStatusTab(tab.id)}
-                                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                                className={`px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                                     currentStatus === tab.id
-                                        ? 'bg-[#F6851B] text-white shadow-[0_4px_12px_rgba(246,133,27,0.3)]'
-                                        : 'bg-[#181A1D] text-[#8F96A0] hover:text-white border border-[#2B2F36]'
+                                        ? 'bg-[#121417] text-white shadow-md'
+                                        : 'text-[#6B7280] hover:text-[#121417]'
                                 }`}
                             >
                                 {tab.label}
@@ -180,24 +177,24 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                     </div>
 
                     {/* Search Form */}
-                    <form onSubmit={handleSearch} className="relative min-w-[260px]">
-                        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8F96A0]" />
+                    <form onSubmit={handleSearch} className="relative min-w-[280px]">
+                        <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
                         <input
                             type="text"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Cari kode order, nama pemesan..."
-                            className="w-full pl-9 pr-4 py-2 bg-[#181A1D] border border-[#2B2F36] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-xs outline-none"
+                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#DCE0E5] focus:border-[#FA4B00] rounded-full text-[#121417] placeholder-[#9CA3AF] text-xs outline-none shadow-sm"
                         />
                     </form>
                 </div>
 
-                {/* Orders List / Table */}
+                {/* Orders List */}
                 {orders.data.length === 0 ? (
-                    <Card className="text-center py-16">
-                        <ShoppingCart className="w-12 h-12 text-[#5A606A] mx-auto mb-3" />
-                        <h3 className="text-base font-semibold text-white">Tidak ada data pesanan</h3>
-                        <p className="text-xs text-[#8F96A0] mt-1">
+                    <Card className="text-center py-20 bg-white">
+                        <ShoppingCart className="w-14 h-14 text-[#CBD2D9] mx-auto mb-3" />
+                        <h3 className="text-base font-bold text-[#121417]">Tidak ada data pesanan</h3>
+                        <p className="text-xs text-[#6B7280] mt-1">
                             Belum ada pesanan yang sesuai dengan filter saat ini.
                         </p>
                     </Card>
@@ -213,17 +210,17 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                             const waPhone = cleanPhone.startsWith('0') ? '62' + cleanPhone.substring(1) : cleanPhone;
 
                             return (
-                                <Card
+                                <div
                                     key={order.id}
-                                    className="p-5 bg-[#181A1D] border-[#2A2E35] flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+                                    className="p-6 bg-white border border-[#E5E8EC] rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col lg:flex-row lg:items-center justify-between gap-6"
                                 >
                                     {/* Order Info */}
                                     <div className="space-y-3 flex-1">
                                         <div className="flex flex-wrap items-center gap-3">
-                                            <span className="font-mono text-sm font-bold text-[#F6851B]">
+                                            <span className="font-mono text-sm font-extrabold text-[#FA4B00]">
                                                 {order.order_code}
                                             </span>
-                                            <span className="text-xs text-[#5A606A]">
+                                            <span className="text-xs text-[#9CA3AF] font-medium">
                                                 {new Date(order.created_at).toLocaleString('id-ID', {
                                                     day: 'numeric',
                                                     month: 'short',
@@ -240,41 +237,41 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                         </div>
 
                                         {/* Customer Info */}
-                                        <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-[#BBC0C5]">
-                                            <span className="font-semibold text-white flex items-center gap-1.5">
+                                        <div className="flex flex-wrap items-center gap-y-1 gap-x-4 text-xs text-[#4B5563]">
+                                            <span className="font-bold text-[#121417]">
                                                 👤 {order.customer_name}
                                             </span>
                                             <a
                                                 href={`https://wa.me/${waPhone}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-[#28A745] hover:underline flex items-center gap-1 font-medium"
+                                                className="text-[#25D366] hover:underline flex items-center gap-1 font-bold"
                                             >
                                                 <MessageSquare className="w-3.5 h-3.5" />
                                                 <span>{order.customer_phone}</span>
                                                 <ExternalLink className="w-3 h-3" />
                                             </a>
                                             {order.notes && (
-                                                <span className="text-[#8F96A0] italic">
+                                                <span className="text-[#6B7280] italic">
                                                     Catatan: "{order.notes}"
                                                 </span>
                                             )}
                                         </div>
 
                                         {/* Items Ordered */}
-                                        <div className="p-3 rounded-xl bg-[#121416] border border-[#262A30] text-xs">
-                                            <span className="text-[10px] uppercase font-semibold text-[#8F96A0] block mb-1">
-                                                Menu Dipesan:
+                                        <div className="p-3.5 rounded-2xl bg-[#F7F8FA] border border-[#E5E8EC] text-xs">
+                                            <span className="text-[10px] uppercase font-bold text-[#9CA3AF] block mb-1.5 tracking-wider">
+                                                Minuman yang Dipesan:
                                             </span>
                                             <div className="flex flex-wrap gap-2">
                                                 {order.items?.map((item) => (
                                                     <span
                                                         key={item.id}
-                                                        className="px-2.5 py-1 rounded-lg bg-[#1E2126] border border-[#2F343C] text-white flex items-center gap-1.5"
+                                                        className="px-3 py-1 rounded-full bg-white border border-[#DCE0E5] text-[#121417] flex items-center gap-1.5 shadow-sm"
                                                     >
-                                                        <span className="text-[#F6851B] font-bold">{item.quantity}x</span>
-                                                        <span>{item.drink_name}</span>
-                                                        <span className="text-[#8F96A0]">({item.formatted_subtotal})</span>
+                                                        <span className="text-[#FA4B00] font-extrabold">{item.quantity}x</span>
+                                                        <span className="font-semibold">{item.drink_name}</span>
+                                                        <span className="text-[#6B7280]">({item.formatted_subtotal})</span>
                                                     </span>
                                                 ))}
                                             </div>
@@ -282,12 +279,12 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                     </div>
 
                                     {/* Price and Actions */}
-                                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-4 shrink-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-[#262A30]">
+                                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-4 shrink-0 pt-4 sm:pt-0 border-t sm:border-t-0 border-[#F0F2F5]">
                                         <div className="text-left sm:text-right">
-                                            <span className="text-[10px] uppercase font-semibold text-[#8F96A0] block">
-                                                Total Tagihan
+                                            <span className="text-[10px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
+                                                Total Pembayaran
                                             </span>
-                                            <span className="text-xl font-bold text-white">
+                                            <span className="text-2xl font-extrabold text-[#121417]">
                                                 {order.formatted_total_price}
                                             </span>
                                         </div>
@@ -297,12 +294,12 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                             {isPending && (
                                                 <>
                                                     <Button
-                                                        variant="primary"
+                                                        variant="orange"
                                                         size="sm"
                                                         onClick={() => setConfirmModalOrder(order)}
-                                                        className="font-bold shadow-[0_2px_10px_rgba(246,133,27,0.3)]"
+                                                        className="font-bold shadow-[0_4px_14px_rgba(250,75,0,0.25)]"
                                                     >
-                                                        <Check className="w-4 h-4" />
+                                                        <Check className="w-4 h-4 stroke-[3]" />
                                                         <span>Konfirmasi Pesanan</span>
                                                     </Button>
 
@@ -310,7 +307,7 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                                         variant="ghost"
                                                         size="sm"
                                                         onClick={() => setCancelModalOrder(order)}
-                                                        className="text-xs text-[#8F96A0] hover:text-[#FF6B7A]"
+                                                        className="text-xs text-[#6B7280] hover:text-[#D73A49]"
                                                     >
                                                         <X className="w-4 h-4" />
                                                         <span>Batal</span>
@@ -320,16 +317,16 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
 
                                             {isConfirmed && (
                                                 <div className="flex items-center gap-2">
-                                                    <span className="text-xs text-[#48D168] flex items-center gap-1 font-medium">
+                                                    <span className="text-xs text-[#1EBE5D] flex items-center gap-1 font-bold">
                                                         <CheckCircle2 className="w-4 h-4" />
-                                                        <span>Selesai & Stok Berkurang</span>
+                                                        <span>Stok Terpotong Otomatis</span>
                                                     </span>
                                                     <Button
                                                         variant="ghost"
                                                         size="sm"
                                                         onClick={() => setCancelModalOrder(order)}
                                                         title="Batalkan dan pulihkan stok"
-                                                        className="text-[11px] text-[#8F96A0] hover:text-[#FF6B7A]"
+                                                        className="text-[11px] text-[#6B7280] hover:text-[#D73A49]"
                                                     >
                                                         Batal
                                                     </Button>
@@ -337,14 +334,14 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                             )}
 
                                             {isCancelled && (
-                                                <span className="text-xs text-[#8F96A0] flex items-center gap-1">
-                                                    <XCircle className="w-4 h-4 text-[#FF6B7A]" />
+                                                <span className="text-xs text-[#6B7280] flex items-center gap-1 font-semibold">
+                                                    <XCircle className="w-4 h-4 text-[#D73A49]" />
                                                     <span>Pesanan Dibatalkan</span>
                                                 </span>
                                             )}
                                         </div>
                                     </div>
-                                </Card>
+                                </div>
                             );
                         })}
                     </div>
@@ -359,12 +356,12 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                 href={link.url || '#'}
                                 preserveScroll
                                 dangerouslySetInnerHTML={{ __html: link.label }}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                                     link.active
-                                        ? 'bg-[#F6851B] text-white'
+                                        ? 'bg-[#121417] text-white shadow-sm'
                                         : link.url
-                                        ? 'bg-[#181A1D] text-[#8F96A0] hover:text-white border border-[#2B2F36]'
-                                        : 'opacity-40 cursor-not-allowed text-[#5A606A]'
+                                        ? 'bg-white text-[#6B7280] hover:text-[#121417] border border-[#DCE0E5]'
+                                        : 'opacity-40 cursor-not-allowed text-[#CBD2D9]'
                                 }`}
                             />
                         ))}
@@ -381,44 +378,44 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
             >
                 {confirmModalOrder && (
                     <div className="space-y-4 py-2">
-                        <div className="p-3.5 rounded-2xl bg-[#F6851B]/15 border border-[#F6851B]/30 text-xs text-[#BBC0C5] flex items-start gap-3">
-                            <AlertTriangle className="w-5 h-5 text-[#F6851B] shrink-0 mt-0.5" />
+                        <div className="p-4 rounded-2xl bg-[#FFF3EB] border border-[#FA4B00]/25 text-xs text-[#4B5563] flex items-start gap-3">
+                            <AlertTriangle className="w-5 h-5 text-[#FA4B00] shrink-0 mt-0.5" />
                             <div>
-                                <span className="font-bold text-white block mb-0.5">Perhatian:</span>
-                                Mengonfirmasi pesanan ini akan <strong>otomatis mengurangi stok</strong> masing-masing minuman di database secara realtime.
+                                <span className="font-extrabold text-[#121417] block mb-0.5">Konfirmasi Pesanan</span>
+                                Mengonfirmasi pesanan ini akan <strong>otomatis mengurangi stok fisik</strong> masing-masing minuman di database secara realtime.
                             </div>
                         </div>
 
-                        <div className="p-3 rounded-xl bg-[#1A1D21] border border-[#2B2F36] space-y-1.5 text-xs">
+                        <div className="p-4 rounded-2xl bg-[#F7F8FA] border border-[#E5E8EC] space-y-1.5 text-xs">
                             <div className="flex justify-between">
-                                <span className="text-[#8F96A0]">Kode Pesanan:</span>
-                                <span className="font-mono font-bold text-white">{confirmModalOrder.order_code}</span>
+                                <span className="text-[#6B7280]">Kode Pesanan:</span>
+                                <span className="font-mono font-extrabold text-[#121417]">{confirmModalOrder.order_code}</span>
                             </div>
                             <div className="flex justify-between">
-                                <span className="text-[#8F96A0]">Nama Pemesan:</span>
-                                <span className="font-semibold text-white">{confirmModalOrder.customer_name}</span>
+                                <span className="text-[#6B7280]">Nama Pemesan:</span>
+                                <span className="font-bold text-[#121417]">{confirmModalOrder.customer_name}</span>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-[#8F96A0]">Total Tagihan:</span>
-                                <span className="font-bold text-[#F6851B]">{confirmModalOrder.formatted_total_price}</span>
+                            <div className="flex justify-between border-t border-[#E5E8EC] pt-1.5">
+                                <span className="text-[#6B7280]">Total Pembayaran:</span>
+                                <span className="font-extrabold text-[#FA4B00] text-sm">{confirmModalOrder.formatted_total_price}</span>
                             </div>
                         </div>
 
                         <div className="space-y-1 text-xs">
-                            <span className="text-[#8F96A0] font-medium block">Rincian pemotongan stok:</span>
+                            <span className="text-[#6B7280] font-bold block">Daftar item yang stoknya akan dipotong:</span>
                             <ul className="space-y-1">
                                 {confirmModalOrder.items?.map((item) => (
-                                    <li key={item.id} className="flex justify-between text-white py-1 border-b border-[#262A30]">
-                                        <span>{item.drink_name}</span>
-                                        <span className="font-bold text-[#FF6B7A]">-{item.quantity} unit</span>
+                                    <li key={item.id} className="flex justify-between text-[#121417] py-1 border-b border-[#F0F2F5]">
+                                        <span className="font-semibold">{item.drink_name}</span>
+                                        <span className="font-bold text-[#D73A49]">-{item.quantity} unit</span>
                                     </li>
                                 ))}
                             </ul>
                         </div>
 
-                        <div className="flex items-center gap-3 pt-4 border-t border-[#262A30]">
+                        <div className="flex items-center gap-3 pt-4 border-t border-[#F0F2F5]">
                             <Button
-                                variant="secondary"
+                                variant="outline"
                                 size="md"
                                 onClick={() => setConfirmModalOrder(null)}
                                 className="flex-1"
@@ -426,13 +423,13 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
                                 Kembali
                             </Button>
                             <Button
-                                variant="primary"
+                                variant="orange"
                                 size="md"
                                 onClick={executeConfirmOrder}
                                 disabled={processingAction}
-                                className="flex-1 font-bold shadow-[0_4px_16px_rgba(246,133,27,0.35)]"
+                                className="flex-1 font-bold shadow-[0_4px_16px_rgba(250,75,0,0.3)]"
                             >
-                                {processingAction ? 'Memproses...' : 'Ya, Konfirmasi & Potong Stok'}
+                                {processingAction ? 'Memproses...' : 'Ya, Konfirmasi & Potong'}
                             </Button>
                         </div>
                     </div>
@@ -448,18 +445,18 @@ export default function Orders({ orders = { data: [] }, filters = {}, stats = {}
             >
                 {cancelModalOrder && (
                     <div className="space-y-4 py-2">
-                        <p className="text-xs text-[#BBC0C5]">
-                            Apakah Anda yakin ingin membatalkan pesanan <span className="font-mono text-[#F6851B] font-bold">{cancelModalOrder.order_code}</span>?
+                        <p className="text-xs text-[#4B5563]">
+                            Apakah Anda yakin ingin membatalkan pesanan <span className="font-mono text-[#FA4B00] font-bold">{cancelModalOrder.order_code}</span>?
                             {cancelModalOrder.status === 'confirmed' && (
-                                <span className="block mt-1 text-[#48D168]">
-                                    (Stok minuman yang sudah terpotong akan dikembalikan ke database).
+                                <span className="block mt-2 font-bold text-[#1EBE5D]">
+                                    (Stok minuman yang sebelumnya terpotong akan dikembalikan otomatis ke database).
                                 </span>
                             )}
                         </p>
 
-                        <div className="flex items-center gap-3 pt-4 border-t border-[#262A30]">
+                        <div className="flex items-center gap-3 pt-4 border-t border-[#F0F2F5]">
                             <Button
-                                variant="secondary"
+                                variant="outline"
                                 size="md"
                                 onClick={() => setCancelModalOrder(null)}
                                 className="flex-1"

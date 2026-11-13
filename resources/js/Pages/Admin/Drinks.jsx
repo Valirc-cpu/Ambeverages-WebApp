@@ -14,10 +14,7 @@ import {
     AlertTriangle,
     Layers,
     Boxes,
-    Flame,
-    Check,
-    UploadCloud,
-    Link as LinkIcon
+    Flame
 } from 'lucide-react';
 
 export default function Drinks({ drinks = [], categories = [], filters = {}, stats = {} }) {
@@ -125,20 +122,20 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                 {/* Header title & Action */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-                            <Coffee className="w-6 h-6 text-[#F6851B]" />
+                        <h1 className="text-3xl font-extrabold text-[#121417] tracking-tight flex items-center gap-2.5">
+                            <Coffee className="w-7 h-7 text-[#FA4B00]" />
                             <span>Katalog & Stok Minuman</span>
                         </h1>
-                        <p className="text-xs text-[#8F96A0] mt-1">
+                        <p className="text-xs text-[#6B7280] mt-1 font-medium">
                             Input menu minuman baru, atur harga, dan pantau ketersediaan stok fisik.
                         </p>
                     </div>
 
                     <Button
-                        variant="primary"
+                        variant="orange"
                         size="md"
                         onClick={() => setIsAddModalOpen(true)}
-                        className="font-bold shadow-[0_4px_16px_rgba(246,133,27,0.35)] shrink-0"
+                        className="font-bold shadow-[0_4px_16px_rgba(250,75,0,0.3)] shrink-0"
                     >
                         <Plus className="w-4 h-4" />
                         <span>Tambah Minuman Baru</span>
@@ -147,43 +144,43 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
 
                 {/* Stat cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <Card className="flex items-center gap-4 bg-[#181A1D] border-[#2A2E35]">
-                        <div className="p-3 rounded-xl bg-[#F6851B]/15 text-[#F6851B]">
+                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
+                        <div className="p-3.5 rounded-2xl bg-[#FFF3EB] text-[#FA4B00]">
                             <Layers className="w-6 h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-semibold text-[#8F96A0] block">
+                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Varian Menu
                             </span>
-                            <span className="text-2xl font-bold text-white">
+                            <span className="text-2xl font-extrabold text-[#121417]">
                                 {stats.total_drinks || 0} Minuman
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-[#181A1D] border-[#2A2E35]">
-                        <div className="p-3 rounded-xl bg-[#28A745]/15 text-[#48D168]">
+                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
+                        <div className="p-3.5 rounded-2xl bg-[#E8F8EE] text-[#1EBE5D]">
                             <Boxes className="w-6 h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-semibold text-[#8F96A0] block">
+                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Total Unit Stok
                             </span>
-                            <span className="text-2xl font-bold text-white">
+                            <span className="text-2xl font-extrabold text-[#121417]">
                                 {stats.total_stock || 0} Porsi
                             </span>
                         </div>
                     </Card>
 
-                    <Card className="flex items-center gap-4 bg-[#181A1D] border-[#2A2E35]">
-                        <div className="p-3 rounded-xl bg-[#D73A49]/15 text-[#FF6B7A]">
+                    <Card className="flex items-center gap-4 bg-white border-[#E5E8EC]">
+                        <div className="p-3.5 rounded-2xl bg-[#FEE2E2] text-[#D73A49]">
                             <AlertTriangle className="w-6 h-6" />
                         </div>
                         <div>
-                            <span className="text-[11px] uppercase font-semibold text-[#8F96A0] block">
+                            <span className="text-[11px] uppercase font-bold tracking-wider text-[#9CA3AF] block">
                                 Stok Kritis (≤ 5 Porsi)
                             </span>
-                            <span className="text-2xl font-bold text-[#FF6B7A]">
+                            <span className="text-2xl font-extrabold text-[#D73A49]">
                                 {stats.low_stock || 0} Minuman
                             </span>
                         </div>
@@ -192,16 +189,16 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
 
                 {/* Filters */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                    <div className="inline-flex items-center gap-1 bg-[#ECEFF2] p-1.5 rounded-full border border-[#DCE0E5] overflow-x-auto scrollbar-none">
                         {['Semua', ...categories].map((cat) => (
                             <button
                                 key={cat}
                                 type="button"
                                 onClick={() => setCategoryFilter(cat)}
-                                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                                className={`px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                                     categoryFilter === cat
-                                        ? 'bg-[#F6851B] text-white shadow-[0_4px_12px_rgba(246,133,27,0.3)]'
-                                        : 'bg-[#181A1D] text-[#8F96A0] hover:text-white border border-[#2B2F36]'
+                                        ? 'bg-[#121417] text-white shadow-md'
+                                        : 'text-[#6B7280] hover:text-[#121417]'
                                 }`}
                             >
                                 {cat}
@@ -209,41 +206,41 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                         ))}
                     </div>
 
-                    <div className="relative min-w-[260px]">
-                        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8F96A0]" />
+                    <div className="relative min-w-[280px]">
+                        <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
                         <input
                             type="text"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Cari nama atau deskripsi..."
-                            className="w-full pl-9 pr-4 py-2 bg-[#181A1D] border border-[#2B2F36] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-xs outline-none"
+                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#DCE0E5] focus:border-[#FA4B00] rounded-full text-[#121417] placeholder-[#9CA3AF] text-xs outline-none shadow-sm"
                         />
                     </div>
                 </div>
 
                 {/* Drinks Grid */}
                 {filteredDrinks.length === 0 ? (
-                    <Card className="text-center py-16">
-                        <Coffee className="w-12 h-12 text-[#5A606A] mx-auto mb-3" />
-                        <h3 className="text-base font-semibold text-white">Belum ada menu minuman</h3>
-                        <p className="text-xs text-[#8F96A0] mt-1">
+                    <Card className="text-center py-20 bg-white">
+                        <Coffee className="w-14 h-14 text-[#CBD2D9] mx-auto mb-3" />
+                        <h3 className="text-base font-bold text-[#121417]">Belum ada menu minuman</h3>
+                        <p className="text-xs text-[#6B7280] mt-1">
                             Klik tombol "Tambah Minuman Baru" untuk menginputkan data minuman pertama Anda.
                         </p>
                     </Card>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredDrinks.map((drink) => {
                             const isOutOfStock = drink.stock <= 0;
                             const isLowStock = drink.stock > 0 && drink.stock <= 5;
 
                             return (
-                                <Card
+                                <div
                                     key={drink.id}
-                                    className="p-4 bg-[#181A1D] border-[#2A2E35] flex flex-col justify-between"
+                                    className="p-5 bg-white border border-[#E5E8EC] rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between"
                                 >
                                     <div>
                                         {/* Image & Badges */}
-                                        <div className="relative aspect-video w-full bg-[#121416] rounded-xl overflow-hidden mb-3">
+                                        <div className="relative aspect-video w-full bg-[#F2F4F7] rounded-[20px] overflow-hidden mb-3.5">
                                             {drink.image_url ? (
                                                 <img
                                                     src={drink.image_url}
@@ -252,18 +249,18 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                                     loading="lazy"
                                                 />
                                             ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-[#5A606A]">
+                                                <div className="w-full h-full flex items-center justify-center text-[#9CA3AF]">
                                                     <Coffee className="w-10 h-10" />
                                                 </div>
                                             )}
 
-                                            <div className="absolute top-2 left-2">
-                                                <Badge variant="neutral" size="xs" className="backdrop-blur-md bg-black/60">
+                                            <div className="absolute top-2.5 left-2.5">
+                                                <Badge variant="dark" size="xs" className="bg-[#121417]/80 backdrop-blur-md">
                                                     {drink.category}
                                                 </Badge>
                                             </div>
 
-                                            <div className="absolute top-2 right-2">
+                                            <div className="absolute top-2.5 right-2.5">
                                                 {isOutOfStock ? (
                                                     <Badge variant="danger" size="xs">Habis</Badge>
                                                 ) : isLowStock ? (
@@ -274,40 +271,40 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                             </div>
                                         </div>
 
-                                        <h3 className="font-bold text-white text-sm line-clamp-1">{drink.name}</h3>
-                                        <p className="text-xs text-[#8F96A0] mt-1 line-clamp-2 min-h-[32px]">
+                                        <h3 className="font-extrabold text-[#121417] text-sm line-clamp-1">{drink.name}</h3>
+                                        <p className="text-xs text-[#6B7280] mt-1 line-clamp-2 min-h-[32px] leading-relaxed">
                                             {drink.description || 'Tidak ada deskripsi.'}
                                         </p>
-                                        <div className="text-base font-bold text-[#F6851B] mt-2">
+                                        <div className="text-base font-extrabold text-[#FA4B00] mt-2">
                                             {drink.formatted_price}
                                         </div>
                                     </div>
 
                                     {/* Quick Stock Controls & Actions */}
-                                    <div className="pt-3 mt-3 border-t border-[#262A30] space-y-3">
+                                    <div className="pt-3.5 mt-3.5 border-t border-[#F0F2F5] space-y-3">
                                         {/* Quick Stock Stepper */}
-                                        <div className="flex items-center justify-between bg-[#121416] border border-[#2B2F36] rounded-xl p-1.5 text-xs">
-                                            <span className="text-[11px] text-[#8F96A0] pl-2 font-medium">
-                                                Atur Stok:
+                                        <div className="flex items-center justify-between bg-[#F7F8FA] border border-[#E5E8EC] rounded-full p-1 text-xs">
+                                            <span className="text-[11px] font-bold text-[#6B7280] pl-2.5">
+                                                Stok Fisik:
                                             </span>
                                             <div className="flex items-center gap-1.5">
                                                 <button
                                                     type="button"
                                                     disabled={drink.stock <= 0 || quickStockUpdating === drink.id}
                                                     onClick={() => handleQuickStockChange(drink, -1)}
-                                                    className="w-6 h-6 rounded-lg bg-[#1E2126] hover:bg-[#2A2E35] text-white flex items-center justify-center disabled:opacity-30"
+                                                    className="w-6 h-6 rounded-full bg-white hover:bg-gray-100 text-[#121417] font-bold flex items-center justify-center border border-[#DCE0E5] shadow-xs disabled:opacity-30"
                                                     title="Kurangi stok 1"
                                                 >
                                                     -
                                                 </button>
-                                                <span className="w-8 text-center font-bold text-white">
+                                                <span className="w-8 text-center font-extrabold text-[#121417]">
                                                     {drink.stock}
                                                 </span>
                                                 <button
                                                     type="button"
                                                     disabled={quickStockUpdating === drink.id}
                                                     onClick={() => handleQuickStockChange(drink, 1)}
-                                                    className="w-6 h-6 rounded-lg bg-[#1E2126] hover:bg-[#2A2E35] text-white flex items-center justify-center disabled:opacity-30"
+                                                    className="w-6 h-6 rounded-full bg-white hover:bg-gray-100 text-[#121417] font-bold flex items-center justify-center border border-[#DCE0E5] shadow-xs disabled:opacity-30"
                                                     title="Tambah stok 1"
                                                 >
                                                     +
@@ -318,12 +315,12 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                         {/* Edit / Delete Buttons */}
                                         <div className="flex items-center gap-2">
                                             <Button
-                                                variant="secondary"
+                                                variant="outline"
                                                 size="sm"
                                                 onClick={() => handleOpenEdit(drink)}
-                                                className="flex-1 text-xs"
+                                                className="flex-1 text-xs font-bold"
                                             >
-                                                <Edit2 className="w-3.5 h-3.5 text-[#BBC0C5]" />
+                                                <Edit2 className="w-3.5 h-3.5 text-[#6B7280]" />
                                                 <span>Edit</span>
                                             </Button>
 
@@ -331,14 +328,14 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                                 variant="ghost"
                                                 size="sm"
                                                 onClick={() => setDeletingDrink(drink)}
-                                                className="text-[#8F96A0] hover:text-[#FF6B7A] p-2"
+                                                className="text-[#9CA3AF] hover:text-[#D73A49] p-2"
                                                 title="Hapus"
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                             </Button>
                                         </div>
                                     </div>
-                                </Card>
+                                </div>
                             );
                         })}
                     </div>
@@ -354,25 +351,25 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
             >
                 <form onSubmit={handleAddSubmit} className="space-y-4 py-2">
                     <div>
-                        <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
-                            Nama Minuman <span className="text-[#FF6B7A]">*</span>
+                        <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                            Nama Minuman <span className="text-[#D73A49]">*</span>
                         </label>
                         <input
                             type="text"
                             value={addForm.data.name}
                             onChange={(e) => addForm.setData('name', e.target.value)}
-                            placeholder="Contoh: Web3 Vanilla Latte"
+                            placeholder="Contoh: MetaMask Nitro Cold Brew"
                             required
-                            className="w-full px-3.5 py-2.5 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-sm outline-none"
+                            className="w-full px-4 py-2.5 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-sm outline-none"
                         />
                         {addForm.errors.name && (
-                            <p className="text-xs text-[#FF6B7A] mt-1">{addForm.errors.name}</p>
+                            <p className="text-xs text-[#D73A49] mt-1">{addForm.errors.name}</p>
                         )}
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
-                            <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
+                            <label className="block text-xs font-bold text-[#4B5563] mb-1">
                                 Kategori
                             </label>
                             <input
@@ -380,13 +377,13 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                 value={addForm.data.category}
                                 onChange={(e) => addForm.setData('category', e.target.value)}
                                 placeholder="Signature / Kopi"
-                                className="w-full px-3 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-xs outline-none"
+                                className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
-                                Harga (Rp) <span className="text-[#FF6B7A]">*</span>
+                            <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                                Harga (Rp) <span className="text-[#D73A49]">*</span>
                             </label>
                             <input
                                 type="number"
@@ -395,13 +392,13 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                 onChange={(e) => addForm.setData('price', e.target.value)}
                                 placeholder="25000"
                                 required
-                                className="w-full px-3 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-xs outline-none"
+                                className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
-                                Stok Awal <span className="text-[#FF6B7A]">*</span>
+                            <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                                Stok Awal <span className="text-[#D73A49]">*</span>
                             </label>
                             <input
                                 type="number"
@@ -410,13 +407,13 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                 onChange={(e) => addForm.setData('stock', e.target.value)}
                                 placeholder="20"
                                 required
-                                className="w-full px-3 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-xs outline-none"
+                                className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                             />
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
+                        <label className="block text-xs font-bold text-[#4B5563] mb-1">
                             URL Gambar Minuman (Opsional)
                         </label>
                         <input
@@ -424,38 +421,38 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                             value={addForm.data.image_url}
                             onChange={(e) => addForm.setData('image_url', e.target.value)}
                             placeholder="https://images.unsplash.com/..."
-                            className="w-full px-3.5 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-xs outline-none"
+                            className="w-full px-4 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
-                            Atau Unggah Berkas Foto
+                        <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                            Atau Unggah Berkas Gambar
                         </label>
                         <input
                             type="file"
                             accept="image/*"
                             onChange={(e) => addForm.setData('image', e.target.files[0])}
-                            className="w-full text-xs text-[#8F96A0] file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#1E2126] file:text-white hover:file:bg-[#2A2E35]"
+                            className="w-full text-xs text-[#6B7280] file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#121417] file:text-white hover:file:bg-[#2A2E35]"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
+                        <label className="block text-xs font-bold text-[#4B5563] mb-1">
                             Deskripsi Minuman
                         </label>
                         <textarea
                             rows={3}
                             value={addForm.data.description}
                             onChange={(e) => addForm.setData('description', e.target.value)}
-                            placeholder="Tuliskan komposisi atau keunggulan rasa minuman..."
-                            className="w-full px-3.5 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white placeholder-[#5A606A] text-xs outline-none resize-none"
+                            placeholder="Tuliskan komposisi rasa atau keunggulan menu..."
+                            className="w-full px-4 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none resize-none"
                         />
                     </div>
 
-                    <div className="flex items-center gap-3 pt-3 border-t border-[#262A30]">
+                    <div className="flex items-center gap-3 pt-3 border-t border-[#F0F2F5]">
                         <Button
-                            variant="secondary"
+                            variant="outline"
                             size="md"
                             onClick={() => setIsAddModalOpen(false)}
                             className="flex-1"
@@ -464,10 +461,10 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                         </Button>
                         <Button
                             type="submit"
-                            variant="primary"
+                            variant="orange"
                             size="md"
                             disabled={addForm.processing}
-                            className="flex-1 font-bold shadow-[0_4px_16px_rgba(246,133,27,0.35)]"
+                            className="flex-1 font-bold shadow-[0_4px_16px_rgba(250,75,0,0.3)]"
                         >
                             {addForm.processing ? 'Menyimpan...' : 'Simpan Minuman'}
                         </Button>
@@ -485,34 +482,34 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                 {editingDrink && (
                     <form onSubmit={handleEditSubmit} className="space-y-4 py-2">
                         <div>
-                            <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
-                                Nama Minuman <span className="text-[#FF6B7A]">*</span>
+                            <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                                Nama Minuman <span className="text-[#D73A49]">*</span>
                             </label>
                             <input
                                 type="text"
                                 value={editForm.data.name}
                                 onChange={(e) => editForm.setData('name', e.target.value)}
                                 required
-                                className="w-full px-3.5 py-2.5 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white text-sm outline-none"
+                                className="w-full px-4 py-2.5 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-sm outline-none"
                             />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div>
-                                <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
+                                <label className="block text-xs font-bold text-[#4B5563] mb-1">
                                     Kategori
                                 </label>
                                 <input
                                     type="text"
                                     value={editForm.data.category}
                                     onChange={(e) => editForm.setData('category', e.target.value)}
-                                    className="w-full px-3 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white text-xs outline-none"
+                                    className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
-                                    Harga (Rp) <span className="text-[#FF6B7A]">*</span>
+                                <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                                    Harga (Rp) <span className="text-[#D73A49]">*</span>
                                 </label>
                                 <input
                                     type="number"
@@ -520,13 +517,13 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                     value={editForm.data.price}
                                     onChange={(e) => editForm.setData('price', e.target.value)}
                                     required
-                                    className="w-full px-3 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white text-xs outline-none"
+                                    className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
-                                    Stok Fisik <span className="text-[#FF6B7A]">*</span>
+                                <label className="block text-xs font-bold text-[#4B5563] mb-1">
+                                    Stok Fisik <span className="text-[#D73A49]">*</span>
                                 </label>
                                 <input
                                     type="number"
@@ -534,13 +531,13 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                     value={editForm.data.stock}
                                     onChange={(e) => editForm.setData('stock', e.target.value)}
                                     required
-                                    className="w-full px-3 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white text-xs outline-none"
+                                    className="w-full px-3.5 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
+                            <label className="block text-xs font-bold text-[#4B5563] mb-1">
                                 URL Gambar Baru
                             </label>
                             <input
@@ -548,49 +545,49 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                                 value={editForm.data.image_url}
                                 onChange={(e) => editForm.setData('image_url', e.target.value)}
                                 placeholder="https://..."
-                                className="w-full px-3.5 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white text-xs outline-none"
+                                className="w-full px-4 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
+                            <label className="block text-xs font-bold text-[#4B5563] mb-1">
                                 Atau Ganti Berkas Foto
                             </label>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) => editForm.setData('image', e.target.files[0])}
-                                className="w-full text-xs text-[#8F96A0] file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#1E2126] file:text-white hover:file:bg-[#2A2E35]"
+                                className="w-full text-xs text-[#6B7280] file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#121417] file:text-white hover:file:bg-[#2A2E35]"
                             />
                         </div>
 
                         <div>
-                            <label className="block text-xs font-semibold text-[#BBC0C5] mb-1">
+                            <label className="block text-xs font-bold text-[#4B5563] mb-1">
                                 Deskripsi Minuman
                             </label>
                             <textarea
                                 rows={3}
                                 value={editForm.data.description}
                                 onChange={(e) => editForm.setData('description', e.target.value)}
-                                className="w-full px-3.5 py-2 bg-[#121416] border border-[#2F343C] focus:border-[#F6851B] rounded-xl text-white text-xs outline-none resize-none"
+                                className="w-full px-4 py-2 bg-[#F7F8FA] border border-[#DCE0E5] focus:border-[#FA4B00] rounded-xl text-[#121417] text-xs outline-none resize-none"
                             />
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <label className="flex items-center gap-2 text-xs text-[#BBC0C5] cursor-pointer">
+                            <label className="flex items-center gap-2 text-xs text-[#4B5563] cursor-pointer">
                                 <input
                                     type="checkbox"
                                     checked={editForm.data.is_active}
                                     onChange={(e) => editForm.setData('is_active', e.target.checked)}
-                                    className="rounded border-[#2F343C] bg-[#121416] text-[#F6851B] focus:ring-0"
+                                    className="rounded border-[#DCE0E5] text-[#FA4B00] focus:ring-0"
                                 />
-                                <span>Tampilkan menu ini di katalog publik</span>
+                                <span className="font-semibold">Tampilkan menu ini di katalog publik</span>
                             </label>
                         </div>
 
-                        <div className="flex items-center gap-3 pt-3 border-t border-[#262A30]">
+                        <div className="flex items-center gap-3 pt-3 border-t border-[#F0F2F5]">
                             <Button
-                                variant="secondary"
+                                variant="outline"
                                 size="md"
                                 onClick={() => setEditingDrink(null)}
                                 className="flex-1"
@@ -599,10 +596,10 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
                             </Button>
                             <Button
                                 type="submit"
-                                variant="primary"
+                                variant="orange"
                                 size="md"
                                 disabled={editForm.processing}
-                                className="flex-1 font-bold shadow-[0_4px_16px_rgba(246,133,27,0.35)]"
+                                className="flex-1 font-bold shadow-[0_4px_16px_rgba(250,75,0,0.3)]"
                             >
                                 {editForm.processing ? 'Menyimpan...' : 'Perbarui Minuman'}
                             </Button>
@@ -620,13 +617,13 @@ export default function Drinks({ drinks = [], categories = [], filters = {}, sta
             >
                 {deletingDrink && (
                     <div className="space-y-4 py-2">
-                        <p className="text-xs text-[#BBC0C5]">
-                            Apakah Anda yakin ingin menghapus <strong className="text-white">{deletingDrink.name}</strong> dari daftar menu? Tindakan ini tidak dapat dibatalkan.
+                        <p className="text-xs text-[#4B5563]">
+                            Apakah Anda yakin ingin menghapus <strong className="text-[#121417]">{deletingDrink.name}</strong> dari daftar menu? Tindakan ini tidak dapat dibatalkan.
                         </p>
 
-                        <div className="flex items-center gap-3 pt-3 border-t border-[#262A30]">
+                        <div className="flex items-center gap-3 pt-3 border-t border-[#F0F2F5]">
                             <Button
-                                variant="secondary"
+                                variant="outline"
                                 size="md"
                                 onClick={() => setDeletingDrink(null)}
                                 className="flex-1"

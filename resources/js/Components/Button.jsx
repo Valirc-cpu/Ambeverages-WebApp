@@ -11,19 +11,21 @@ export default function Button({
     ...props
 }) {
     const variants = {
-        primary: 'bg-[#F6851B] hover:bg-[#E2761B] text-white shadow-[0_4px_16px_rgba(246,133,27,0.3)] active:scale-[0.98] border border-[#F6851B]',
-        secondary: 'bg-[#1F2226] hover:bg-[#2A2E35] text-[#F2F4F6] border border-[#373C44] active:scale-[0.98]',
-        outline: 'bg-transparent hover:bg-[#F6851B]/10 text-[#F6851B] border border-[#F6851B]/60 active:scale-[0.98]',
-        danger: 'bg-[#D73A49] hover:bg-[#BA2F3D] text-white shadow-[0_4px_14px_rgba(215,58,73,0.3)] active:scale-[0.98] border border-[#D73A49]',
-        ghost: 'bg-transparent hover:bg-white/5 text-[#BBC0C5] hover:text-white',
-        success: 'bg-[#28A745] hover:bg-[#218838] text-white shadow-[0_4px_14px_rgba(40,167,69,0.3)] active:scale-[0.98] border border-[#28A745]',
+        primary: 'bg-[#121417] hover:bg-[#2A2E35] text-white shadow-[0_4px_14px_rgba(0,0,0,0.15)] active:scale-[0.98]',
+        orange: 'bg-[#FA4B00] hover:bg-[#E24200] text-white shadow-[0_4px_16px_rgba(250,75,0,0.3)] active:scale-[0.98]',
+        whatsapp: 'bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-[0_4px_16px_rgba(37,211,102,0.3)] active:scale-[0.98]',
+        outline: 'bg-white hover:bg-gray-50 text-[#121417] border border-[#DCE0E5] hover:border-[#121417] active:scale-[0.98]',
+        secondary: 'bg-[#F2F4F7] hover:bg-[#E5E8EC] text-[#121417] active:scale-[0.98]',
+        ghost: 'bg-transparent hover:bg-gray-100 text-[#6B7280] hover:text-[#121417]',
+        danger: 'bg-[#D73A49] hover:bg-[#C22837] text-white shadow-[0_4px_14px_rgba(215,58,73,0.25)] active:scale-[0.98]',
+        success: 'bg-[#1EBE5D] hover:bg-[#17A34E] text-white shadow-[0_4px_14px_rgba(30,190,93,0.25)] active:scale-[0.98]',
     };
 
     const sizes = {
-        sm: 'px-3 py-1.5 text-xs rounded-lg gap-1.5',
-        md: 'px-4 py-2.5 text-sm rounded-xl gap-2 font-medium',
-        lg: 'px-6 py-3.5 text-base rounded-2xl gap-2.5 font-semibold',
-        icon: 'p-2 rounded-xl',
+        sm: 'px-4 py-1.5 text-xs rounded-full gap-1.5 font-semibold',
+        md: 'px-5 py-2.5 text-sm rounded-full gap-2 font-bold',
+        lg: 'px-7 py-3.5 text-base rounded-full gap-2.5 font-bold',
+        icon: 'p-2.5 rounded-full',
     };
 
     return (

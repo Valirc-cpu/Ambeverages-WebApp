@@ -4,8 +4,8 @@ export default function Card({ children, className = '', hover = false, onClick,
     return (
         <div
             onClick={onClick}
-            className={`bg-[#181A1D] border border-[#2B2F36] rounded-2xl p-5 text-[#F2F4F6] shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-all duration-200 ${
-                hover ? 'hover:border-[#F6851B]/50 hover:bg-[#1E2125] hover:-translate-y-0.5' : ''
+            className={`bg-white border border-[#E5E8EC] rounded-[26px] p-6 text-[#121417] shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-200 ${
+                hover ? 'hover:border-[#121417]/20 hover:shadow-[0_14px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1' : ''
             } ${onClick ? 'cursor-pointer' : ''} ${className}`}
             {...props}
         >
