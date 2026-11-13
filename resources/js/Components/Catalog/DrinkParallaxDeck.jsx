@@ -1,22 +1,48 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import DrinkCard from './DrinkCard';
-import { MousePointer } from 'lucide-react';
+import { MousePointer, AlertCircle } from 'lucide-react';
 
 export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [boundaryBounce, setBoundaryBounce] = useState(null); // 'top' | 'bottom' | null
+    const [boundaryFeedback, setBoundaryFeedback] = useState(null); // message string
+
     const sectionRef = useRef(null);
     const activeIndexRef = useRef(activeIndex);
     activeIndexRef.current = activeIndex;
+
+    // Safety buffer & momentum isolation refs
+    const boundaryLockUntil = useRef(0);
+    const accumulatedExitDelta = useRef(0);
+    const feedbackTimerRef = useRef(null);
+    const bounceTimerRef = useRef(null);
 
     const hasMultiple = drinks.length > 1;
 
     // Reset when category/search filter changes
     useEffect(() => {
         setActiveIndex(0);
+        boundaryLockUntil.current = Date.now() + 600;
+        accumulatedExitDelta.current = 0;
     }, [drinks.length]);
 
-    // Intercept scroll: when user scrolls over catalog, website DOES NOT scroll; card scrolls first!
+    // Helper to trigger boundary bounce & tactile warning
+    const triggerBoundaryEffect = (type) => {
+        setBoundaryBounce(type);
+        if (bounceTimerRef.current) clearTimeout(bounceTimerRef.current);
+        bounceTimerRef.current = setTimeout(() => setBoundaryBounce(null), 350);
+
+        const msg = type === 'bottom'
+            ? 'Batas akhir menu tercapai • Gulir sekali lagi untuk lanjut ke footer'
+            : 'Batas awal menu tercapai • Gulir sekali lagi untuk kembali ke atas';
+        setBoundaryFeedback(msg);
+
+        if (feedbackTimerRef.current) clearTimeout(feedbackTimerRef.current);
+        feedbackTimerRef.current = setTimeout(() => setBoundaryFeedback(null), 2000);
+    };
+
+    // Intercept scroll: when user scrolls over catalog, cards scroll first with robust boundary protection!
     useEffect(() => {
         const el = sectionRef.current;
         if (!el || !hasMultiple) return;
@@ -28,34 +54,92 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
             const now = Date.now();
             const delta = e.deltaY;
 
-            // If scrolling down and NOT at last card -> LOCK PAGE SCROLL & scroll cards!
-            if (delta > 0 && activeIndexRef.current < drinks.length - 1) {
-                e.preventDefault();
-                accumulatedDelta += delta;
+            // 1. SCROLLING DOWN (Toward next card)
+            if (delta > 0) {
+                // Not at last card yet: strictly absorb wheel, step card, never scroll page!
+                if (activeIndexRef.current < drinks.length - 1) {
+                    e.preventDefault();
+                    accumulatedDelta += delta;
 
-                if (Math.abs(accumulatedDelta) > 30 && now - lastStepTime > 340) {
-                    lastStepTime = now;
-                    accumulatedDelta = 0;
-                    setActiveIndex((prev) => Math.min(drinks.length - 1, prev + 1));
+                    if (Math.abs(accumulatedDelta) > 28 && now - lastStepTime > 320) {
+                        lastStepTime = now;
+                        accumulatedDelta = 0;
+                        accumulatedExitDelta.current = 0;
+
+                        const nextIdx = activeIndexRef.current + 1;
+                        setActiveIndex(nextIdx);
+
+                        // If entering the last card, arm a 700ms momentum isolation lock
+                        if (nextIdx === drinks.length - 1) {
+                            boundaryLockUntil.current = now + 700;
+                        }
+                    }
+                    return;
                 }
+
+                // Currently on the LAST CARD:
+                // If within the fast-scroll momentum cooldown, ABSORB EVERYTHING and trigger bounce!
+                if (now < boundaryLockUntil.current) {
+                    e.preventDefault();
+                    triggerBoundaryEffect('bottom');
+                    return;
+                }
+
+                // If user is intentionally continuing after the cooldown:
+                // Require an intentional deliberate delta threshold before allowing window scroll
+                if (accumulatedExitDelta.current < 75) {
+                    e.preventDefault();
+                    accumulatedExitDelta.current += delta;
+                    triggerBoundaryEffect('bottom');
+                    return;
+                }
+
+                // Deliberate threshold satisfied -> allow natural page scroll to footer
                 return;
             }
 
-            // If scrolling up and NOT at first card -> LOCK PAGE SCROLL & scroll cards!
-            if (delta < 0 && activeIndexRef.current > 0) {
-                e.preventDefault();
-                accumulatedDelta += delta;
+            // 2. SCROLLING UP (Toward previous card)
+            if (delta < 0) {
+                // Not at first card yet: strictly absorb wheel, step card, never scroll page!
+                if (activeIndexRef.current > 0) {
+                    e.preventDefault();
+                    accumulatedDelta += delta;
 
-                if (Math.abs(accumulatedDelta) > 30 && now - lastStepTime > 340) {
-                    lastStepTime = now;
-                    accumulatedDelta = 0;
-                    setActiveIndex((prev) => Math.max(0, prev - 1));
+                    if (Math.abs(accumulatedDelta) > 28 && now - lastStepTime > 320) {
+                        lastStepTime = now;
+                        accumulatedDelta = 0;
+                        accumulatedExitDelta.current = 0;
+
+                        const prevIdx = activeIndexRef.current - 1;
+                        setActiveIndex(prevIdx);
+
+                        // If entering the first card, arm a 700ms momentum isolation lock
+                        if (prevIdx === 0) {
+                            boundaryLockUntil.current = now + 700;
+                        }
+                    }
+                    return;
                 }
+
+                // Currently on the FIRST CARD:
+                // If within the fast-scroll momentum cooldown, ABSORB EVERYTHING and trigger bounce!
+                if (now < boundaryLockUntil.current) {
+                    e.preventDefault();
+                    triggerBoundaryEffect('top');
+                    return;
+                }
+
+                // If user is intentionally continuing after the cooldown:
+                if (accumulatedExitDelta.current < 75) {
+                    e.preventDefault();
+                    accumulatedExitDelta.current += Math.abs(delta);
+                    triggerBoundaryEffect('top');
+                    return;
+                }
+
+                // Deliberate threshold satisfied -> allow natural page scroll to hero
                 return;
             }
-
-            // If at the boundary (last card going down, or first card going up), let page scroll naturally!
-            accumulatedDelta = 0;
         };
 
         // Attach non-passive listener to reliably preventDefault
@@ -63,7 +147,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
         return () => el.removeEventListener('wheel', onWheel);
     }, [hasMultiple, drinks.length]);
 
-    // Touch swipe support for mobile
+    // Touch swipe support for mobile with matching boundary buffer
     useEffect(() => {
         const el = sectionRef.current;
         if (!el || !hasMultiple) return;
@@ -80,19 +164,41 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
             const diff = startY - currentY;
             const now = Date.now();
 
-            if (diff > 35 && activeIndexRef.current < drinks.length - 1) {
-                e.preventDefault();
-                if (now - lastStepTime > 340) {
-                    lastStepTime = now;
-                    setActiveIndex((prev) => Math.min(drinks.length - 1, prev + 1));
-                    startY = currentY;
+            // Swipe up (scroll down)
+            if (diff > 35) {
+                if (activeIndexRef.current < drinks.length - 1) {
+                    e.preventDefault();
+                    if (now - lastStepTime > 320) {
+                        lastStepTime = now;
+                        const nextIdx = activeIndexRef.current + 1;
+                        setActiveIndex(nextIdx);
+                        startY = currentY;
+                        accumulatedExitDelta.current = 0;
+                        if (nextIdx === drinks.length - 1) {
+                            boundaryLockUntil.current = now + 650;
+                        }
+                    }
+                } else if (now < boundaryLockUntil.current) {
+                    e.preventDefault();
+                    triggerBoundaryEffect('bottom');
                 }
-            } else if (diff < -35 && activeIndexRef.current > 0) {
-                e.preventDefault();
-                if (now - lastStepTime > 340) {
-                    lastStepTime = now;
-                    setActiveIndex((prev) => Math.max(0, prev - 1));
-                    startY = currentY;
+            } else if (diff < -35) {
+                // Swipe down (scroll up)
+                if (activeIndexRef.current > 0) {
+                    e.preventDefault();
+                    if (now - lastStepTime > 320) {
+                        lastStepTime = now;
+                        const prevIdx = activeIndexRef.current - 1;
+                        setActiveIndex(prevIdx);
+                        startY = currentY;
+                        accumulatedExitDelta.current = 0;
+                        if (prevIdx === 0) {
+                            boundaryLockUntil.current = now + 650;
+                        }
+                    }
+                } else if (now < boundaryLockUntil.current) {
+                    e.preventDefault();
+                    triggerBoundaryEffect('top');
                 }
             }
         };
@@ -130,25 +236,52 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
             className="w-full py-4 select-none relative"
             style={{ perspective: '1400px' }}
         >
-            {/* Minimal Parallax Navigation Indicator (Zero Buttons) */}
-            <div className="flex items-center justify-between text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] max-w-4xl mx-auto px-2 mb-3">
+            {/* Minimal Parallax Navigation Indicator with Boundary Alert */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] max-w-4xl mx-auto px-2 mb-3">
                 <div className="flex items-center gap-2">
                     <MousePointer className="w-3.5 h-3.5 text-[#121417] dark:text-white" />
-                    <span>Scroll pada katalog untuk menggulir kartu</span>
+                    <span>Scroll pada kartu untuk menggulir menu</span>
                 </div>
 
-                <div className="flex items-center gap-2 font-mono">
-                    <span className="font-extrabold text-[#121417] dark:text-white">
-                        {String(activeIndex + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-[#9CA3AF]">/</span>
-                    <span className="text-[#9CA3AF]">{String(drinks.length).padStart(2, '0')}</span>
+                <div className="flex items-center gap-3">
+                    {/* Boundary Alert Chip (Non-intrusive feedback) */}
+                    <AnimatePresence>
+                        {boundaryFeedback && (
+                            <motion.span
+                                initial={{ opacity: 0, y: -4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0 }}
+                                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#121417] dark:bg-white text-white dark:text-[#121417] text-[11px] font-mono shadow-xs"
+                            >
+                                <AlertCircle className="w-3 h-3 text-[#FA4B00]" />
+                                <span>{boundaryFeedback}</span>
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+
+                    <div className="flex items-center gap-1 font-mono">
+                        <span className="font-extrabold text-[#121417] dark:text-white">
+                            {String(activeIndex + 1).padStart(2, '0')}
+                        </span>
+                        <span className="text-[#9CA3AF]">/</span>
+                        <span className="text-[#9CA3AF]">{String(drinks.length).padStart(2, '0')}</span>
+                    </div>
                 </div>
             </div>
 
-            {/* True 3D Parallax Perspective Card Deck Stack */}
-            <div className="relative min-h-[460px] sm:min-h-[480px] flex flex-col items-center justify-center gap-3">
-                {/* 1. Previous Card (3D Receded Above: rotateX 10deg, scale 0.91, opacity 0.35) */}
+            {/* True 3D Parallax Perspective Card Deck Stack with Elastic Boundary Bounce */}
+            <motion.div
+                animate={
+                    boundaryBounce === 'bottom'
+                        ? { y: [0, 14, -6, 0] }
+                        : boundaryBounce === 'top'
+                        ? { y: [0, -14, 6, 0] }
+                        : { y: 0 }
+                }
+                transition={{ duration: 0.32, ease: 'easeOut' }}
+                className="relative min-h-[460px] sm:min-h-[480px] flex flex-col items-center justify-center gap-3"
+            >
+                {/* 1. Previous Card (3D Receded Above) */}
                 {prevDrink && (
                     <motion.div
                         key={`prev-${prevDrink.id}`}
@@ -156,7 +289,10 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         animate={{ opacity: 0.35, y: -20, scale: 0.91, rotateX: 9 }}
                         exit={{ opacity: 0, y: -60, scale: 0.84, rotateX: 18 }}
                         transition={{ type: 'spring', stiffness: 280, damping: 24, mass: 0.85 }}
-                        onClick={() => setActiveIndex((prev) => Math.max(0, prev - 1))}
+                        onClick={() => {
+                            setActiveIndex((prev) => Math.max(0, prev - 1));
+                            accumulatedExitDelta.current = 0;
+                        }}
                         className="w-full max-w-4xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
                         title="Klik untuk kembali ke menu sebelumnya"
                     >
@@ -168,7 +304,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                     </motion.div>
                 )}
 
-                {/* 2. Active Card (Prominent Center: scale 1.03, y 0, rotateX 0deg, full opacity) */}
+                {/* 2. Active Card (Prominent Center) */}
                 <motion.div
                     key={`active-${currentDrink.id}`}
                     layoutId={`deck-card-${currentDrink.id}`}
@@ -185,7 +321,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                     />
                 </motion.div>
 
-                {/* 3. Next Card (3D Receded Below: rotateX -10deg, scale 0.91, opacity 0.35) */}
+                {/* 3. Next Card (3D Receded Below) */}
                 {nextDrink && (
                     <motion.div
                         key={`next-${nextDrink.id}`}
@@ -193,7 +329,10 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         animate={{ opacity: 0.35, y: 20, scale: 0.91, rotateX: -9 }}
                         exit={{ opacity: 0, y: 60, scale: 0.84, rotateX: -18 }}
                         transition={{ type: 'spring', stiffness: 280, damping: 24, mass: 0.85 }}
-                        onClick={() => setActiveIndex((prev) => Math.min(drinks.length - 1, prev + 1))}
+                        onClick={() => {
+                            setActiveIndex((prev) => Math.min(drinks.length - 1, prev + 1));
+                            accumulatedExitDelta.current = 0;
+                        }}
                         className="w-full max-w-4xl mx-auto cursor-pointer hover:opacity-60 transition-opacity z-10"
                         title="Klik untuk lanjut ke menu berikutnya"
                     >
@@ -204,7 +343,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         />
                     </motion.div>
                 )}
-            </div>
+            </motion.div>
         </section>
     );
 }
