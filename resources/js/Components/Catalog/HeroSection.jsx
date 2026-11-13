@@ -23,10 +23,12 @@ export default function HeroSection({
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.4 }}
-                            className="text-4xl sm:text-6xl font-extrabold text-[#121417] dark:text-white tracking-tight leading-[1.08]"
+                            className="text-4xl sm:text-6xl font-extrabold text-[#121417] dark:text-white tracking-tight leading-none"
                         >
-                            Ambeverages. <br />
-                            <span className="text-[#FA4B00]">I Am Beverages.</span>
+                            Ambeverages.
+                            <span className="block text-base sm:text-lg font-bold text-[#FA4B00] tracking-wider mt-2.5">
+                                I Am Beverages.
+                            </span>
                         </motion.h1>
 
                         <motion.p
