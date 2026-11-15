@@ -1,6 +1,7 @@
 import { getAdminOrders } from '@/lib/data';
 import OrdersClient from '@/components/Admin/OrdersClient';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function AdminOrdersPage() {

@@ -1,6 +1,7 @@
 import { getAdminDrinks } from '@/lib/data';
 import DrinksClient from '@/components/Admin/DrinksClient';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function AdminDrinksPage() {

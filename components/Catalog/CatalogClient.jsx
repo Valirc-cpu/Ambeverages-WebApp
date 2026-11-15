@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Navbar from '../Navbar';
 import HeroSection from './HeroSection';
 import DrinkCard from './DrinkCard';
@@ -17,6 +18,11 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
     const [selectedCategory, setSelectedCategory] = useState('Semua');
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [successOrder, setSuccessOrder] = useState(null);
+
+    // Keep drinks in sync with server data
+    useEffect(() => {
+        setDrinks(initialDrinks);
+    }, [initialDrinks]);
 
     // Cart state persisted in localStorage
     const [cart, setCart] = useState([]);
@@ -186,8 +192,26 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
                     </div>
                 </div>
 
-                {filteredDrinks.length === 0 ? (
-                    <div className="text-center py-20 bg-white/60 dark:bg-[#15171C]/60 backdrop-blur-md rounded-[28px] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs">
+                {drinks.length === 0 ? (
+                    <div className="text-center py-20 px-6 bg-white dark:bg-[#15171C] rounded-[32px] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs max-w-xl mx-auto transition-colors">
+                        <div className="w-16 h-16 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00] flex items-center justify-center mx-auto mb-4 border border-[#FA4B00]/20">
+                            <Coffee className="w-8 h-8" />
+                        </div>
+                        <h3 className="text-lg font-extrabold text-[#121417] dark:text-white">Ambeverages Station Sedang Standby</h3>
+                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1.5 leading-relaxed max-w-sm mx-auto">
+                            Belum ada menu minuman yang ditambahkan. Masuk ke Panel Admin untuk mulai menginput data minuman pertamamu!
+                        </p>
+                        <div className="mt-6">
+                            <Link href="/login">
+                                <Button variant="orange" size="md">
+                                    <PlusCircle className="w-4 h-4" />
+                                    <span>Buka Admin & Tambah Menu</span>
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                ) : filteredDrinks.length === 0 ? (
+                    <div className="text-center py-20 bg-white/60 dark:bg-[#15171C]/60 backdrop-blur-md rounded-[28px] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs max-w-md mx-auto">
                         <Coffee className="w-16 h-16 text-[#CBD2D9] dark:text-[#3B424E] mx-auto mb-4" />
                         <h3 className="text-lg font-bold text-[#121417] dark:text-white">Tidak ada minuman dalam kategori ini</h3>
                         <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1">

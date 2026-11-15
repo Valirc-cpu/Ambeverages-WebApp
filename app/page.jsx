@@ -1,7 +1,8 @@
 import { getDrinks } from '@/lib/data';
 import CatalogClient from '@/components/Catalog/CatalogClient';
 
-export const revalidate = 0; // Always fresh drinks data
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function Page() {
   const drinks = await getDrinks();
