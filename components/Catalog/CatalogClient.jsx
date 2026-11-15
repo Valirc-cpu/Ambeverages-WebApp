@@ -9,7 +9,7 @@ import CartModal from './CartModal';
 import OrderSuccessModal from './OrderSuccessModal';
 import ParallaxVectors from '../ParallaxVectors';
 import Button from '../Button';
-import { Coffee, PlusCircle, Layers, LayoutList } from 'lucide-react';
+import { Coffee, PlusCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CatalogClient({ initialDrinks = [], categories = [] }) {
@@ -17,7 +17,6 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
     const [selectedCategory, setSelectedCategory] = useState('Semua');
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [successOrder, setSuccessOrder] = useState(null);
-    const [viewMode, setViewMode] = useState('deck'); // 'deck' | 'list'
 
     // Cart state persisted in localStorage
     const [cart, setCart] = useState([]);
@@ -185,36 +184,6 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
                             Dipilih segar, diracik dengan takaran presisi, dan siap dinikmati kapan saja.
                         </p>
                     </div>
-
-                    {/* View Switcher: Deck Parallax vs Semua Card Panjang */}
-                    {filteredDrinks.length > 1 && (
-                        <div className="flex items-center gap-1.5 p-1 bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#282C34] rounded-2xl self-start sm:self-center shadow-xs">
-                            <button
-                                type="button"
-                                onClick={() => setViewMode('deck')}
-                                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                                    viewMode === 'deck'
-                                        ? 'bg-[#121417] dark:bg-white text-white dark:text-[#121417] shadow-xs'
-                                        : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
-                                }`}
-                            >
-                                <Layers className="w-3.5 h-3.5" />
-                                <span>Deck Parallax</span>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setViewMode('list')}
-                                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                                    viewMode === 'list'
-                                        ? 'bg-[#121417] dark:bg-white text-white dark:text-[#121417] shadow-xs'
-                                        : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
-                                }`}
-                            >
-                                <LayoutList className="w-3.5 h-3.5" />
-                                <span>Semua Card</span>
-                            </button>
-                        </div>
-                    )}
                 </div>
 
                 {filteredDrinks.length === 0 ? (
@@ -225,22 +194,11 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
                             Silakan pilih kategori lain atau tunggu menu varian terbaru kami.
                         </p>
                     </div>
-                ) : viewMode === 'deck' ? (
+                ) : (
                     <DrinkParallaxDeck
                         drinks={filteredDrinks}
                         onAddToCart={handleAddToCart}
                     />
-                ) : (
-                    <div className="flex flex-col gap-6 max-w-6xl mx-auto w-full">
-                        {filteredDrinks.map((drink) => (
-                            <DrinkCard
-                                key={drink.id}
-                                drink={drink}
-                                onAddToCart={handleAddToCart}
-                                isHighlighted={true}
-                            />
-                        ))}
-                    </div>
                 )}
             </main>
 

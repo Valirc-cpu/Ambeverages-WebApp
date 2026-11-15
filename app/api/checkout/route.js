@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import sql from '@/lib/db';
+import { DEFAULT_DRINKS } from '@/lib/data';
 
 export async function POST(request) {
   try {
@@ -10,29 +11,51 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Data pemesanan tidak lengkap.' }, { status: 422 });
     }
 
-    // Get drink records to calculate prices accurately
-    let drinks = [];
+    // Ensure drinks exist in database and fetch all available drinks
+    let allDbDrinks = [];
     if (sql) {
-      const ids = items.map((i) => i.drink_id);
-      drinks = await sql`SELECT id, name, price, stock FROM drinks WHERE id IN ${sql(ids)}`;
+      allDbDrinks = await sql`SELECT id, name, price, stock FROM drinks ORDER BY id ASC`;
+      if (allDbDrinks.length === 0) {
+        // Auto-seed default drinks if table is completely empty
+        for (const d of DEFAULT_DRINKS) {
+          await sql`
+            INSERT INTO drinks (name, price, stock, image, description, category, is_active, created_at, updated_at)
+            VALUES (${d.name}, ${d.price}, ${d.stock}, ${d.image_url}, ${d.description}, ${d.category}, true, NOW(), NOW())
+          `;
+        }
+        allDbDrinks = await sql`SELECT id, name, price, stock FROM drinks ORDER BY id ASC`;
+      }
     }
 
     const drinkMap = new Map();
-    drinks.forEach((d) => drinkMap.set(d.id, d));
+    allDbDrinks.forEach((d) => drinkMap.set(d.id, d));
 
     let totalPrice = 0;
     const validatedItems = [];
 
     for (const item of items) {
-      const drink = drinkMap.get(item.drink_id);
-      const price = drink ? Number(drink.price) : 25000;
-      const name = drink ? drink.name : `Minuman #${item.drink_id}`;
+      let drink = drinkMap.get(item.drink_id);
+
+      // If drink is not found by ID (e.g. client had fallback ID 1, 2, 3 before seeding)
+      if (!drink && allDbDrinks.length > 0) {
+        if (item.name) {
+          drink = allDbDrinks.find((d) => d.name?.toLowerCase() === item.name?.toLowerCase());
+        }
+        if (!drink) {
+          const indexFallback = (Math.max(1, Number(item.drink_id) || 1) - 1) % allDbDrinks.length;
+          drink = allDbDrinks[indexFallback] || allDbDrinks[0];
+        }
+      }
+
+      const validDrinkId = drink ? drink.id : (allDbDrinks[0]?.id || item.drink_id);
+      const price = drink ? Number(drink.price) : 24000;
+      const name = drink ? drink.name : (item.name || `Minuman #${validDrinkId}`);
       const qty = Math.max(1, Number(item.quantity) || 1);
       const subtotal = price * qty;
       totalPrice += subtotal;
 
       validatedItems.push({
-        drink_id: item.drink_id,
+        drink_id: validDrinkId,
         drink_name: name,
         quantity: qty,
         price,
