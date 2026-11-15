@@ -46,7 +46,7 @@ export default function HeroSection({
                     >
                         <InteractiveFox size={120} />
                         <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#9CA3AF] dark:text-[#6B7280]">
-                            Hover & Drag Fox
+                            Ambeverages Emblem
                         </span>
                     </motion.div>
                 </div>

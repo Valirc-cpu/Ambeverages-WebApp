@@ -3,6 +3,11 @@ import './globals.css';
 export const metadata = {
   title: 'Ambeverages — I Am Beverages.',
   description: 'Pesan minuman segar artisanal racikan buah pilihan. Langsung pesan via WhatsApp resmi.',
+  icons: {
+    icon: '/logo.svg',
+    shortcut: '/logo.svg',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({ children }) {
