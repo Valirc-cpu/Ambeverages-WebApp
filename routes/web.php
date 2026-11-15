@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DrinkController as AdminDrinkController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 // Public Customer Routes
@@ -30,4 +31,26 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function ():
     Route::post('/drinks/{drink}', [AdminDrinkController::class, 'update'])->name('drinks.update');
     Route::patch('/drinks/{drink}/stock', [AdminDrinkController::class, 'updateStock'])->name('drinks.stock');
     Route::delete('/drinks/{drink}', [AdminDrinkController::class, 'destroy'])->name('drinks.destroy');
+});
+
+// Serverless / Vercel Database Migration & Seeder Helper
+Route::get('/deploy/migrate', function () {
+    $secret = request('secret');
+    $expectedSecret = env('DEPLOY_SECRET', env('APP_KEY'));
+
+    if (empty($secret) || $secret !== $expectedSecret) {
+        abort(403, 'Akses ditolak. Parameter secret tidak sesuai.');
+    }
+
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        $migrateOutput = Artisan::output();
+
+        Artisan::call('db:seed', ['--force' => true]);
+        $seedOutput = Artisan::output();
+
+        return response("<pre style='background:#121417;color:#fff;padding:24px;border-radius:12px;font-family:monospace;font-size:14px;line-height:1.6;'>=== MIGRATION OUTPUT ===\n{$migrateOutput}\n=== SEEDER OUTPUT ===\n{$seedOutput}\n\nSUKSES: Seluruh tabel dan akun admin Ambeverages berhasil dibuat di Supabase!</pre>");
+    } catch (Throwable $e) {
+        return response("<pre style='background:#2d1215;color:#ff8080;padding:24px;border-radius:12px;font-family:monospace;font-size:14px;line-height:1.6;'>ERROR:\n{$e->getMessage()}\n\n{$e->getTraceAsString()}</pre>", 500);
+    }
 });
