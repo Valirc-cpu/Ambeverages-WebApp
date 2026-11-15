@@ -5,10 +5,13 @@ import Button from '../Button';
 export default function CancelOrderModal({
     order,
     onClose,
+    onConfirm,
     onConfirmCancel,
     processing = false,
 }) {
     if (!order) return null;
+
+    const handleAction = onConfirm || onConfirmCancel;
 
     return (
         <Modal
@@ -39,7 +42,7 @@ export default function CancelOrderModal({
                     <Button
                         variant="danger"
                         size="md"
-                        onClick={onConfirmCancel}
+                        onClick={handleAction}
                         disabled={processing}
                         className="flex-1 font-bold"
                     >

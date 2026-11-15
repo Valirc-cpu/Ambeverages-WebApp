@@ -6,7 +6,7 @@ import Button from '../Button';
 import DrinkAdminCard from './DrinkAdminCard';
 import DrinkFormModal from './DrinkFormModal';
 import DeleteDrinkModal from './DeleteDrinkModal';
-import { Coffee, Plus, Search, AlertTriangle, Layers, Boxes } from 'lucide-react';
+import { Coffee, Plus, Search, AlertTriangle, Layers, Boxes, Trash2 } from 'lucide-react';
 
 export default function DrinksClient({ initialDrinks = [], initialCategories = [], initialStats = {} }) {
     const [drinks, setDrinks] = useState(initialDrinks);
@@ -173,6 +173,24 @@ export default function DrinksClient({ initialDrinks = [], initialCategories = [
         }
     };
 
+    const handleResetDatabase = async () => {
+        if (!confirm('PERINGATAN: Apakah Anda yakin ingin MENGOSONGKAN SELURUH DATA minuman, pesanan, dan item di Supabase? Tindakan ini tidak dapat dibatalkan.')) {
+            return;
+        }
+        try {
+            const res = await fetch('/api/admin/reset-database', { method: 'POST' });
+            const data = await res.json();
+            if (res.ok) {
+                setDrinks([]);
+                alert('Sukses: Seluruh data di Supabase telah berhasil dikosongkan!');
+            } else {
+                alert('Gagal: ' + data.error);
+            }
+        } catch {
+            alert('Terjadi kesalahan jaringan.');
+        }
+    };
+
     return (
         <div className="space-y-6 pt-2">
             {/* Header title & Action */}
@@ -187,15 +205,27 @@ export default function DrinksClient({ initialDrinks = [], initialCategories = [
                     </p>
                 </div>
 
-                <Button
-                    variant="orange"
-                    size="md"
-                    onClick={() => setIsAddModalOpen(true)}
-                    className="font-bold shadow-sm shrink-0 text-xs sm:text-sm"
-                >
-                    <Plus className="w-4 h-4" />
-                    <span>Tambah Minuman Baru</span>
-                </Button>
+                <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                    <Button
+                        variant="ghost"
+                        size="md"
+                        onClick={handleResetDatabase}
+                        className="text-xs text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#D73A49] dark:hover:text-[#D73A49] border border-[#E5E8EC] dark:border-[#282C34]"
+                        title="Kosongkan seluruh data di database Supabase"
+                    >
+                        <Trash2 className="w-4 h-4" />
+                        <span>Kosongkan Semua Data</span>
+                    </Button>
+                    <Button
+                        variant="orange"
+                        size="md"
+                        onClick={() => setIsAddModalOpen(true)}
+                        className="font-bold shadow-sm text-xs sm:text-sm"
+                    >
+                        <Plus className="w-4 h-4" />
+                        <span>Tambah Minuman Baru</span>
+                    </Button>
+                </div>
             </div>
 
             {/* Stat cards */}
