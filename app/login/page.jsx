@@ -10,9 +10,9 @@ import { Lock, Mail, ArrowLeft, KeyRound } from 'lucide-react';
 
 export default function LoginPage() {
     const router = useRouter();
-    const [email, setEmail] = useState('admin@example.com');
-    const [password, setPassword] = useState('adminadmin');
-    const [remember, setRemember] = useState(true);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [remember, setRemember] = useState(false);
     const [error, setError] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
 
@@ -90,6 +90,7 @@ export default function LoginPage() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="admin@example.com"
                                     required
+                                    autoComplete="off"
                                     className="w-full pl-10 pr-4 py-2.5 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white placeholder-[#9CA3AF] text-sm transition-colors outline-none"
                                 />
                             </div>
@@ -110,6 +111,7 @@ export default function LoginPage() {
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
                                     required
+                                    autoComplete="new-password"
                                     className="w-full pl-10 pr-4 py-2.5 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white placeholder-[#9CA3AF] text-sm transition-colors outline-none"
                                 />
                             </div>

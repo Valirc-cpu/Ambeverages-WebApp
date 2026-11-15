@@ -22,9 +22,8 @@ export async function POST(request) {
       // Also check users table in Supabase
       const users = await sql`SELECT id, name, email, password FROM users WHERE email = ${email} LIMIT 1`;
       if (users.length > 0) {
-        // Simple match or bcrypt verify
         const user = users[0];
-        if (password === envPassword || password === 'adminadmin' || password === 'password') {
+        if (password === user.password || password === envPassword) {
           isAuthenticated = true;
         }
       }
