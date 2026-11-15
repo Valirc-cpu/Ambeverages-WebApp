@@ -134,17 +134,48 @@ Jika ingin mengatur secara mandiri melalui antarmuka web Render:
 
 ### Konfigurasi Database untuk Produksi
 
-#### Opsi A: SQLite (Bawaan)
+#### Opsi 1: Supabase PostgreSQL (Sangat Direkomendasikan — 100% Gratis & Permanen)
+Kombinasi **Render Free Tier (Web Service)** + **Supabase Free Tier (Database PostgreSQL)** adalah solusi terbaik karena database Supabase **tidak kedaluwarsa setelah 30 hari** (berbeda dari database free Render yang expire 1 bulan).
+
+1. Daftar akun di [supabase.com](https://supabase.com) (Gratis).
+2. Buat proyek baru (*New Project*):
+   - **Name:** `ambeverages-db`
+   - **Database Password:** Buat password yang kuat dan catat password ini.
+   - **Region:** Pilih `Singapore (ap-southeast-1)` agar latensinya paling rendah dengan server Render Singapore.
+3. Ambil Connection String dari Supabase:
+   - Di dashboard Supabase, klik tombol **Connect** di bagian atas (atau menu **Project Settings** -> **Database**).
+   - Pilih tab **Connection String** -> pilih **URI**.
+   - Pilih mode **Session Pooler** (Port `5432`) atau **Transaction Pooler** (Port `6543`).
+   - *Catatan penting:* Gunakan host pooler (misal `aws-0-ap-southeast-1.pooler.supabase.com`) karena mendukung IPv4 yang dibutuhkan oleh Render Free Tier.
+   - Contoh URI:
+     ```text
+     postgresql://postgres.yourprojectref:YOUR_PASSWORD@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres
+     ```
+4. Tambahkan variabel berikut ke **Environment** di Render Web Service Anda:
+   | Key | Value Contoh |
+   |---|---|
+   | `DB_CONNECTION` | `pgsql` |
+   | `DATABASE_URL` | `postgresql://postgres.yourprojectref:PASSWORD@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres` |
+   | `DB_SSLMODE` | `require` |
+
+*Setelah variabel disimpan, Render akan me-restart container, dan skrip `entrypoint.sh` secara otomatis menjalankan seluruh migrasi tabel dan seeder admin ke Supabase!*
+
+---
+
+#### Opsi 2: SQLite (Bawaan)
 - Docker container sudah dikonfigurasi untuk otomatis membuat file `/var/www/html/database/database.sqlite`.
 - *Catatan:* Pada paket Free Web Service Render, media penyimpanan bersifat sementara (*ephemeral*). Data akan ter-reset saat instance di-redeploy atau restart.
 
-#### Opsi B: PostgreSQL di Render (Disarankan untuk Data Permanen)
+---
+
+#### Opsi 3: PostgreSQL Internal di Render
 1. Di Dashboard Render, klik **New +** -> pilih **PostgreSQL**.
 2. Beri nama database, misal `ambeverages-db`, lalu klik **Create Database**.
 3. Setelah aktif, salin nilai **Internal Database URL** yang disediakan Render (berformat `postgres://user:password@hostname:5432/dbname`).
 4. Buka kembali Web Service `ambeverages`, masuk ke tab **Environment**, dan tambahkan:
    - `DB_CONNECTION`: `pgsql`
    - `DATABASE_URL`: *(tempel Internal Database URL tadi)*
+   *(Perhatian: Free PostgreSQL Render memiliki batas aktif 30 hari).*
 5. Saat aplikasi me-restart, Laravel otomatis mengalihkan koneksi ke PostgreSQL dan menjalankan seluruh migrasi serta seeder akun admin secara otomatis.
 
 ---
