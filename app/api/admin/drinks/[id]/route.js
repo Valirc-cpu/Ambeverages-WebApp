@@ -11,6 +11,11 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ success: true });
     }
 
+    // Ensure image column is TEXT to store large base64 data URLs without VARCHAR(255) limitation
+    try {
+      await sql`ALTER TABLE drinks ALTER COLUMN image TYPE TEXT`;
+    } catch {}
+
     const [updated] = await sql`
       UPDATE drinks
       SET 

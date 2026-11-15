@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Modal from '../Modal';
 import Button from '../Button';
+import { Upload, X } from 'lucide-react';
 
 export default function DrinkFormModal({
     isOpen,
@@ -10,6 +11,50 @@ export default function DrinkFormModal({
     onSubmit,
 }) {
     const { data, setData, errors, processing } = form;
+    const fileInputRef = useRef(null);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            alert('Silakan pilih berkas gambar yang valid (JPG, PNG, atau WebP).');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const maxDim = 1200;
+                let { width, height } = img;
+                if (width > maxDim || height > maxDim) {
+                    if (width > height) {
+                        height = Math.round((height * maxDim) / width);
+                        width = maxDim;
+                    } else {
+                        width = Math.round((width * maxDim) / height);
+                        height = maxDim;
+                    }
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                let compressedDataUrl = canvas.toDataURL('image/webp', 0.85);
+                if (!compressedDataUrl.startsWith('data:image/webp')) {
+                    compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                }
+
+                setData('image_url', compressedDataUrl);
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    };
 
     return (
         <Modal
@@ -81,29 +126,74 @@ export default function DrinkFormModal({
                     </div>
                 </div>
 
-                <div>
-                    <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
-                        URL Gambar Minuman (Opsional)
+                {/* Upload & Image Preview Section */}
+                <div className="space-y-2">
+                    <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF]">
+                        Foto / Berkas Gambar Minuman
                     </label>
-                    <input
-                        type="url"
-                        value={data.image_url}
-                        onChange={(e) => setData('image_url', e.target.value)}
-                        placeholder="https://images.unsplash.com/..."
-                        className="w-full px-4 py-2 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none transition-colors"
-                    />
-                </div>
 
-                <div>
-                    <label className="block text-xs font-bold text-[#4B5563] dark:text-[#9CA3AF] mb-1">
-                        Atau Unggah Berkas Gambar
-                    </label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setData('image', e.target.files[0])}
-                        className="w-full text-xs text-[#6B7280] dark:text-[#9CA3AF] file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-[#121417] dark:file:bg-[#20242D] file:text-white hover:file:bg-[#2A2E35]"
-                    />
+                    {data.image_url ? (
+                        <div className="relative rounded-2xl overflow-hidden border border-[#E5E8EC] dark:border-[#2C313B] bg-[#F7F8FA] dark:bg-[#1A1D23] p-2.5 flex items-center gap-3">
+                            <img
+                                src={data.image_url}
+                                alt="Pratinjau Minuman"
+                                className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-xl border border-[#E5E8EC] dark:border-[#2C313B] shrink-0"
+                            />
+                            <div className="flex-1 min-w-0">
+                                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#1EBE5D]/15 text-[#1EBE5D] mb-1">
+                                    Gambar Terpasang
+                                </span>
+                                <p className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF] truncate font-medium">
+                                    {data.image_url.startsWith('data:') ? 'Berkas gambar siap diunggah' : data.image_url}
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setData('image_url', '');
+                                    if (fileInputRef.current) fileInputRef.current.value = '';
+                                }}
+                                className="p-2 rounded-xl text-[#6B7280] hover:text-[#D73A49] hover:bg-[#FEE2E2]/60 dark:hover:bg-[#3D1E24] transition-colors cursor-pointer shrink-0"
+                                title="Hapus gambar"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="space-y-2.5">
+                            {/* File Upload Button / Area */}
+                            <label className="flex flex-col items-center justify-center p-5 border-2 border-dashed border-[#DCE0E5] dark:border-[#2C313B] hover:border-[#FA4B00] dark:hover:border-[#FA4B00] rounded-2xl bg-[#F7F8FA] dark:bg-[#1A1D23] cursor-pointer transition-colors text-center group">
+                                <Upload className="w-6 h-6 text-[#9CA3AF] group-hover:text-[#FA4B00] mb-1.5 transition-colors" />
+                                <span className="text-xs font-bold text-[#121417] dark:text-white">
+                                    Pilih Gambar dari Perangkat
+                                </span>
+                                <span className="text-[10px] text-[#9CA3AF] mt-0.5">
+                                    Mendukung JPG, PNG, WebP (otomatis dikompres & dioptimasi)
+                                </span>
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleFileChange}
+                                    className="hidden"
+                                />
+                            </label>
+
+                            {/* Or URL input */}
+                            <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-[#9CA3AF] shrink-0">
+                                    Atau URL:
+                                </span>
+                                <input
+                                    type="url"
+                                    value={data.image_url || ''}
+                                    onChange={(e) => setData('image_url', e.target.value)}
+                                    placeholder="https://..."
+                                    className="flex-1 px-3 py-1.5 bg-[#F7F8FA] dark:bg-[#1A1D23] border border-[#DCE0E5] dark:border-[#2C313B] focus:border-[#FA4B00] rounded-xl text-[#121417] dark:text-white text-xs outline-none transition-colors"
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 <div>
