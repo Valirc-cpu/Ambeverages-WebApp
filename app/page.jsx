@@ -6,7 +6,6 @@ export const revalidate = 0;
 
 export default async function Page() {
   const drinks = await getDrinks();
-  const categories = Array.from(new Set(drinks.map((d) => d.category).filter(Boolean)));
 
-  return <CatalogClient initialDrinks={drinks} categories={categories} />;
+  return <CatalogClient initialDrinks={drinks} />;
 }

@@ -13,9 +13,8 @@ import Button from '../Button';
 import { Coffee, PlusCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function CatalogClient({ initialDrinks = [], categories = [] }) {
+export default function CatalogClient({ initialDrinks = [] }) {
     const [drinks, setDrinks] = useState(initialDrinks);
-    const [selectedCategory, setSelectedCategory] = useState('Semua');
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [successOrder, setSuccessOrder] = useState(null);
 
@@ -47,12 +46,6 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
     });
     const [formErrors, setFormErrors] = useState({});
     const [isProcessing, setIsProcessing] = useState(false);
-
-    // Filter drinks by selected category
-    const filteredDrinks = drinks.filter((drink) => {
-        if (selectedCategory === 'Semua') return true;
-        return drink.category === selectedCategory;
-    });
 
     const handleAddToCart = (drink) => {
         if (drink.stock <= 0) return;
@@ -172,11 +165,7 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
             <Navbar onOpenCart={() => setIsCartOpen(true)} cartItemCount={cartCount} />
 
             {/* Hero Section */}
-            <HeroSection
-                categories={categories}
-                selectedCategory={selectedCategory}
-                onSelectCategory={setSelectedCategory}
-            />
+            <HeroSection />
 
             {/* Main Catalog Menu */}
             <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full z-10">
@@ -210,17 +199,9 @@ export default function CatalogClient({ initialDrinks = [], categories = [] }) {
                             </Link>
                         </div>
                     </div>
-                ) : filteredDrinks.length === 0 ? (
-                    <div className="text-center py-20 bg-white/60 dark:bg-[#15171C]/60 backdrop-blur-md rounded-[28px] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs max-w-md mx-auto">
-                        <Coffee className="w-16 h-16 text-[#CBD2D9] dark:text-[#3B424E] mx-auto mb-4" />
-                        <h3 className="text-lg font-bold text-[#121417] dark:text-white">Tidak ada minuman dalam kategori ini</h3>
-                        <p className="text-xs text-[#6B7280] dark:text-[#9CA3AF] mt-1">
-                            Silakan pilih kategori lain atau tunggu menu varian terbaru kami.
-                        </p>
-                    </div>
                 ) : (
                     <DrinkParallaxDeck
-                        drinks={filteredDrinks}
+                        drinks={drinks}
                         onAddToCart={handleAddToCart}
                     />
                 )}

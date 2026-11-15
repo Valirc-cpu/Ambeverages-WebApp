@@ -95,11 +95,8 @@ export default function DrinkCard({
                         {drink.description || 'Minuman segar spesial racikan Ambeverages dengan sensasi buah premium terpilih.'}
                     </p>
 
-                    {/* Chips info */}
+                    {/* Status Badge */}
                     <div className="flex flex-wrap items-center gap-2 mt-4">
-                        <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#F2F4F7] dark:bg-[#1E222A] text-[#4B5563] dark:text-[#9CA3AF] border border-[#E5E8EC] dark:border-[#2C313B]">
-                            {drink.category}
-                        </span>
                         {isOutOfStock ? (
                             <Badge variant="danger" size="sm">
                                 Stok Habis

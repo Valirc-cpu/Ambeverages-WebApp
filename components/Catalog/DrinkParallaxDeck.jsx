@@ -305,8 +305,28 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                 }
                 transition={{ duration: 0.45, ease: 'easeOut' }}
                 style={{ transformStyle: 'preserve-3d' }}
-                className="relative w-full max-w-6xl mx-auto flex items-center justify-center"
+                className="relative w-full max-w-6xl mx-auto flex items-center justify-center px-1 sm:px-0"
             >
+                {/* Floating Left Navigation Button */}
+                {hasMultiple && (
+                    <button
+                        type="button"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (activeIndex > 0) {
+                                setDirection(-1);
+                                setActiveIndex((prev) => prev - 1);
+                            }
+                        }}
+                        disabled={activeIndex === 0}
+                        className="absolute left-1 sm:-left-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-white/95 dark:bg-[#15171C]/95 backdrop-blur-md border border-[#E5E8EC] dark:border-[#282C34] text-[#121417] dark:text-white shadow-xl disabled:opacity-20 disabled:cursor-not-allowed hover:bg-[#FA4B00] hover:text-white hover:border-[#FA4B00] active:scale-90 transition-all cursor-pointer flex items-center justify-center"
+                        title="Menu Sebelumnya"
+                        aria-label="Menu Sebelumnya"
+                    >
+                        <ChevronLeft className="w-6 h-6" />
+                    </button>
+                )}
+
                 {/* Animated Active Card Showcase */}
                 <AnimatePresence mode="popLayout" custom={direction} initial={false}>
                     <motion.div
@@ -326,69 +346,64 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
                         />
                     </motion.div>
                 </AnimatePresence>
+
+                {/* Floating Right Navigation Button */}
+                {hasMultiple && (
+                    <button
+                        type="button"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (activeIndex < drinks.length - 1) {
+                                setDirection(1);
+                                setActiveIndex((prev) => prev + 1);
+                            }
+                        }}
+                        disabled={activeIndex === drinks.length - 1}
+                        className="absolute right-1 sm:-right-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-white/95 dark:bg-[#15171C]/95 backdrop-blur-md border border-[#E5E8EC] dark:border-[#282C34] text-[#121417] dark:text-white shadow-xl disabled:opacity-20 disabled:cursor-not-allowed hover:bg-[#FA4B00] hover:text-white hover:border-[#FA4B00] active:scale-90 transition-all cursor-pointer flex items-center justify-center"
+                        title="Menu Berikutnya"
+                        aria-label="Menu Berikutnya"
+                    >
+                        <ChevronRight className="w-6 h-6" />
+                    </button>
+                )}
             </motion.div>
 
-            {/* Interactive Deck Navigation & Varian Indicators */}
+            {/* Bottom Controls with Slide Counter */}
             {hasMultiple && (
-                <div className="max-w-6xl mx-auto mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
-                    {/* Left: Previous & Next Buttons with Slide Counter */}
-                    <div className="flex items-center gap-2.5">
-                        <button
-                            type="button"
-                            onClick={() => {
-                                if (activeIndex > 0) {
-                                    setDirection(-1);
-                                    setActiveIndex((prev) => prev - 1);
-                                }
-                            }}
-                            disabled={activeIndex === 0}
-                            className="p-3 rounded-2xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#282C34] text-[#121417] dark:text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#F4F5F7] dark:hover:bg-[#1E222A] active:scale-95 transition-all cursor-pointer shadow-xs"
-                            title="Menu Sebelumnya"
-                            aria-label="Menu Sebelumnya"
-                        >
-                            <ChevronLeft className="w-5 h-5" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                if (activeIndex < drinks.length - 1) {
-                                    setDirection(1);
-                                    setActiveIndex((prev) => prev + 1);
-                                }
-                            }}
-                            disabled={activeIndex === drinks.length - 1}
-                            className="p-3 rounded-2xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#282C34] text-[#121417] dark:text-white disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#F4F5F7] dark:hover:bg-[#1E222A] active:scale-95 transition-all cursor-pointer shadow-xs"
-                            title="Menu Berikutnya"
-                            aria-label="Menu Berikutnya"
-                        >
-                            <ChevronRight className="w-5 h-5" />
-                        </button>
-                        <div className="text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] ml-2 font-mono">
-                            {String(activeIndex + 1).padStart(2, '0')} / {String(drinks.length).padStart(2, '0')}
-                        </div>
+                <div className="max-w-6xl mx-auto mt-6 flex items-center justify-center gap-3">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            if (activeIndex > 0) {
+                                setDirection(-1);
+                                setActiveIndex((prev) => prev - 1);
+                            }
+                        }}
+                        disabled={activeIndex === 0}
+                        className="p-3 rounded-2xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#282C34] text-[#121417] dark:text-white disabled:opacity-25 hover:bg-[#F4F5F7] dark:hover:bg-[#1E222A] active:scale-95 transition-all cursor-pointer shadow-xs"
+                        title="Menu Sebelumnya"
+                        aria-label="Menu Sebelumnya"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <div className="text-xs font-bold text-[#6B7280] dark:text-[#9CA3AF] px-4 py-2.5 rounded-xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#282C34] font-mono shadow-xs">
+                        {String(activeIndex + 1).padStart(2, '0')} / {String(drinks.length).padStart(2, '0')}
                     </div>
-
-                    {/* Right: Quick Drink Selector Pills */}
-                    <div className="flex items-center gap-2 overflow-x-auto max-w-full py-1">
-                        {drinks.map((d, idx) => (
-                            <button
-                                key={d.id}
-                                type="button"
-                                onClick={() => {
-                                    setDirection(idx > activeIndex ? 1 : -1);
-                                    setActiveIndex(idx);
-                                }}
-                                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                                    idx === activeIndex
-                                        ? 'bg-[#121417] dark:bg-white text-white dark:text-[#121417] shadow-sm'
-                                        : 'bg-white dark:bg-[#15171C] text-[#6B7280] dark:text-[#9CA3AF] border border-[#E5E8EC] dark:border-[#282C34] hover:border-[#CBD2D9] dark:hover:border-[#3B424E]'
-                                }`}
-                            >
-                                <span className="w-2 h-2 rounded-full bg-[#FA4B00]"></span>
-                                <span>{d.name}</span>
-                            </button>
-                        ))}
-                    </div>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            if (activeIndex < drinks.length - 1) {
+                                setDirection(1);
+                                setActiveIndex((prev) => prev + 1);
+                            }
+                        }}
+                        disabled={activeIndex === drinks.length - 1}
+                        className="p-3 rounded-2xl bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#282C34] text-[#121417] dark:text-white disabled:opacity-25 hover:bg-[#F4F5F7] dark:hover:bg-[#1E222A] active:scale-95 transition-all cursor-pointer shadow-xs"
+                        title="Menu Berikutnya"
+                        aria-label="Menu Berikutnya"
+                    >
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
                 </div>
             )}
         </section>
