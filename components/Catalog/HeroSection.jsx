@@ -37,17 +37,14 @@ export default function HeroSection({
                         </motion.p>
                     </div>
 
-                    {/* Interactive 3D Perspective Fox */}
+                    {/* Brand Vector Logo (Matching left text height, borderless) */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.15 }}
-                        className="flex flex-col items-center gap-2 shrink-0"
+                        className="shrink-0 flex items-center justify-center"
                     >
-                        <InteractiveFox size={120} />
-                        <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#9CA3AF] dark:text-[#6B7280]">
-                            Ambeverages Emblem
-                        </span>
+                        <InteractiveFox className="w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 lg:w-64 lg:h-64" />
                     </motion.div>
                 </div>
             </div>

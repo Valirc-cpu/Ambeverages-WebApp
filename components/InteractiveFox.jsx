@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
-export default function InteractiveFox({ size = 110 }) {
+export default function InteractiveFox({ size, className = '' }) {
     const cardRef = useRef(null);
 
     // Mouse coordinates relative to card center
@@ -36,18 +36,17 @@ export default function InteractiveFox({ size = 110 }) {
                 perspective: 600,
                 rotateX,
                 rotateY,
-                width: size,
-                height: size,
+                ...(size ? { width: size, height: size } : {}),
             }}
-            whileHover={{ scale: 1.06 }}
-            whileTap={{ scale: 0.96 }}
-            className="cursor-pointer select-none inline-flex items-center justify-center p-3 rounded-3xl bg-white dark:bg-[#17191E] border border-[#E5E8EC] dark:border-[#2A2E36] shadow-[0_8px_24px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.4)] transition-colors"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className={`cursor-pointer select-none inline-flex items-center justify-center ${className}`}
             title="Ambeverages Official Logo"
         >
             <img
                 src="/logo.svg"
-                alt="Ambeverages Logo Badge"
-                className="w-full h-full object-contain pointer-events-none drop-shadow-sm select-none"
+                alt="Ambeverages Logo"
+                className="w-full h-full object-contain pointer-events-none select-none drop-shadow-md"
                 loading="eager"
             />
         </motion.div>
