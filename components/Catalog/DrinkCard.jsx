@@ -15,6 +15,15 @@ export default function DrinkCard({
     const isOutOfStock = drink.stock <= 0;
     const isLowStock = drink.stock > 0 && drink.stock <= 5;
 
+    const rawImg = drink.image_url || drink.image;
+    const displayImage = rawImg
+        ? (rawImg.startsWith('/storage/data:')
+            ? rawImg.replace('/storage/', '')
+            : (rawImg.startsWith('data:') || rawImg.startsWith('http://') || rawImg.startsWith('https://') || rawImg.startsWith('/')
+                ? rawImg
+                : `/storage/${rawImg}`))
+        : null;
+
     // Interactive 3D Cursor Tilt Physics
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -56,10 +65,10 @@ export default function DrinkCard({
         >
             {/* Left Image Section with Internal Parallax Shift */}
             <div className="w-full md:w-88 lg:w-[420px] h-52 sm:h-72 md:h-80 rounded-[20px] sm:rounded-[24px] overflow-hidden relative shrink-0 bg-[#F4F5F7] dark:bg-[#1D2026] border border-[#E5E8EC] dark:border-[#2B303A]">
-                {drink.image_url ? (
+                {displayImage ? (
                     <motion.img
                         style={isHighlighted ? { x: imgX, y: imgY, scale: 1.05 } : {}}
-                        src={drink.image_url}
+                        src={displayImage}
                         alt={drink.name}
                         className={`w-full h-full object-cover transition-opacity duration-300 ${
                             isOutOfStock ? 'grayscale opacity-40' : 'opacity-100'

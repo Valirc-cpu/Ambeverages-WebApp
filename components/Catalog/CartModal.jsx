@@ -54,17 +54,27 @@ export default function CartModal({
                                             className="flex items-center justify-between gap-3 p-3 rounded-2xl bg-[#F7F8FA] dark:bg-[#191C22] border border-[#E5E8EC] dark:border-[#272B33]"
                                         >
                                             <div className="flex items-center gap-2.5 min-w-0">
-                                                {item.image_url ? (
-                                                    <img
-                                                        src={item.image_url}
-                                                        alt={item.name}
-                                                        className="w-10 h-10 rounded-xl object-cover bg-gray-200 shrink-0"
-                                                    />
-                                                ) : (
-                                                    <div className="w-10 h-10 rounded-xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 shrink-0">
-                                                        <Coffee className="w-5 h-5" />
-                                                    </div>
-                                                )}
+                                                {(() => {
+                                                    const rawImg = item.image_url || item.image;
+                                                    const displayImg = rawImg
+                                                        ? (rawImg.startsWith('/storage/data:')
+                                                            ? rawImg.replace('/storage/', '')
+                                                            : (rawImg.startsWith('data:') || rawImg.startsWith('http://') || rawImg.startsWith('https://') || rawImg.startsWith('/')
+                                                                ? rawImg
+                                                                : `/storage/${rawImg}`))
+                                                        : null;
+                                                    return displayImg ? (
+                                                        <img
+                                                            src={displayImg}
+                                                            alt={item.name}
+                                                            className="w-10 h-10 rounded-xl object-cover bg-gray-200 shrink-0"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-10 h-10 rounded-xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500 shrink-0">
+                                                            <Coffee className="w-5 h-5" />
+                                                        </div>
+                                                    );
+                                                })()}
                                                 <div className="truncate">
                                                     <h5 className="text-xs font-bold text-[#121417] dark:text-white truncate">{item.name}</h5>
                                                     <span className="text-[11px] text-[#FA4B00] font-bold">{item.formatted_price}</span>

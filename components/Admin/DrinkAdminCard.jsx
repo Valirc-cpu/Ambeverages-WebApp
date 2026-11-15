@@ -13,14 +13,23 @@ export default function DrinkAdminCard({
     const isOutOfStock = drink.stock <= 0;
     const isLowStock = drink.stock > 0 && drink.stock <= 5;
 
+    const rawImg = drink.image_url || drink.image;
+    const displayImage = rawImg
+        ? (rawImg.startsWith('/storage/data:')
+            ? rawImg.replace('/storage/', '')
+            : (rawImg.startsWith('data:') || rawImg.startsWith('http://') || rawImg.startsWith('https://') || rawImg.startsWith('/')
+                ? rawImg
+                : `/storage/${rawImg}`))
+        : null;
+
     return (
         <div className="p-4 sm:p-5 bg-white dark:bg-[#15171C] border border-[#E5E8EC] dark:border-[#262A32] rounded-[22px] sm:rounded-[28px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between">
             <div>
                 {/* Image & Badges */}
                 <div className="relative aspect-video w-full bg-[#F2F4F7] dark:bg-[#1A1D23] rounded-[20px] overflow-hidden mb-3.5 border border-transparent dark:border-[#282C34]">
-                    {drink.image_url ? (
+                    {displayImage ? (
                         <img
-                            src={drink.image_url}
+                            src={displayImage}
                             alt={drink.name}
                             className="w-full h-full object-cover"
                             loading="lazy"
