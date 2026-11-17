@@ -43,7 +43,7 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
         bounceTimerRef.current = setTimeout(() => setBoundaryBounce(null), 420);
     };
 
-    // Intercept scroll: when user scrolls over catalog, cards scroll first with robust boundary protection!
+    // Intercept scroll on desktop: when user scrolls over catalog, cards scroll first with robust boundary protection!
     useEffect(() => {
         const el = sectionRef.current;
         if (!el || !hasMultiple) return;
@@ -52,6 +52,11 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
         let lastStepTime = 0;
 
         const onWheel = (e) => {
+            // Strictly disable scroll hijacking on mobile screens (< 768px) so page scrolls naturally
+            if (typeof window !== 'undefined' && window.innerWidth < 768) {
+                return;
+            }
+
             const now = Date.now();
             const delta = e.deltaY;
 
@@ -147,73 +152,6 @@ export default function DrinkParallaxDeck({ drinks = [], onAddToCart }) {
         // Attach non-passive listener to reliably preventDefault
         el.addEventListener('wheel', onWheel, { passive: false });
         return () => el.removeEventListener('wheel', onWheel);
-    }, [hasMultiple, drinks.length]);
-
-    // Touch swipe support for mobile with matching boundary buffer
-    useEffect(() => {
-        const el = sectionRef.current;
-        if (!el || !hasMultiple) return;
-
-        let startY = 0;
-        let lastStepTime = 0;
-
-        const onTouchStart = (e) => {
-            startY = e.touches[0].clientY;
-        };
-
-        const onTouchMove = (e) => {
-            const currentY = e.touches[0].clientY;
-            const diff = startY - currentY;
-            const now = Date.now();
-
-            // Swipe up (scroll down)
-            if (diff > 35) {
-                if (activeIndexRef.current < drinks.length - 1) {
-                    e.preventDefault();
-                    if (now - lastStepTime > 360) {
-                        lastStepTime = now;
-                        const nextIdx = activeIndexRef.current + 1;
-                        setDirection(1);
-                        setActiveIndex(nextIdx);
-                        startY = currentY;
-                        accumulatedExitDelta.current = 0;
-                        if (nextIdx === drinks.length - 1) {
-                            boundaryLockUntil.current = now + 650;
-                        }
-                    }
-                } else if (now < boundaryLockUntil.current) {
-                    e.preventDefault();
-                    triggerBoundaryEffect('bottom');
-                }
-            } else if (diff < -35) {
-                // Swipe down (scroll up)
-                if (activeIndexRef.current > 0) {
-                    e.preventDefault();
-                    if (now - lastStepTime > 360) {
-                        lastStepTime = now;
-                        const prevIdx = activeIndexRef.current - 1;
-                        setDirection(-1);
-                        setActiveIndex(prevIdx);
-                        startY = currentY;
-                        accumulatedExitDelta.current = 0;
-                        if (prevIdx === 0) {
-                            boundaryLockUntil.current = now + 650;
-                        }
-                    }
-                } else if (now < boundaryLockUntil.current) {
-                    e.preventDefault();
-                    triggerBoundaryEffect('top');
-                }
-            }
-        };
-
-        el.addEventListener('touchstart', onTouchStart, { passive: true });
-        el.addEventListener('touchmove', onTouchMove, { passive: false });
-
-        return () => {
-            el.removeEventListener('touchstart', onTouchStart);
-            el.removeEventListener('touchmove', onTouchMove);
-        };
     }, [hasMultiple, drinks.length]);
 
     if (drinks.length === 0) return null;
