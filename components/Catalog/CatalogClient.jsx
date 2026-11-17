@@ -178,7 +178,7 @@ export default function CatalogClient({ initialDrinks = [], initialIsOpen = true
             <Navbar onOpenCart={() => setIsCartOpen(true)} cartItemCount={cartCount} />
 
             {/* Hero Section */}
-            <HeroSection isStoreOpen={isOpen} />
+            <HeroSection />
 
             {/* Main Catalog Menu */}
             <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full z-10">
@@ -201,12 +201,8 @@ export default function CatalogClient({ initialDrinks = [], initialIsOpen = true
                         <div className="w-16 h-16 rounded-2xl bg-[#FFF5F5] dark:bg-[#2D1518] text-[#D73A49] dark:text-[#F85149] flex items-center justify-center mx-auto mb-4 border border-[#D73A49]/20">
                             <Coffee className="w-8 h-8 opacity-70" />
                         </div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF5F5] dark:bg-[#2D1518] text-[#D73A49] dark:text-[#F85149] text-xs font-bold mb-3 border border-[#D73A49]/20">
-                            <span className="w-2 h-2 rounded-full bg-[#D73A49] animate-pulse" />
-                            <span>Kedai Sedang Tutup</span>
-                        </div>
                         <h3 className="text-xl font-extrabold text-[#121417] dark:text-white">
-                            Katalog Minuman Belum Dibuka
+                            Katalog Minuman Sedang Ditutup
                         </h3>
                         <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-2 leading-relaxed max-w-md mx-auto">
                             Mohon maaf, saat ini katalog minuman Ambeverages sedang ditutup dan belum menerima pesanan baru. Silakan kembali lagi nanti saat kedai telah dibuka kembali!

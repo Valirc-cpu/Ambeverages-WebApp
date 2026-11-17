@@ -256,28 +256,26 @@ export default function DrinksClient({
                             onClick={() => handleToggleCatalog(true)}
                             disabled={isTogglingCatalog}
                             title="Buka katalog minuman untuk umum"
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                 isCatalogOpen
                                     ? 'bg-[#1EBE5D] text-white shadow-xs'
                                     : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
                             } ${isTogglingCatalog ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <span className={`w-2 h-2 rounded-full ${isCatalogOpen ? 'bg-white' : 'bg-[#9CA3AF]'}`} />
-                            <span>Buka</span>
+                            Buka
                         </button>
                         <button
                             type="button"
                             onClick={() => handleToggleCatalog(false)}
                             disabled={isTogglingCatalog}
                             title="Tutup katalog minuman dari akses umum"
-                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                                 !isCatalogOpen
                                     ? 'bg-[#D73A49] text-white shadow-xs'
                                     : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
                             } ${isTogglingCatalog ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <span className={`w-2 h-2 rounded-full ${!isCatalogOpen ? 'bg-white' : 'bg-[#9CA3AF]'}`} />
-                            <span>Tutup</span>
+                            Tutup
                         </button>
                     </div>
 
