@@ -33,7 +33,7 @@ export default function HeroSection({
                             transition={{ duration: 0.4, delay: 0.1 }}
                             className="text-base sm:text-lg text-[#4B5563] dark:text-[#9CA3AF] font-medium mt-4 leading-relaxed max-w-xl"
                         >
-                            Nikmati sensasi kesegaran Ambmanggo, Amberry, dan Ambpinaple. Pesan cepat tanpa registrasi akun, rincian terkirim ke WhatsApp, dan stok terpotong otomatis saat pesanan dikonfirmasi.
+                            Nikmati sensasi kesegaran Ambanas, Amberry, dan Ambanggo. Pesan cepat tanpa registrasi akun, rincian terkirim ke WhatsApp.
                         </motion.p>
                     </div>
 
