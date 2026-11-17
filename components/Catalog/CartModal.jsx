@@ -7,6 +7,7 @@ import { ShoppingBag, Coffee, Minus, Plus, Trash2, User, Send, Receipt } from 'l
 
 export default function CartModal({
     isOpen,
+    isStoreOpen = true,
     onClose,
     cart = [],
     onUpdateQuantity,
@@ -197,17 +198,23 @@ export default function CartModal({
                             />
                         </div>
 
+                        {!isStoreOpen && (
+                            <div className="p-3 rounded-xl bg-[#FFF5F5] dark:bg-[#2D1518] border border-[#D73A49]/30 text-[#D73A49] dark:text-[#F85149] text-xs font-bold text-center">
+                                Kedai sedang tutup. Pemesanan tidak dapat diproses saat ini.
+                            </div>
+                        )}
+
                         <motion.div whileTap={{ scale: 0.98 }}>
                             <Button
                                 form="checkout-form"
                                 type="submit"
                                 variant="whatsapp"
                                 size="lg"
-                                disabled={processing}
+                                disabled={processing || !isStoreOpen}
                                 className="w-full font-bold shadow-sm"
                             >
                                 <Send className="w-4 h-4" />
-                                <span>{processing ? 'Menyiapkan...' : 'Kirim via WhatsApp'}</span>
+                                <span>{processing ? 'Menyiapkan...' : !isStoreOpen ? 'Kedai Sedang Tutup' : 'Kirim via WhatsApp'}</span>
                             </Button>
                         </motion.div>
                     </div>

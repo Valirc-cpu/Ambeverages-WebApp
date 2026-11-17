@@ -6,12 +6,20 @@ import Button from '../Button';
 import DrinkAdminCard from './DrinkAdminCard';
 import DrinkFormModal from './DrinkFormModal';
 import DeleteDrinkModal from './DeleteDrinkModal';
-import { Coffee, Plus, Search, AlertTriangle, Layers, Boxes, Trash2 } from 'lucide-react';
+import { Coffee, Plus, Search, AlertTriangle, Layers, Boxes, Trash2, CheckCircle2 } from 'lucide-react';
 
-export default function DrinksClient({ initialDrinks = [], initialCategories = [], initialStats = {} }) {
+export default function DrinksClient({
+    initialDrinks = [],
+    initialCategories = [],
+    initialStats = {},
+    initialIsCatalogOpen = true,
+}) {
     const [drinks, setDrinks] = useState(initialDrinks);
     const [categories, setCategories] = useState(initialCategories);
     const [stats, setStats] = useState(initialStats);
+    const [isCatalogOpen, setIsCatalogOpen] = useState(initialIsCatalogOpen);
+    const [isTogglingCatalog, setIsTogglingCatalog] = useState(false);
+    const [statusToast, setStatusToast] = useState(null);
     const [search, setSearch] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('Semua');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -191,10 +199,42 @@ export default function DrinksClient({ initialDrinks = [], initialCategories = [
         }
     };
 
+    const handleToggleCatalog = async (openState) => {
+        if (isCatalogOpen === openState || isTogglingCatalog) return;
+        setIsTogglingCatalog(true);
+        setStatusToast(null);
+
+        try {
+            const res = await fetch('/api/admin/store-status', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ is_catalog_open: openState }),
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                setIsCatalogOpen(openState);
+                setStatusToast({
+                    type: 'success',
+                    message: openState
+                        ? 'Katalog minuman berhasil DIBUKA untuk umum.'
+                        : 'Katalog minuman berhasil DITUTUP. Pelanggan tidak dapat memesan.',
+                });
+                setTimeout(() => setStatusToast(null), 4000);
+            } else {
+                alert('Gagal mengubah status katalog: ' + (data.error || 'Terjadi kesalahan.'));
+            }
+        } catch (err) {
+            console.error('Error toggling store status:', err);
+            alert('Terjadi kesalahan jaringan.');
+        } finally {
+            setIsTogglingCatalog(false);
+        }
+    };
+
     return (
         <div className="space-y-6 pt-2">
             {/* Header title & Action */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-extrabold text-[#121417] dark:text-white tracking-tight flex items-center gap-2.5">
                         <Coffee className="w-6 h-6 sm:w-7 sm:h-7 text-[#FA4B00]" />
@@ -206,6 +246,41 @@ export default function DrinksClient({ initialDrinks = [], initialCategories = [
                 </div>
 
                 <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+                    {/* Segmented Buka / Tutup Toggle */}
+                    <div className="flex items-center bg-[#ECEFF2] dark:bg-[#1A1D24] p-1 rounded-xl border border-[#DCE0E5] dark:border-[#2C313B]">
+                        <span className="text-[11px] font-bold text-[#6B7280] dark:text-[#9CA3AF] px-2.5 select-none hidden sm:inline">
+                            Status Katalog:
+                        </span>
+                        <button
+                            type="button"
+                            onClick={() => handleToggleCatalog(true)}
+                            disabled={isTogglingCatalog}
+                            title="Buka katalog minuman untuk umum"
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                isCatalogOpen
+                                    ? 'bg-[#1EBE5D] text-white shadow-xs'
+                                    : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
+                            } ${isTogglingCatalog ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            <span className={`w-2 h-2 rounded-full ${isCatalogOpen ? 'bg-white' : 'bg-[#9CA3AF]'}`} />
+                            <span>Buka</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => handleToggleCatalog(false)}
+                            disabled={isTogglingCatalog}
+                            title="Tutup katalog minuman dari akses umum"
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                !isCatalogOpen
+                                    ? 'bg-[#D73A49] text-white shadow-xs'
+                                    : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#121417] dark:hover:text-white'
+                            } ${isTogglingCatalog ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        >
+                            <span className={`w-2 h-2 rounded-full ${!isCatalogOpen ? 'bg-white' : 'bg-[#9CA3AF]'}`} />
+                            <span>Tutup</span>
+                        </button>
+                    </div>
+
                     <Button
                         variant="ghost"
                         size="md"
@@ -227,6 +302,42 @@ export default function DrinksClient({ initialDrinks = [], initialCategories = [
                     </Button>
                 </div>
             </div>
+
+            {/* Notification Banner when Catalog is Closed */}
+            {!isCatalogOpen && (
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-2xl bg-[#FFF5F5] dark:bg-[#2D1518] border border-[#D73A49]/30 text-[#D73A49] dark:text-[#F85149]">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-xl bg-[#D73A49]/10">
+                            <AlertTriangle className="w-5 h-5 shrink-0" />
+                        </div>
+                        <div>
+                            <p className="text-xs sm:text-sm font-bold">
+                                Katalog Minuman Sedang Ditutup untuk Pelanggan
+                            </p>
+                            <p className="text-[11px] text-[#6B7280] dark:text-[#9CA3AF] mt-0.5">
+                                Halaman katalog publik saat ini menampilkan status tutup dan pengunjung tidak dapat melakukan pemesanan.
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={() => handleToggleCatalog(true)}
+                        disabled={isTogglingCatalog}
+                        className="px-3.5 py-1.5 rounded-xl bg-[#1EBE5D] text-white text-xs font-bold hover:bg-[#19A852] transition-colors shrink-0 self-start sm:self-auto cursor-pointer"
+                    >
+                        Buka Katalog Sekarang
+                    </button>
+                </div>
+            )}
+
+            {/* Status Toast Alert */}
+            {statusToast && (
+                <div className="p-3.5 rounded-2xl bg-[#E8F8EE] dark:bg-[#142B1C] border border-[#1EBE5D]/30 text-[#1EBE5D] text-xs font-bold flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    <span>{statusToast.message}</span>
+                </div>
+            )}
+
 
             {/* Stat cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

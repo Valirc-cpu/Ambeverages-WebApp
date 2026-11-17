@@ -13,15 +13,20 @@ import Button from '../Button';
 import { Coffee, PlusCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function CatalogClient({ initialDrinks = [] }) {
+export default function CatalogClient({ initialDrinks = [], initialIsOpen = true }) {
     const [drinks, setDrinks] = useState(initialDrinks);
+    const [isOpen, setIsOpen] = useState(initialIsOpen);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [successOrder, setSuccessOrder] = useState(null);
 
-    // Keep drinks in sync with server data
+    // Keep drinks and store open state in sync with server data
     useEffect(() => {
         setDrinks(initialDrinks);
     }, [initialDrinks]);
+
+    useEffect(() => {
+        setIsOpen(initialIsOpen);
+    }, [initialIsOpen]);
 
     // Cart state persisted in localStorage
     const [cart, setCart] = useState([]);
@@ -48,6 +53,10 @@ export default function CatalogClient({ initialDrinks = [] }) {
     const [isProcessing, setIsProcessing] = useState(false);
 
     const handleAddToCart = (drink) => {
+        if (!isOpen) {
+            alert('Maaf, katalog minuman Ambeverages saat ini sedang ditutup.');
+            return;
+        }
         if (drink.stock <= 0) return;
 
         setCart((prev) => {
@@ -106,6 +115,10 @@ export default function CatalogClient({ initialDrinks = [] }) {
 
     const handleCheckoutSubmit = async (e) => {
         e.preventDefault();
+        if (!isOpen) {
+            alert('Maaf, katalog minuman Ambeverages saat ini sedang ditutup dan tidak menerima pesanan.');
+            return;
+        }
         const errors = {};
         if (!checkoutForm.customer_name.trim()) errors.customer_name = 'Nama pemesan wajib diisi.';
         if (!checkoutForm.customer_phone.trim()) errors.customer_phone = 'Nomor WhatsApp aktif wajib diisi.';
@@ -165,7 +178,7 @@ export default function CatalogClient({ initialDrinks = [] }) {
             <Navbar onOpenCart={() => setIsCartOpen(true)} cartItemCount={cartCount} />
 
             {/* Hero Section */}
-            <HeroSection />
+            <HeroSection isStoreOpen={isOpen} />
 
             {/* Main Catalog Menu */}
             <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full z-10">
@@ -176,12 +189,30 @@ export default function CatalogClient({ initialDrinks = [] }) {
                             <span>Koleksi Minuman</span>
                         </h2>
                         <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-1 font-medium">
-                            Dipilih segar, diracik dengan takaran presisi, dan siap dinikmati kapan saja.
+                            {isOpen
+                                ? 'Dipilih segar, diracik dengan takaran presisi, dan siap dinikmati kapan saja.'
+                                : 'Katalog minuman saat ini sedang ditutup oleh pihak kedai.'}
                         </p>
                     </div>
                 </div>
 
-                {drinks.length === 0 ? (
+                {!isOpen ? (
+                    <div className="text-center py-16 sm:py-24 px-6 bg-white dark:bg-[#15171C] rounded-[32px] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs max-w-xl mx-auto transition-colors">
+                        <div className="w-16 h-16 rounded-2xl bg-[#FFF5F5] dark:bg-[#2D1518] text-[#D73A49] dark:text-[#F85149] flex items-center justify-center mx-auto mb-4 border border-[#D73A49]/20">
+                            <Coffee className="w-8 h-8 opacity-70" />
+                        </div>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF5F5] dark:bg-[#2D1518] text-[#D73A49] dark:text-[#F85149] text-xs font-bold mb-3 border border-[#D73A49]/20">
+                            <span className="w-2 h-2 rounded-full bg-[#D73A49] animate-pulse" />
+                            <span>Kedai Sedang Tutup</span>
+                        </div>
+                        <h3 className="text-xl font-extrabold text-[#121417] dark:text-white">
+                            Katalog Minuman Belum Dibuka
+                        </h3>
+                        <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-2 leading-relaxed max-w-md mx-auto">
+                            Mohon maaf, saat ini katalog minuman Ambeverages sedang ditutup dan belum menerima pesanan baru. Silakan kembali lagi nanti saat kedai telah dibuka kembali!
+                        </p>
+                    </div>
+                ) : drinks.length === 0 ? (
                     <div className="text-center py-20 px-6 bg-white dark:bg-[#15171C] rounded-[32px] border border-[#E5E8EC] dark:border-[#262A32] shadow-xs max-w-xl mx-auto transition-colors">
                         <div className="w-16 h-16 rounded-2xl bg-[#FFF3EB] dark:bg-[#2A180E] text-[#FA4B00] flex items-center justify-center mx-auto mb-4 border border-[#FA4B00]/20">
                             <Coffee className="w-8 h-8" />
@@ -226,6 +257,7 @@ export default function CatalogClient({ initialDrinks = [] }) {
             {/* Cart & Checkout Modal */}
             <CartModal
                 isOpen={isCartOpen}
+                isStoreOpen={isOpen}
                 onClose={() => setIsCartOpen(false)}
                 cart={cart}
                 onUpdateQuantity={handleUpdateQuantity}

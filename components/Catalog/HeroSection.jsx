@@ -6,6 +6,7 @@ export default function HeroSection({
     categories = [],
     selectedCategory = 'Semua',
     onSelectCategory,
+    isStoreOpen = true,
 }) {
     const allCategories = ['Semua', ...categories];
 
@@ -15,6 +16,18 @@ export default function HeroSection({
                 {/* Hero Header with Interactive Fox */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10">
                     <div className="text-left max-w-2xl">
+                        {!isStoreOpen ? (
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF5F5] dark:bg-[#2D1518] border border-[#D73A49]/30 text-[#D73A49] dark:text-[#F85149] text-xs font-bold mb-4">
+                                <span className="w-2 h-2 rounded-full bg-[#D73A49] animate-pulse" />
+                                <span>Kedai Sedang Tutup</span>
+                            </div>
+                        ) : (
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F8EE] dark:bg-[#142B1C] border border-[#1EBE5D]/30 text-[#1EBE5D] text-xs font-bold mb-4">
+                                <span className="w-2 h-2 rounded-full bg-[#1EBE5D]" />
+                                <span>Kedai Buka — Siap Melayani Pesanan</span>
+                            </div>
+                        )}
+
                         <motion.h1
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}

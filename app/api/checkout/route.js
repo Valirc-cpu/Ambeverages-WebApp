@@ -1,8 +1,18 @@
 import { NextResponse } from 'next/server';
 import sql from '@/lib/db';
+import { getStoreSettings } from '@/lib/data';
 
 export async function POST(request) {
   try {
+    // Check if store / catalog is currently open
+    const storeSettings = await getStoreSettings();
+    if (!storeSettings.is_catalog_open) {
+      return NextResponse.json(
+        { error: 'Maaf, katalog minuman Ambeverages saat ini sedang ditutup dan tidak menerima pesanan baru.' },
+        { status: 400 }
+      );
+    }
+
     const body = await request.json();
     const { customer_name, customer_phone, notes, items } = body;
 
