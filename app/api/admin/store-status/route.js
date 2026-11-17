@@ -26,10 +26,10 @@ export async function POST(request) {
       );
     }
 
-    const success = await setCatalogOpenStatus(is_catalog_open);
-    if (!success) {
+    const result = await setCatalogOpenStatus(is_catalog_open);
+    if (!result.success) {
       return NextResponse.json(
-        { error: 'Gagal memperbarui status katalog ke database.' },
+        { error: result.error || 'Gagal memperbarui status katalog ke database.' },
         { status: 500 }
       );
     }
